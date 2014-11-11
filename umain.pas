@@ -1082,41 +1082,53 @@ end;
 
 procedure Tformmain.executeparameter;
 var
-  index   : Integer;
-  param   : string;
-  command : string;
-  nnhelper: Integer;
+  index       : Integer;
+  param       : string;
+  command     : string;
+  nnhelper    : Integer;
+  nn, lg, Text: string;
 begin
+  // die richtige Ansicht in den Vordergrund
+
   pager.ActivePage        := tabneuerauftrag;
   zframe.pager.ActivePage := NxTabSheet1;
-  // zframe.pager.ActivePage :=
+
   for index := 0 to paramcount - 1 do begin
     command := paramstr(index);
-    showmessage('kommando: ' + command);
-    param := paramstr(index + 1);
-    showmessage('parameter: ' + param);
+    param   := paramstr(index + 1);
     if command = '-l' then begin
-      if not param.length = 7 then exit;
+      if not(param.length = 7) then continue;
       try
         nnhelper := strtoint(param);
         if not nnhelper > 0 then exit;
-        zframe.eliegenschaft.Text := param;
+        lg := param;
       except
       end;
     end;
     if command = '-n' then begin
-      if not param.length = 3 then exit;
+      if (param.length > 3) then continue;
       try
         nnhelper := strtoint(param);
         if not(nnhelper > 0) then exit;
-        zframe.enutzernummer.Text := param;
+        nn := param;
       except
       end;
 
     end;
-    if command = '-t' then zframe.Notizen.Text := param;
+    if command = '-t' then Text := param;
   end;
 
+  zframe.eliegenschaft.Text := lg;
+  try zframeeliegenschaftExit(zframe.eliegenschaft);
+  except
+
+  end;
+  zframe.enutzernummer.Text := nn;
+  try zframeenutzernummerExit(zframe.enutzernummer);
+  except
+
+  end;
+  zframe.Notizen.text := Text;
 end;
 
 procedure Tformmain.SelectSubNodes(ANode: PVirtualNode);
@@ -2029,7 +2041,9 @@ begin
   wherestring := ' WHERE WO1 = ' + inttostr(strtoint((Sender as TfEdit).Text)) +
     ' AND WO0=' + QuotedStr('W');
   table := 'WO_TYP';
-  dict  := formdb.getfromhn(database, table, wherestring, list);
+
+  if not assigned(formdb) then formdb := Tformdb.Create(nil);
+  dict := formdb.getfromhn(database, table, wherestring, list);
 
   try
     name1 := dict.Items['WO5'];
