@@ -8,6 +8,8 @@ const
   programmname = 'auftragsverwaltung';
 
   table_aufträge     = 'aufträge';
+  table_auftrag_neu  = 'test.auftrag';
+  table_dok          = 'test.dokument';
   table_montagen     = 'montagen';
   table_reklamation  = 'reklamation';
   table_anf          = 'auftragsanforderung';

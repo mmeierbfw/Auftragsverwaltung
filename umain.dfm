@@ -850,6 +850,7 @@
         ParentFont = False
         TabOrder = 2
         OnClick = puaClick
+        ExplicitLeft = 5
       end
       object poA: TPanel
         Left = 1
@@ -3656,6 +3657,7 @@
             Height = 818
             ExplicitHeight = 818
             inherited NxTabSheet1: TNxTabSheet
+              ExplicitTop = 21
               ExplicitHeight = 797
               inherited FlowPanel1: TFlowPanel
                 Height = 797
@@ -3684,15 +3686,16 @@
               end
             end
             inherited NxTabSheet2: TNxTabSheet
-              ExplicitHeight = 797
               inherited perreichtdetails: TPanel
                 Height = 797
+                ExplicitHeight = 797
               end
             end
             inherited NxTabSheet3: TNxTabSheet
               ExplicitHeight = 278
               inherited ptermindetails: TNxPanel
                 Height = 797
+                ExplicitHeight = 797
               end
             end
           end
@@ -3771,9 +3774,9 @@
         TabFont.Style = []
         ExplicitHeight = 803
         inline Tframeliegenschaftsdaten1: Tframeliegenschaftsdaten
-          Left = 799
+          Left = 70
           Top = 0
-          Width = 332
+          Width = 1061
           Height = 824
           Align = alRight
           Color = 14933977
@@ -3786,7 +3789,7 @@
           ParentColor = False
           ParentFont = False
           TabOrder = 0
-          ExplicitLeft = 799
+          ExplicitLeft = 70
           ExplicitHeight = 824
           inherited pdatenrechts: TPanel
             Height = 818
@@ -3795,14 +3798,11 @@
               Height = 749
               ExplicitHeight = 749
               DesignSize = (
-                326
+                1055
                 749)
               inherited vermerke: TMemo
                 Height = 619
                 ExplicitHeight = 619
-              end
-              inherited eort: TfEdit
-                ExplicitWidth = 172
               end
             end
           end
@@ -3825,7 +3825,7 @@
     Left = 72
     Top = 624
     Bitmap = {
-      494C010103003000B80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103003000C00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

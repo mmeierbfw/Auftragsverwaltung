@@ -1,8 +1,8 @@
 object frameliegenschaftsdaten: Tframeliegenschaftsdaten
   Left = 0
   Top = 0
-  Width = 332
-  Height = 562
+  Width = 1061
+  Height = 620
   Align = alRight
   Color = 14933977
   Font.Charset = DEFAULT_CHARSET
@@ -14,20 +14,20 @@ object frameliegenschaftsdaten: Tframeliegenschaftsdaten
   ParentColor = False
   ParentFont = False
   TabOrder = 0
+  ExplicitHeight = 304
   object pdatenrechts: TPanel
     AlignWithMargins = True
     Left = 3
     Top = 3
-    Width = 326
-    Height = 556
+    Width = 1055
+    Height = 614
     Align = alClient
     BevelOuter = bvNone
     Color = 14933977
     ParentBackground = False
     TabOrder = 0
-    ExplicitTop = 93
-    ExplicitWidth = 699
-    ExplicitHeight = 208
+    ExplicitWidth = 326
+    ExplicitHeight = 298
     object lliegenschaftsdaten: TLabel
       Left = 83
       Top = 14
@@ -45,8 +45,8 @@ object frameliegenschaftsdaten: Tframeliegenschaftsdaten
       AlignWithMargins = True
       Left = 0
       Top = 69
-      Width = 326
-      Height = 487
+      Width = 1055
+      Height = 545
       Margins.Left = 0
       Margins.Top = 69
       Margins.Right = 0
@@ -57,11 +57,11 @@ object frameliegenschaftsdaten: Tframeliegenschaftsdaten
       ParentBackground = False
       TabOrder = 0
       Visible = False
-      ExplicitWidth = 699
-      ExplicitHeight = 139
+      ExplicitWidth = 326
+      ExplicitHeight = 229
       DesignSize = (
-        326
-        487)
+        1055
+        545)
       object lstrasse: TLabel
         Left = 1
         Top = 6
@@ -131,8 +131,8 @@ object frameliegenschaftsdaten: Tframeliegenschaftsdaten
         AlignWithMargins = True
         Left = 0
         Top = 120
-        Width = 326
-        Height = 357
+        Width = 1055
+        Height = 415
         Margins.Left = 0
         Margins.Top = 120
         Margins.Right = 0
@@ -142,6 +142,7 @@ object frameliegenschaftsdaten: Tframeliegenschaftsdaten
         BevelInner = bvNone
         BevelOuter = bvNone
         BorderStyle = bsNone
+        Enabled = False
         Font.Charset = ANSI_CHARSET
         Font.Color = 6908265
         Font.Height = -13
@@ -152,16 +153,19 @@ object frameliegenschaftsdaten: Tframeliegenschaftsdaten
         ScrollBars = ssVertical
         TabOrder = 0
         WantReturns = False
+        ExplicitWidth = 326
+        ExplicitHeight = 99
       end
       object estrasse: TfEdit
         Left = 96
         Top = 6
-        Width = 230
+        Width = 959
         Height = 24
         Anchors = [akLeft, akTop, akRight]
         AutoSize = False
         BevelInner = bvLowered
         BevelKind = bkTile
+        Enabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = 6908265
         Font.Height = -13
@@ -173,16 +177,18 @@ object frameliegenschaftsdaten: Tframeliegenschaftsdaten
         FontColorOnEnter = 36607
         ColorFocused = 6908265
         ColorNotFocused = 6908265
+        ExplicitWidth = 230
       end
       object eplz: TfEdit
         Left = 96
         Top = 29
-        Width = 75
+        Width = 804
         Height = 24
         Anchors = [akLeft, akTop, akRight]
         AutoSize = False
         BevelInner = bvLowered
         BevelKind = bkTile
+        Enabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = 6908265
         Font.Height = -13
@@ -194,16 +200,18 @@ object frameliegenschaftsdaten: Tframeliegenschaftsdaten
         FontColorOnEnter = 36607
         ColorFocused = 6908265
         ColorNotFocused = 6908265
+        ExplicitWidth = 75
       end
       object eort: TfEdit
         Left = 154
         Top = 29
-        Width = 172
+        Width = 901
         Height = 24
         Anchors = [akLeft, akTop, akRight]
         AutoSize = False
         BevelInner = bvLowered
         BevelKind = bkTile
+        Enabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = 6908265
         Font.Height = -13
@@ -215,17 +223,18 @@ object frameliegenschaftsdaten: Tframeliegenschaftsdaten
         FontColorOnEnter = 36607
         ColorFocused = 6908265
         ColorNotFocused = 6908265
-        ExplicitWidth = 545
+        ExplicitWidth = 172
       end
       object ename1: TfEdit
         Left = 96
         Top = 52
-        Width = 230
+        Width = 959
         Height = 24
         Anchors = [akLeft, akTop, akRight]
         AutoSize = False
         BevelInner = bvLowered
         BevelKind = bkTile
+        Enabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = 6908265
         Font.Height = -13
@@ -237,16 +246,18 @@ object frameliegenschaftsdaten: Tframeliegenschaftsdaten
         FontColorOnEnter = 36607
         ColorFocused = 6908265
         ColorNotFocused = 6908265
+        ExplicitWidth = 230
       end
       object ename2: TfEdit
         Left = 96
         Top = 75
-        Width = 230
+        Width = 959
         Height = 24
         Anchors = [akLeft, akTop, akRight]
         AutoSize = False
         BevelInner = bvLowered
         BevelKind = bkTile
+        Enabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = 6908265
         Font.Height = -13
@@ -258,6 +269,7 @@ object frameliegenschaftsdaten: Tframeliegenschaftsdaten
         FontColorOnEnter = 36607
         ColorFocused = 6908265
         ColorNotFocused = 6908265
+        ExplicitWidth = 230
       end
     end
   end

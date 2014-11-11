@@ -152,6 +152,8 @@ begin
   for filename in namelist do begin
     helper  := ReplaceStr(filename, '/', '\');
     tmpfile := gettmpfile(ExtractFileName(helper));
+    if not assigned(formftp) then
+      formftp := Tformftp.Create(nil);
     if not FileExists(tmpfile) then formftp.getFile(helper, tmpfile);
     Result := ShellExecute(handle, 'open', pchar(tmpfile), nil, nil, 1);
     // Result := Shellmyex('/C' + tmpfile, sw_normal);

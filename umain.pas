@@ -201,6 +201,7 @@ type
     FBackBitmap2 : TBitmap;
     avst         : TVirtualStringTree;
     function startplink: boolean;
+    procedure executeparameter;
     procedure setrightside(dict: TDictionary<string, string>);
     procedure setleftside(dict: TDictionary<string, string>);
     procedure resetliegenschaftsdaten;
@@ -373,11 +374,11 @@ end;
 procedure Tformmain.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   Killprocess(procplink);
-  // try
-  // DeleteFiles(gettmpfolder);
-  // except OutputDebugString('dateien sind noch geöffnet');
-  //
-  // end;
+  // KillTask('plink.exe');
+  try DeleteFiles(gettmpfolder);
+  except OutputDebugString('Dateien sind noch geöffnet');
+
+  end;
 end;
 
 procedure Tformmain.FormCreate(Sender: TObject);
@@ -397,8 +398,12 @@ begin
   pager.ActivePage        := NxTabSheet1;
 
   nameserverstart;
+
+  if paramcount > 0 then executeparameter;
+
 end;
 
+// #################################################
 function Tformmain.nameserverstart: boolean;
 var
   cmd             : string;
@@ -419,6 +424,7 @@ begin
   end;
 end;
 
+// #################################################
 procedure Tformmain.FormDestroy(Sender: TObject);
 begin
   Killprocess(procplink);
@@ -507,7 +513,7 @@ begin
   Result := '';
   Data   := avst.getnodedata(ANode);
   while not(correctlg(Data.FCaption)) do begin
-    outputdebugstring(pchar(Data.FCaption));
+    OutputDebugString(pchar(Data.FCaption));
     ANode  := ANode.Parent;
     Data   := vst.getnodedata(ANode);
     Result := Data.FCaption;
@@ -957,7 +963,7 @@ begin
   frame.dpabrechnungsende.Text  := abrende;
   wizard.feliegenschaft.Text    := lg;
   try wizard.enutzernummer.Text := nn;
-  except outputdebugstring('keine Nutzernummer');
+  except OutputDebugString('keine Nutzernummer');
 
   end;
   // wizard.ename1.Text   := dict.Items['eigent1'];
@@ -996,7 +1002,8 @@ begin
   // pager.ActivePageIndex := 1;
   // prefix := getprefix(pager.ActivePageIndex);
   prefix := 'z';
-  frame  := FindComponent(prefix + 'frame') as Tframeauftragsdaten;
+  frame  := zframe;
+  // frame  := FindComponent(prefix + 'frame') as Tframeauftragsdaten;
   frame.enutzername1.Text := dict.Items['WO5'];
   frame.enutzername2.Text := dict.Items['WO6'];
 
@@ -1037,7 +1044,7 @@ begin
   with zframe do begin
     try eliegenschaft.SetFocus;
       // fauftragsnummer.SetFocus;
-    except outputdebugstring('kann den Focus nicht erhalten');
+    except OutputDebugString('kann den Focus nicht erhalten');
     end;
   end;
 end;
@@ -1071,6 +1078,44 @@ begin
   end;
 
   Screen.Cursor := crdefault;
+end;
+
+procedure Tformmain.executeparameter;
+var
+  index   : Integer;
+  param   : string;
+  command : string;
+  nnhelper: Integer;
+begin
+  pager.ActivePage := tabneuerauftrag;
+  // zframe.pager.ActivePage :=
+  for index := 0 to paramcount - 1 do begin
+    command := paramstr(index);
+    showmessage('kommando: ' + command);
+    param := paramstr(index + 1);
+    showmessage('parameter: ' + param);
+    if command = '-l' then begin
+      if not param.length = 7 then exit;
+      try
+        nnhelper := strtoint(param);
+        if not nnhelper > 0 then exit;
+        zframe.eliegenschaft.Text := param;
+      except
+      end;
+    end;
+    if command = '-n' then begin
+      if not param.length = 3 then exit;
+      try
+        nnhelper := strtoint(param);
+        if not(nnhelper > 0) then exit;
+        zframe.enutzernummer.Text := param;
+      except
+      end;
+
+    end;
+    if command = '-t' then zframe.Notizen.Text := param;
+  end;
+
 end;
 
 procedure Tformmain.SelectSubNodes(ANode: PVirtualNode);
@@ -1989,7 +2034,7 @@ begin
     name1 := dict.Items['WO5'];
     name2 := dict.Items['WO6'];
   except
-    outputdebugstring('keine Namen');
+    OutputDebugString('keine Namen');
     name1 := '';
     name2 := '';
   end;
@@ -2045,24 +2090,28 @@ begin
     dict.Add(sachbearbeiter, sb);
     dict.Add(Kundennummer, copy(eliegenschaft.Text, 1, 2));
     dict.Add(uconstants.auftragsid, inttostr(self.auftragsid));
-    dict.Add('ausführungstermin', formatDateOhneTrenner(getausführungstermin));
+    dict.Add('ausführungsdatum', formatDateOhneTrenner(ausf));
     hostfilename := 'scdb/' + createhostfilename(dict);
     dict.Add(dateiname, hostfilename);
     dict.Add(monteur, cbableser.Text);
     dict.Add(erreicht, err);
-    dict.Add(ausführungsdatum, getausführungstermin);
+    // dict.Add(ausführungsdatum, getausführungstermin);
     dict.Add(ausführungsstart, getstart);
     dict.Add(ausführungsende, getende);
-
+    // dict.Add(uconstants.Notizen, Notizen.Text);
     if not formdb.update(inttostr(auftragsid), table_anf,
       'AnforderungAbgeschlossen', '1') then
         showmessage('unbearbeiteter Auftrag lässt sich nicht updaten');
 
   end;
-  if not formdb.insertquery(table_aufträge, dict) then begin
-    showmessage('bullshit');
+  if not formdb.insertintoauftrag(dict) then begin
+    showmessage('Auftrag kann nicht in die Datenbank eingetragen werden');
     exit;
   end;
+  // if not formdb.insertquery(table_aufträge, dict) then begin
+  // showmessage('bullshit');
+  // exit;
+  // end;
 
   tmpdatei := createpdf;
 
@@ -2099,7 +2148,7 @@ begin
   Result := '';
   Data   := avst.getnodedata(ANode);
   while not(correctnn(Data.FCaption)) do begin
-    outputdebugstring(pchar(Data.FCaption));
+    OutputDebugString(pchar(Data.FCaption));
     ANode  := ANode.Parent;
     Data   := vst.getnodedata(ANode);
     Result := Data.FColumn;
