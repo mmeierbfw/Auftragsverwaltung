@@ -1,0 +1,16 @@
+unit utreedata;
+
+interface
+uses StdCtrls;
+type
+ PTreeData = ^TTreeData;
+  TTreeData = record
+    FCaption: String;
+    FColumn: string;
+    fbutton: tbutton;
+  end;
+
+
+implementation
+
+end.

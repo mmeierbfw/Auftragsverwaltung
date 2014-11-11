@@ -1,0 +1,37 @@
+object Frame2: TFrame2
+  Left = 0
+  Top = 0
+  Width = 970
+  Height = 570
+  TabOrder = 0
+  object lmonteur: TLabel
+    Left = 25
+    Top = 54
+    Width = 40
+    Height = 13
+    Caption = 'Monteur'
+    Layout = tlCenter
+  end
+  object cbableser: TfComboBox
+    Left = 84
+    Top = 49
+    Width = 233
+    Height = 24
+    BevelInner = bvLowered
+    BevelKind = bkTile
+    BevelOuter = bvNone
+    Color = clWhite
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 0
+    Text = 'Monteur'
+    TabOnEnter = False
+    FontColorOnEnter = 10252872
+    ColorFocused = 10252872
+    ColorNotFocused = 11776947
+  end
+end

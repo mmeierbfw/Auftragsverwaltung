@@ -1,0 +1,1 @@
+echo y | plink.exe -ssh 148.251.138.2 -l tiffy  -L 7777:127.0.0.1:3306 -pw maunze01

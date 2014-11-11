@@ -1,0 +1,125 @@
+object frameshowauftr: Tframeshowauftr
+  Left = 0
+  Top = 0
+  Width = 376
+  Height = 85
+  Color = 14933977
+  ParentBackground = False
+  ParentColor = False
+  TabOrder = 0
+  object Panel1: TPanel
+    AlignWithMargins = True
+    Left = 3
+    Top = 3
+    Width = 370
+    Height = 41
+    Align = alTop
+    BevelOuter = bvNone
+    Color = clWhite
+    ParentBackground = False
+    TabOrder = 0
+    ExplicitLeft = 10
+    ExplicitTop = 10
+    ExplicitWidth = 400
+    object Label1: TLabel
+      Left = 16
+      Top = 14
+      Width = 121
+      Height = 13
+      Caption = 'Anzahl offener Auftr'#228'ge:'
+    end
+    object lcopen: TLabel
+      AlignWithMargins = True
+      Left = 250
+      Top = 3
+      Width = 5
+      Height = 35
+      Margins.Right = 20
+      Align = alRight
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Layout = tlCenter
+      ExplicitLeft = 245
+      ExplicitHeight = 19
+    end
+    object NxButton1: TNxButton
+      AlignWithMargins = True
+      Left = 285
+      Top = 8
+      Width = 75
+      Height = 25
+      Margins.Left = 10
+      Margins.Top = 8
+      Margins.Right = 10
+      Margins.Bottom = 8
+      Align = alRight
+      Caption = 'ansehen'
+      TabOrder = 0
+      ExplicitLeft = 240
+      ExplicitTop = 9
+      ExplicitHeight = 23
+    end
+  end
+  object Panel2: TPanel
+    AlignWithMargins = True
+    Left = 3
+    Top = 47
+    Width = 370
+    Height = 41
+    Margins.Top = 0
+    Align = alTop
+    BevelOuter = bvNone
+    Color = clWhite
+    ParentBackground = False
+    TabOrder = 1
+    ExplicitLeft = 10
+    ExplicitTop = 51
+    ExplicitWidth = 400
+    object Label2: TLabel
+      Left = 16
+      Top = 14
+      Width = 157
+      Height = 13
+      Caption = 'Anzahl unbearbeiteter Auftr'#228'ge:'
+    end
+    object lcunbe: TLabel
+      AlignWithMargins = True
+      Left = 250
+      Top = 3
+      Width = 5
+      Height = 35
+      Margins.Right = 20
+      Align = alRight
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Layout = tlCenter
+      ExplicitLeft = 245
+      ExplicitHeight = 19
+    end
+    object NxButton2: TNxButton
+      AlignWithMargins = True
+      Left = 285
+      Top = 8
+      Width = 75
+      Height = 25
+      Margins.Left = 10
+      Margins.Top = 8
+      Margins.Right = 10
+      Margins.Bottom = 8
+      Align = alRight
+      Caption = 'ansehen'
+      TabOrder = 0
+      ExplicitLeft = 240
+      ExplicitTop = 9
+      ExplicitHeight = 23
+    end
+  end
+end

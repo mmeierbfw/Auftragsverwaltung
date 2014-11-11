@@ -1,0 +1,43 @@
+unit umemo;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
+  Vcl.ExtCtrls, Vcl.StdCtrls, NxCollection;
+
+type
+  TForm1 = class(TForm)
+    Memo1: TMemo;
+    pheader: TPanel;
+    Panel1: TPanel;
+    NxButton1: TNxButton;
+    NxButton2: TNxButton;
+    procedure Memo1KeyPress(Sender: TObject; var Key: Char);
+    procedure NxButton1Click(Sender: TObject);
+  private
+    { Private-Deklarationen }
+  public
+    { Public-Deklarationen }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+ uses umain;
+{$R *.dfm}
+
+procedure TForm1.Memo1KeyPress(Sender: TObject; var Key: Char);
+begin
+  NxButton1.Visible := true;
+  NxButton2.Visible := true;
+end;
+
+procedure TForm1.NxButton1Click(Sender: TObject);
+begin
+  formmain.savenotizchanges(aconst neueNotiz: string);
+end;
+
+end.

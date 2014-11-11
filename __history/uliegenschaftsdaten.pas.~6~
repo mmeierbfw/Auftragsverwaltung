@@ -1,0 +1,37 @@
+unit uliegenschaftsdaten;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
+  uauftragsinfo;
+
+type
+  Tframeliegenschaftsdaten = class(TFrame)
+    pdatenrechts: TPanel;
+    lliegenschaftsdaten: TLabel;
+    pliedaten: TPanel;
+    lstrasse: TLabel;
+    lplz: TLabel;
+    lort: TLabel;
+    lvermerke: TLabel;
+    estrasse: TLabel;
+    eort: TLabel;
+    eplz: TLabel;
+    vermerke: TMemo;
+    Tframeshowauftr1: Tframeshowauftr;
+    Label1: TLabel;
+    lname1: TLabel;
+    lname2: TLabel;
+  private
+    { Private-Deklarationen }
+  public
+    { Public-Deklarationen }
+  end;
+
+implementation
+
+{$R *.dfm}
+
+end.

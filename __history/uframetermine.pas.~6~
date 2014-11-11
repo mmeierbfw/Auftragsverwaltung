@@ -1,0 +1,33 @@
+unit uframetermine;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, fComboBox,
+  NxCollection, NxColumns, NxColumnClasses, NxScrollControl,
+  NxCustomGridControl, NxCustomGrid, NxGrid, NxDBGrid, NxDBColumns;
+
+type
+  TFrame2 = class(TFrame)
+    lmonteur: TLabel;
+    cbableser: TfComboBox;
+    NxHeaderPanel1: TNxHeaderPanel;
+    NxGroupHeader1: TNxGroupHeader;
+    NextDBGrid1: TNextDBGrid;
+    NxDBTextColumn1: TNxDBTextColumn;
+    NxDBTextColumn2: TNxDBTextColumn;
+    NxDBTextColumn3: TNxDBTextColumn;
+    NxDBTextColumn4: TNxDBTextColumn;
+    NxDBTextColumn5: TNxDBTextColumn;
+  private
+    { Private-Deklarationen }
+  public
+    { Public-Deklarationen }
+  end;
+
+implementation
+
+{$R *.dfm}
+
+end.

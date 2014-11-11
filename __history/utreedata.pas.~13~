@@ -1,0 +1,18 @@
+unit utreedata;
+
+interface
+uses StdCtrls, winapi.windows;
+type
+ PTreeData = ^TTreeData;
+  TTreeData = record
+    FCaption: String;
+    FColumn: string;
+   fimageindex: integer;
+   fspecial: boolean;
+   fnotizen: string;
+  end;
+
+
+implementation
+
+end.

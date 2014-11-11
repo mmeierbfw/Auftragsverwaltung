@@ -1,0 +1,15 @@
+unit utreedata;
+
+interface
+type
+ PTreeData = ^TTreeData;
+  TTreeData = record
+    FCaption: String;
+    FColumn: string;
+
+  end;
+
+
+implementation
+
+end.

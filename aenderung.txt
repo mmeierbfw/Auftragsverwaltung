@@ -1,0 +1,72 @@
+
+Änderungen bis 1.8.4.8
+- Anzeigen optimiert. Listen und Vollbild möglich
+- Datumsfelder abgeändert, dem Nutzer wird Bedienfähigkeit unterstellt.
+
+Änderung 1.8.4.5
+
+- Weniger Reiter sichtbar (erreichbar über seitliche Combobox)
+- Programm poppt von selbst hoch, wenn Daten ankommen
+_ "erledigt" Status von Montagen unsichtbar
+- Ablagenummer: KANN angezeigt werden. Einstellbar in der ersten Zeile, oder in den Einstellungen (plus Auswahl, ob man eine einzige fortlaufende
+ID möchte)
+- 
+
+Änderung 1.8.4.3
+
+- "Bugfixing" im Setup
+-  Vorgabe der Ablageid (ehemals Dokumentid) wurde herausgenommen bzw kann selbstbestimmt angezeigt werden
+
+
+
+Änderung 1.8.4.0-1.8.4.2
+
+- Anpassen der Oberfläche. 
+
+Änderung 1.8.3.9
+
+- Anpassung Hintergrundanwendungen. Können sichtbar gemacht werden (liegen im Tray). 
+
+Änderung 1.8.3.8
+
+- beim Neuaufbau der Seite alle Felder löschen
+
+Änderung 1.8.3.7
+- Anpassung bei der Hintergrundanwendung
+- automische Updatechecks auch ohne das Programm zu schließen
+
+
+Änderung 1.8.3.6
+
+- FTP im Hintergrund, keine Wartezeiten mehr für den Nutzer (zurzeit zu Testzwecken noch nicht ganz im Hintergrund... Konsole NOCH sichtbar)
+
+Änderungen 1.8.3.5
+- Bugfix: Doppelklick auf Verzeichnis (beim abbrechen wurde ein leerer Pfad gespeichert)
+- Initialdatenbankabfrage als Thread (gegen "Datenbankverbindung" Fehlermeldung)
+- Kundennummer richtig speichern (die ersten beiden Stellen des Liegenschaftsstrings statt der eingestellten Kundennummer)
+
+Änderungen 1.8.3.4
+- PDF kann auch im geöffneten Zustand gespeichert werden
+- Bugfixes
+
+Änderungen 1.8.3.3
+- Updates: werden automatisch erkannt und mit einem Stern in der linken Leiste angezeigt (bis mir was besseres einfällt)
+- Einstellungen: bei der Verzeichnisauswahl ist die Startposition jetzt in den eigenen Dokumenten statt in C:\
+- Eingangs- und Ausgangsordner per Doppelklick änderbar
+- beim setup sollte es (vielleicht?) nicht mehr piepen?
+
+
+
+Todo:
+- Vorauswahl durch Dateinamen treffen
+- Verträge+Anforderungen+Aufträge abändern
+- nxcombofeld abändern => bfwkomponente erstellen, damit es zum restlichen Layout passt("Onenter" Farbe und oranger Rand)
+- PLinkgefiepse loswerden beim Setup und Programmstart (keine Fehlermeldung, nur kommunikativ)
+- mehr Auswahlmöglichkeiten per Rechtsklick auf Datei => umbenennen?
+ 
+
+
+
+
+
+
