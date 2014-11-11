@@ -850,7 +850,6 @@
         ParentFont = False
         TabOrder = 2
         OnClick = puaClick
-        ExplicitLeft = 5
       end
       object poA: TPanel
         Left = 1
@@ -3655,6 +3654,8 @@
           ExplicitHeight = 824
           inherited pager: TNxPageControl
             Height = 818
+            ActivePage = zframe.NxTabSheet1
+            ActivePageIndex = 0
             ExplicitHeight = 818
             inherited NxTabSheet1: TNxTabSheet
               ExplicitTop = 21
@@ -3686,6 +3687,8 @@
               end
             end
             inherited NxTabSheet2: TNxTabSheet
+              ExplicitTop = 21
+              ExplicitHeight = 797
               inherited perreichtdetails: TPanel
                 Height = 797
                 ExplicitHeight = 797
@@ -3802,7 +3805,23 @@
                 749)
               inherited vermerke: TMemo
                 Height = 619
+                ExplicitWidth = 1055
                 ExplicitHeight = 619
+              end
+              inherited estrasse: TfEdit
+                ExplicitWidth = 959
+              end
+              inherited eplz: TfEdit
+                ExplicitWidth = 804
+              end
+              inherited eort: TfEdit
+                ExplicitWidth = 901
+              end
+              inherited ename1: TfEdit
+                ExplicitWidth = 959
+              end
+              inherited ename2: TfEdit
+                ExplicitWidth = 959
               end
             end
           end
@@ -3825,7 +3844,7 @@
     Left = 72
     Top = 624
     Bitmap = {
-      494C010103003000C00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103003000C40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

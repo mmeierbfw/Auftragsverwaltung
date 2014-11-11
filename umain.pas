@@ -1087,7 +1087,8 @@ var
   command : string;
   nnhelper: Integer;
 begin
-  pager.ActivePage := tabneuerauftrag;
+  pager.ActivePage        := tabneuerauftrag;
+  zframe.pager.ActivePage := NxTabSheet1;
   // zframe.pager.ActivePage :=
   for index := 0 to paramcount - 1 do begin
     command := paramstr(index);
