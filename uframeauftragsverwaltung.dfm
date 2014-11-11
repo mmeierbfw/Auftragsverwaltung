@@ -2,7 +2,7 @@
   Left = 0
   Top = 0
   Width = 784
-  Height = 304
+  Height = 684
   Align = alLeft
   Color = 14933977
   Font.Charset = DEFAULT_CHARSET
@@ -15,14 +15,15 @@
   ParentFont = False
   TabOrder = 0
   OnResize = FrameResize
+  ExplicitHeight = 304
   object pager: TNxPageControl
     AlignWithMargins = True
     Left = 3
     Top = 3
     Width = 778
-    Height = 298
-    ActivePage = NxTabSheet3
-    ActivePageIndex = 2
+    Height = 678
+    ActivePage = NxTabSheet1
+    ActivePageIndex = 0
     Align = alClient
     Color = clWhite
     ParentColor = False
@@ -32,6 +33,7 @@
     Options = [pgBoldActiveTab, pgCloseButton]
     Spacing = 0
     TabHeight = 17
+    ExplicitHeight = 298
     object NxTabSheet1: TNxTabSheet
       Caption = 'NxTabSheet1'
       PageIndex = 0
@@ -41,17 +43,19 @@
       TabFont.Height = -11
       TabFont.Name = 'Tahoma'
       TabFont.Style = []
+      ExplicitHeight = 277
       object FlowPanel1: TFlowPanel
         Left = 0
         Top = 0
         Width = 778
-        Height = 277
+        Height = 657
         Align = alClient
         BevelOuter = bvNone
         Caption = 'FlowPanel1'
         Color = clWhite
         ParentBackground = False
         TabOrder = 0
+        ExplicitHeight = 277
         object pliegenschaft: TPanel
           Left = 0
           Top = 0
@@ -635,7 +639,7 @@
             TabOrder = 5
             OnClick = Button1Click
           end
-          object NxComboBox1: TNxComboBox
+          object cberreichtdetail: TNxComboBox
             Left = 200
             Top = 126
             Width = 120
@@ -700,7 +704,7 @@
           TabOrder = 3
           object lcharleft: TLabel
             Left = 641
-            Top = 271
+            Top = 255
             Width = 122
             Height = 13
             Caption = 'noch 612 Zeichen m'#246'glich'
@@ -721,9 +725,9 @@
           end
           object notizen: TfMemo
             Left = 200
-            Top = 19
+            Top = 16
             Width = 563
-            Height = 246
+            Height = 233
             BevelInner = bvLowered
             BevelKind = bkTile
             Color = clWhite
@@ -744,7 +748,7 @@
           end
           object NxButton1: TNxButton
             Left = 626
-            Top = 317
+            Top = 285
             Width = 137
             Caption = 'Werte zur'#252'cksetzen'
             Font.Charset = DEFAULT_CHARSET
@@ -758,7 +762,7 @@
           end
           object NxButton4: TNxButton
             Left = 484
-            Top = 317
+            Top = 285
             Width = 137
             Caption = 'abschlie'#223'en'
             Font.Charset = DEFAULT_CHARSET
@@ -828,11 +832,12 @@
       TabFont.Height = -11
       TabFont.Name = 'Tahoma'
       TabFont.Style = []
+      ExplicitHeight = 277
       object perreichtdetails: TPanel
         Left = 0
         Top = 0
         Width = 778
-        Height = 277
+        Height = 657
         Margins.Left = 5
         Margins.Top = 5
         Margins.Right = 5
@@ -841,6 +846,7 @@
         Color = clWhite
         ParentBackground = False
         TabOrder = 0
+        ExplicitHeight = 277
         object Label18: TLabel
           Left = 29
           Top = 35
@@ -888,8 +894,8 @@
           TabOrder = 1
         end
         object NxButton8: TNxButton
-          Left = 124
-          Top = 159
+          Left = 119
+          Top = 162
           Width = 75
           Caption = 'speichern'
           TabOrder = 2
@@ -948,13 +954,12 @@
       TabFont.Height = -11
       TabFont.Name = 'Tahoma'
       TabFont.Style = []
-      ExplicitTop = 0
-      ExplicitHeight = 278
+      ExplicitHeight = 277
       object ptermindetails: TNxPanel
         Left = 0
         Top = 0
         Width = 778
-        Height = 277
+        Height = 657
         Margins.Left = 5
         Margins.Top = 5
         Margins.Right = 5
@@ -969,6 +974,7 @@
         FullRepaint = True
         ParentColor = False
         TabOrder = 0
+        ExplicitHeight = 277
         object Label13: TLabel
           Left = 192
           Top = 58
@@ -1001,24 +1007,24 @@
           OnMouseDown = mitHAMouseDown
         end
         object NxButton2: TNxButton
-          Left = 429
-          Top = 194
+          Left = 581
+          Top = 755
           Width = 75
           Caption = 'speichern'
           TabOrder = 0
           OnClick = NxButton2Click
         end
         object NxButton3: TNxButton
-          Left = 536
-          Top = 194
+          Left = 688
+          Top = 755
           Width = 75
           Caption = 'verwerfen'
           TabOrder = 1
           OnClick = NxButton3Click
         end
         object nxdate: TNxMonthCalendar
-          Left = 29
-          Top = 54
+          Left = 23
+          Top = 3
           Width = 151
           Height = 163
           Day = 8
@@ -1102,6 +1108,150 @@
           FontColorOnEnter = 10252872
           ColorFocused = 10252872
           ColorNotFocused = 6908265
+        end
+        object cbmonteur: TfComboBox
+          Left = 23
+          Top = 172
+          Width = 151
+          Height = 24
+          BevelInner = bvLowered
+          BevelKind = bkTile
+          BevelOuter = bvNone
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 8
+          Text = 'Ableser'
+          TabOnEnter = False
+          FontColorOnEnter = 36607
+          ColorFocused = 36607
+          ColorNotFocused = clBlack
+        end
+        object gridableser: TNextDBGrid
+          Left = 192
+          Top = 176
+          Width = 571
+          Height = 573
+          Caption = ''
+          TabOrder = 9
+          TabStop = True
+          object NxDBTextColumn1: TNxDBTextColumn
+            DefaultWidth = 69
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6908265
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            Header.Caption = 'Liegenschaft'
+            Header.Font.Charset = DEFAULT_CHARSET
+            Header.Font.Color = clWindowText
+            Header.Font.Height = -11
+            Header.Font.Name = 'Tahoma'
+            Header.Font.Style = []
+            Options = [coAutoSize, coCanClick, coCanInput, coCanSort, coPublicUsing, coShowTextFitHint]
+            ParentFont = False
+            Position = 0
+            SortType = stAlphabetic
+            Width = 69
+          end
+          object NxDBTextColumn2: TNxDBTextColumn
+            DefaultWidth = 91
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6908265
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            Header.Caption = 'Stra'#223'e'
+            Header.Font.Charset = DEFAULT_CHARSET
+            Header.Font.Color = clWindowText
+            Header.Font.Height = -11
+            Header.Font.Name = 'Tahoma'
+            Header.Font.Style = []
+            Options = [coAutoSize, coCanClick, coCanInput, coCanSort, coPublicUsing, coShowTextFitHint]
+            ParentFont = False
+            Position = 1
+            SortType = stAlphabetic
+            Width = 91
+          end
+          object NxDBTextColumn3: TNxDBTextColumn
+            DefaultWidth = 96
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6908265
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            Header.Caption = 'Ort'
+            Header.Font.Charset = DEFAULT_CHARSET
+            Header.Font.Color = clWindowText
+            Header.Font.Height = -11
+            Header.Font.Name = 'Tahoma'
+            Header.Font.Style = []
+            Options = [coAutoSize, coCanClick, coCanInput, coCanSort, coPublicUsing, coShowTextFitHint]
+            ParentFont = False
+            Position = 2
+            SortType = stAlphabetic
+            Width = 96
+          end
+          object NxDBTextColumn4: TNxDBTextColumn
+            DefaultWidth = 99
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6908265
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            Header.Caption = 'Ausf'#252'hrungsdatum'
+            Header.Font.Charset = DEFAULT_CHARSET
+            Header.Font.Color = clWindowText
+            Header.Font.Height = -11
+            Header.Font.Name = 'Tahoma'
+            Header.Font.Style = []
+            Options = [coAutoSize, coCanClick, coCanInput, coCanSort, coPublicUsing, coShowTextFitHint]
+            ParentFont = False
+            Position = 3
+            SortType = stAlphabetic
+            Width = 99
+          end
+          object NxDBTextColumn6: TNxDBTextColumn
+            DefaultWidth = 87
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6908265
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            Header.Caption = 'von'
+            Header.Font.Charset = DEFAULT_CHARSET
+            Header.Font.Color = clWindowText
+            Header.Font.Height = -11
+            Header.Font.Name = 'Tahoma'
+            Header.Font.Style = []
+            Options = [coAutoSize, coCanClick, coCanInput, coCanSort, coPublicUsing, coShowTextFitHint]
+            ParentFont = False
+            Position = 4
+            SortType = stAlphabetic
+            Width = 87
+          end
+          object NxDBTextColumn7: TNxDBTextColumn
+            DefaultWidth = 127
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6908265
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            Header.Caption = 'bis'
+            Header.Font.Charset = DEFAULT_CHARSET
+            Header.Font.Color = clWindowText
+            Header.Font.Height = -11
+            Header.Font.Name = 'Tahoma'
+            Header.Font.Style = []
+            Options = [coAutoSize, coCanClick, coCanInput, coCanSort, coPublicUsing, coShowTextFitHint]
+            ParentFont = False
+            Position = 5
+            SortType = stAlphabetic
+            Width = 127
+          end
         end
       end
     end

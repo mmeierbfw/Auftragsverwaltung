@@ -16,7 +16,7 @@ uses
   uauftragsinfo in 'uauftragsinfo.pas' {frameshowauftr: TFrame},
   DelphiZXIngQRCode in '..\..\Komponenten\qr\Source\DelphiZXIngQRCode.pas',
   umysqlcontroller in '..\Dokumentverwaltung\umysqlcontroller.pas',
-  uframeauftragsverwaltung in '..\..\Embarcadero\Studio\Projekte\sources2208\uframeauftragsverwaltung.pas' {frameauftragsdaten: TFrame};
+  uframeauftragsverwaltung in 'uframeauftragsverwaltung.pas' {frameauftragsdaten: TFrame};
 
 {$R *.res}
 

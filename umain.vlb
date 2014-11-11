@@ -50,9 +50,6 @@ Coordinates=571,702,81,51
 [zframe.tfmaskedit3]
 Coordinates=619,232,107,51
 
-[zframe.cbableser]
-Coordinates=83,154,98,105
-
 [wizard.Label12]
 Coordinates=938,702,87,51
 
@@ -124,9 +121,6 @@ Coordinates=347,798,106,51
 
 [wizard.fcbauftrag]
 Coordinates=652,540,99,105
-
-[zframe.lmonteur]
-Coordinates=852,894,94,51
 
 [wizard.RadioButton3]
 Coordinates=1948,606,116,33

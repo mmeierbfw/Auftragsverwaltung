@@ -85,14 +85,22 @@ type
     ebis: TfEdit;
     Label6: TLabel;
     Label15: TLabel;
-    NxComboBox1: TNxComboBox;
+    cberreichtdetail: TNxComboBox;
     Label16: TLabel;
     Label17: TLabel;
     dpabrechnungsende: TNxDatePicker;
     enutzername2: TfEdit;
     hptermin: TNxHeaderPanel;
-    cbableser: TfComboBox;
+    // cbableser: TfComboBox;
     cberreicht: TNxCheckBox;
+    cbmonteur: TfComboBox;
+    gridableser: TNextDBGrid;
+    NxDBTextColumn1: TNxDBTextColumn;
+    NxDBTextColumn2: TNxDBTextColumn;
+    NxDBTextColumn3: TNxDBTextColumn;
+    NxDBTextColumn4: TNxDBTextColumn;
+    NxDBTextColumn6: TNxDBTextColumn;
+    NxDBTextColumn7: TNxDBTextColumn;
     procedure FrameResize(Sender: TObject);
     function calcleftchars: integer;
 

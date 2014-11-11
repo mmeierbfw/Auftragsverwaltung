@@ -9,12 +9,13 @@ uses
   Vcl.Imaging.pngimage, uconstants, System.Generics.collections, Data.DB,
   NxScrollControl, NxCustomGridControl, NxCustomGrid, NxDBGrid, NxCollection,
   NxSheet, NxToolBox, NxDBColumns, NxColumns, uftpconnector, Vcl.Samples.Gauges,
-  shellapi, NxPageControl, uframeauftragsverwaltung, worker, ueinstellungen,
+  shellapi, NxPageControl, worker, ueinstellungen,
   uliegenschaftsdaten, fComboBox, fEdit, Vcl.Grids, Vcl.DBGrids, Vcl.ImgList,
   uframewizard, OverbyteIcsSslThrdLock, Vcl.ComCtrls, VirtualTrees, utreedata,
   vstbutton, strutils, uformwiedervor, uauftragsinfo, ZAbstractRODataset,
   ZAbstractDataset, ZDataset, updfmain, OverbyteIcsWndControl,
-  OverbyteIcsFtpCli, NPipe_Client, fNPipeClient, NxEdit;
+  OverbyteIcsFtpCli, NPipe_Client, fNPipeClient, NxEdit,
+  uframeauftragsverwaltung;
 
 type
   Tformmain = class(TForm)
