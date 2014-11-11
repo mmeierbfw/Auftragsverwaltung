@@ -18,7 +18,9 @@ const
   insertEnd          = ');';
 
   { Farben }
-
+  // $00696969
+  schriftgrau     = $00696969;
+  disableeditgrau = $00E3DFD9;
   blau            = $00EBBE8E;
   hellgrau        = $00F1F1F1;
   neueshellblau   = $00FEEACF;

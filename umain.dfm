@@ -3566,8 +3566,6 @@
           ShowTabs = False
           Spacing = 0
           TabHeight = 17
-          ExplicitLeft = 0
-          ExplicitWidth = 1131
           object tabliegenschaft: TNxTabSheet
             Caption = 'NxTabSheet2'
             PageIndex = 0
@@ -3577,7 +3575,6 @@
             TabFont.Height = -11
             TabFont.Name = 'Tahoma'
             TabFont.Style = []
-            ExplicitWidth = 1131
             ExplicitHeight = 803
             inline liegenschaftsdaten: Tframeliegenschaftsdaten
               Left = 0
@@ -3595,43 +3592,43 @@
               ParentColor = False
               ParentFont = False
               TabOrder = 0
-              ExplicitWidth = 1131
+              ExplicitWidth = 347
               ExplicitHeight = 824
               inherited pdatenrechts: TPanel
                 Width = 341
                 Height = 818
-                ExplicitWidth = 1125
+                ExplicitWidth = 341
                 ExplicitHeight = 818
                 inherited pliedaten: TPanel
                   Width = 341
                   Height = 749
-                  ExplicitWidth = 1125
+                  ExplicitWidth = 341
                   ExplicitHeight = 749
                   inherited vermerke: TMemo
                     Width = 341
                     Height = 619
-                    ExplicitWidth = 1125
+                    ExplicitWidth = 341
                     ExplicitHeight = 619
                   end
                   inherited estrasse: TfEdit
                     Width = 239
-                    ExplicitWidth = 1023
+                    ExplicitWidth = 239
                   end
                   inherited eplz: TfEdit
                     Width = 139
-                    ExplicitWidth = 923
+                    ExplicitWidth = 139
                   end
                   inherited eort: TfEdit
                     Width = 181
-                    ExplicitWidth = 965
+                    ExplicitWidth = 181
                   end
                   inherited ename1: TfEdit
                     Width = 239
-                    ExplicitWidth = 1023
+                    ExplicitWidth = 239
                   end
                   inherited ename2: TfEdit
                     Width = 239
-                    ExplicitWidth = 1023
+                    ExplicitWidth = 239
                   end
                 end
               end
@@ -3654,13 +3651,15 @@
           ParentColor = False
           ParentFont = False
           TabOrder = 1
-          ExplicitLeft = 8
           ExplicitHeight = 824
           inherited pager: TNxPageControl
             Height = 818
+            ExplicitHeight = 818
             inherited NxTabSheet1: TNxTabSheet
+              ExplicitHeight = 797
               inherited FlowPanel1: TFlowPanel
                 Height = 797
+                ExplicitHeight = 797
                 inherited pliegenschaft: TPanel
                   inherited eliegenschaft: TfEdit
                     OnExit = zframeeliegenschaftExit
@@ -3685,12 +3684,13 @@
               end
             end
             inherited NxTabSheet2: TNxTabSheet
+              ExplicitHeight = 797
               inherited perreichtdetails: TPanel
                 Height = 797
               end
             end
             inherited NxTabSheet3: TNxTabSheet
-              ExplicitHeight = 298
+              ExplicitHeight = 278
               inherited ptermindetails: TNxPanel
                 Height = 797
               end
@@ -3825,7 +3825,7 @@
     Left = 72
     Top = 624
     Bitmap = {
-      494C010103003000B40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103003000B80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
