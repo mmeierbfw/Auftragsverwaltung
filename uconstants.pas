@@ -82,6 +82,7 @@ const
   ausführungsdatum = 'ausführungsdatum';
   ausführungsstart = 'ausführungsstart';
   ausführungsende  = 'ausführungsende';
+  informiert       = 'informiert';
   Dateiname        = 'Dateiname';
   id               = 'Dokumentid';
   sachbearbeiter   = 'Sachbearbeiter';

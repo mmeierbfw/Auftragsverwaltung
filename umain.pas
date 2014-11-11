@@ -466,7 +466,7 @@ begin
     end;
   end;
   if not assigned(zframe) then zframe := Tframeauftragsdaten.Create(self);
-  setcombobox(zframe.cbableser);
+  setcombobox(zframe.cbmonteur);
 
   Tframeshowauftr1.NxButton1.Enabled := false;
   Tframeshowauftr1.NxButton2.Enabled := false;
@@ -1128,7 +1128,7 @@ begin
   except
 
   end;
-  zframe.Notizen.text := Text;
+  zframe.Notizen.Text := Text;
 end;
 
 procedure Tformmain.SelectSubNodes(ANode: PVirtualNode);
@@ -1977,7 +1977,7 @@ begin
     enutzernummer.Text  := wizard.enutzernummer.Text;
     enutzername1.Text   := wizard.enutzername1.Text;
     enutzername2.Text   := wizard.enutzername2.Text;
-    cbableser.ItemIndex := wizard.fcbmonteur.ItemIndex;
+    cbmonteur.ItemIndex := wizard.fcbmonteur.ItemIndex;
     // tp := wizard.NxTimePicker1;
     Notizen.Text := wizard.Memo1.Text;
   end;
@@ -2100,7 +2100,7 @@ begin
     dict.Add(nutzeremail, eemail.Text);
     dict.Add(Auftragsnummer, fauftragsnummer.Text);
     dict.Add(Telefonnummer, etelefon.Text);
-    dict.Add(ableser, cbableser.Items[cbableser.ItemIndex]);
+    dict.Add(ableser, cbmonteur.Items[cbmonteur.ItemIndex]);
     dict.Add(uconstants.Notizen, Notizen.Text);
     dict.Add(sachbearbeiter, sb);
     dict.Add(Kundennummer, copy(eliegenschaft.Text, 1, 2));
@@ -2108,11 +2108,12 @@ begin
     dict.Add('ausführungsdatum', formatDateOhneTrenner(ausf));
     hostfilename := 'scdb/' + createhostfilename(dict);
     dict.Add(dateiname, hostfilename);
-    dict.Add(monteur, cbableser.Text);
+    dict.Add(monteur, cbmonteur.Text);
     dict.Add(erreicht, err);
     // dict.Add(ausführungsdatum, getausführungstermin);
     dict.Add(ausführungsstart, getstart);
     dict.Add(ausführungsende, getende);
+    dict.Add(informiert, cberreichtdetail.Text);
     // dict.Add(uconstants.Notizen, Notizen.Text);
     if not formdb.update(inttostr(auftragsid), table_anf,
       'AnforderungAbgeschlossen', '1') then

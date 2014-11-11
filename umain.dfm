@@ -3654,11 +3654,8 @@
           ExplicitHeight = 824
           inherited pager: TNxPageControl
             Height = 818
-            ActivePage = zframe.NxTabSheet1
-            ActivePageIndex = 0
             ExplicitHeight = 818
             inherited NxTabSheet1: TNxTabSheet
-              ExplicitTop = 21
               ExplicitHeight = 797
               inherited FlowPanel1: TFlowPanel
                 Height = 797
@@ -3687,18 +3684,19 @@
               end
             end
             inherited NxTabSheet2: TNxTabSheet
-              ExplicitTop = 21
-              ExplicitHeight = 797
               inherited perreichtdetails: TPanel
                 Height = 797
                 ExplicitHeight = 797
               end
             end
             inherited NxTabSheet3: TNxTabSheet
-              ExplicitHeight = 278
               inherited ptermindetails: TNxPanel
                 Height = 797
                 ExplicitHeight = 797
+              end
+              inherited Panel1: TPanel
+                Top = 797
+                Height = 0
               end
             end
           end
@@ -3805,23 +3803,7 @@
                 749)
               inherited vermerke: TMemo
                 Height = 619
-                ExplicitWidth = 1055
                 ExplicitHeight = 619
-              end
-              inherited estrasse: TfEdit
-                ExplicitWidth = 959
-              end
-              inherited eplz: TfEdit
-                ExplicitWidth = 804
-              end
-              inherited eort: TfEdit
-                ExplicitWidth = 901
-              end
-              inherited ename1: TfEdit
-                ExplicitWidth = 959
-              end
-              inherited ename2: TfEdit
-                ExplicitWidth = 959
               end
             end
           end
