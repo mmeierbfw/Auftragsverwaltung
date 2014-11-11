@@ -93,7 +93,6 @@ type
     twizardsheet: TNxTabSheet;
     wizard: TFrame1;
     sheetsammel: TNxTabSheet;
-    Tframeauftragsdaten1: Tframeauftragsdaten;
     Tframeliegenschaftsdaten1: Tframeliegenschaftsdaten;
     NxTabSheet1: TNxTabSheet;
     FNpipeClient1: TFNpipeClient;
@@ -102,6 +101,7 @@ type
     tabliegenschaft: TNxTabSheet;
     liegenschaftsdaten: Tframeliegenschaftsdaten;
     zframe: Tframeauftragsdaten;
+    // zframe: Tframeauftragsdaten;
     // procedure aufträgeAnzeigen(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     function nameserverstart: boolean;
@@ -180,6 +180,7 @@ type
     procedure FNpipeClient1Error(Sender: TObject; AException: Exception);
     procedure vstsearchColumnClick(Sender: TBaseVirtualTree;
       Column: TColumnIndex; Shift: TShiftState);
+    procedure zframeNxButton1Click(Sender: TObject);
 
   private
     lg           : string;
@@ -458,6 +459,7 @@ begin
       dsableser.DataSet.Next;
     end;
   end;
+  if not assigned(zframe) then zframe := Tframeauftragsdaten.Create(self);
   setcombobox(zframe.cbableser);
 
   Tframeshowauftr1.NxButton1.Enabled := false;
@@ -1998,6 +2000,11 @@ begin
   zframe.enutzername2.Text       := name2;
 end;
 
+procedure Tformmain.zframeNxButton1Click(Sender: TObject);
+begin
+  zframe.nxbutton1click(Sender);
+end;
+
 procedure Tformmain.zframeNxButton2Click(Sender: TObject);
 begin
   zframe.NxButton2Click(Sender);
@@ -2012,8 +2019,12 @@ var
   tmpdatei    : string;
   hostfilename: string;
   localfile   : string;
+  err         : string;
 begin
   with zframe do begin
+    if cberreicht.Checked then err := '1'
+    else err                       := '0';
+
     dict := TDictionary<string, string>.Create;
     ausf := getausführungsdatum;
     dict.Add(wiedervorlage, ausf);
@@ -2037,6 +2048,12 @@ begin
     dict.Add('ausführungstermin', formatDateOhneTrenner(getausführungstermin));
     hostfilename := 'scdb/' + createhostfilename(dict);
     dict.Add(dateiname, hostfilename);
+    dict.Add(monteur, cbableser.Text);
+    dict.Add(erreicht, err);
+    dict.Add(ausführungsdatum, getausführungstermin);
+    dict.Add(ausführungsstart, getstart);
+    dict.Add(ausführungsende, getende);
+
     if not formdb.update(inttostr(auftragsid), table_anf,
       'AnforderungAbgeschlossen', '1') then
         showmessage('unbearbeiteter Auftrag lässt sich nicht updaten');

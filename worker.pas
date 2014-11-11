@@ -34,7 +34,7 @@ uses umain;
 
 function createpdf: string;
 var
-  dict: TDictionary<string, string>;
+  dict    : TDictionary<string, string>;
   tmpdatei: string;
 begin
 
@@ -59,11 +59,12 @@ begin
 
     tmpdatei := gettmpfile(createfilename(dict));
     dict.Add('dateiname', tmpdatei);
-   
+
     with liegenschaftsdaten do begin
-      Tframeshowauftr1.lcopen.Caption := '';
-      Tframeshowauftr1.lcunbe.Caption := '';
-      Result := formpdf.createpdf(dict);
+      Tframeshowauftr1.lcopen.Caption       := '';
+      Tframeshowauftr1.lcunbe.Caption       := '';
+      if not assigned(formpdf) then formpdf := Tformpdf.Create(nil);
+      Result                                := formpdf.createpdf(dict);
     end;
   end;
 end;

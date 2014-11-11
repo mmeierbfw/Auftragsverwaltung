@@ -5,7 +5,7 @@
         <FrameworkType>VCL</FrameworkType>
         <MainSource>auftragsverwaltungvcl.dpr</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Release</Config>
+        <Config Condition="'$(Config)'==''">Debug</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>1</TargetedPlatforms>
         <AppType>Application</AppType>
@@ -104,17 +104,6 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="uconstants.pas"/>
-        <DCCReference Include="..\neueftpverbindung\uftpconnector.pas">
-            <Form>formftp</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="..\sources2208\uutils.pas"/>
-        <DCCReference Include="..\scanohnethread\umysqlcontroller.pas"/>
-        <DCCReference Include="..\sources2208\uframeauftragsverwaltung.pas">
-            <Form>frameauftragsdaten</Form>
-            <FormType>dfm</FormType>
-            <DesignClass>TFrame</DesignClass>
-        </DCCReference>
         <DCCReference Include="worker.pas"/>
         <DCCReference Include="uliegenschaftsdaten.pas">
             <Form>frameliegenschaftsdaten</Form>
@@ -145,18 +134,12 @@
             <FormType>dfm</FormType>
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
-        <DCCReference Include="..\MakePDF2\constants.pas"/>
-        <DCCReference Include="..\MakePDF2\SynPdf.pas"/>
-        <DCCReference Include="..\MakePDF2\SynCommons.pas"/>
-        <DCCReference Include="..\MakePDF2\SynLZ.pas"/>
-        <DCCReference Include="..\MakePDF2\SynGdiPlus.pas"/>
-        <DCCReference Include="..\MakePDF2\SynZip.pas"/>
-        <DCCReference Include="..\MakePDF2\SynCrypto.pas"/>
-        <DCCReference Include="..\MakePDF2\mORMotReport.pas"/>
         <DCCReference Include="..\..\Komponenten\qr\Source\DelphiZXIngQRCode.pas"/>
-        <DCCReference Include="..\MakePDF2\updfmain.pas">
-            <Form>formpdf</Form>
+        <DCCReference Include="..\Dokumentverwaltung\umysqlcontroller.pas"/>
+        <DCCReference Include="..\..\Embarcadero\Studio\Projekte\sources2208\uframeauftragsverwaltung.pas">
+            <Form>frameauftragsdaten</Form>
             <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
         </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
