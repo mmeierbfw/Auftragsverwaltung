@@ -101,7 +101,7 @@ type
     NxDBTextColumn4: TNxDBTextColumn;
     NxDBTextColumn6: TNxDBTextColumn;
     NxDBTextColumn7: TNxDBTextColumn;
-    procedure FrameResize(Sender: TObject);
+    lterminheader: TLabel;
     function calcleftchars: integer;
 
     procedure checkinput(var Key: Word);
@@ -291,12 +291,6 @@ begin
 
   end;
 
-end;
-
-procedure Tframeauftragsdaten.FrameResize(Sender: TObject);
-begin
-  // getinshape(pauftragsdaten, shapeauftrag);
-  // getinshape(perreichbarkeit, Shapeerreichbarkeit);
 end;
 
 function Tframeauftragsdaten.getausführungstermin: string;

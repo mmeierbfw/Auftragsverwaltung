@@ -14,9 +14,9 @@ uses
   umemo in 'umemo.pas' {formmemo},
   uformwiedervor in 'uformwiedervor.pas' {formwieder},
   uauftragsinfo in 'uauftragsinfo.pas' {frameshowauftr: TFrame},
-  DelphiZXIngQRCode in '..\..\Komponenten\qr\Source\DelphiZXIngQRCode.pas',
-  umysqlcontroller in '..\Dokumentverwaltung\umysqlcontroller.pas',
-  uframeauftragsverwaltung in 'uframeauftragsverwaltung.pas' {frameauftragsdaten: TFrame};
+  DelphiZXIngQRCode in 'C:\Komponenten\qr\Source\DelphiZXIngQRCode.pas',
+  uframeauftragsverwaltung in 'uframeauftragsverwaltung.pas' {frameauftragsdaten: TFrame},
+  uftpconnector in '..\neueftpverbindung\uftpconnector.pas' {formftp};
 
 {$R *.res}
 
@@ -28,6 +28,7 @@ begin
   Application.CreateForm(TEinstellungen, Einstellungen);
   Application.CreateForm(Tformmemo, formmemo);
   Application.CreateForm(Tformwieder, formwieder);
+  Application.CreateForm(Tformftp, formftp);
   //  Application.CreateForm(Tformpdf, formpdf);
   Application.Run;
 end.

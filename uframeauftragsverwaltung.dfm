@@ -1,8 +1,8 @@
 ﻿object frameauftragsdaten: Tframeauftragsdaten
   Left = 0
   Top = 0
-  Width = 784
-  Height = 684
+  Width = 1002
+  Height = 894
   Align = alLeft
   Color = 14933977
   Font.Charset = DEFAULT_CHARSET
@@ -14,16 +14,14 @@
   ParentColor = False
   ParentFont = False
   TabOrder = 0
-  OnResize = FrameResize
-  ExplicitHeight = 304
   object pager: TNxPageControl
     AlignWithMargins = True
     Left = 3
     Top = 3
-    Width = 778
-    Height = 678
-    ActivePage = NxTabSheet1
-    ActivePageIndex = 0
+    Width = 996
+    Height = 888
+    ActivePage = NxTabSheet3
+    ActivePageIndex = 2
     Align = alClient
     Color = clWhite
     ParentColor = False
@@ -33,6 +31,7 @@
     Options = [pgBoldActiveTab, pgCloseButton]
     Spacing = 0
     TabHeight = 17
+    ExplicitWidth = 778
     ExplicitHeight = 298
     object NxTabSheet1: TNxTabSheet
       Caption = 'NxTabSheet1'
@@ -43,18 +42,20 @@
       TabFont.Height = -11
       TabFont.Name = 'Tahoma'
       TabFont.Style = []
+      ExplicitWidth = 778
       ExplicitHeight = 277
       object FlowPanel1: TFlowPanel
         Left = 0
         Top = 0
-        Width = 778
-        Height = 657
+        Width = 996
+        Height = 867
         Align = alClient
         BevelOuter = bvNone
         Caption = 'FlowPanel1'
         Color = clWhite
         ParentBackground = False
         TabOrder = 0
+        ExplicitWidth = 778
         ExplicitHeight = 277
         object pliegenschaft: TPanel
           Left = 0
@@ -832,12 +833,13 @@
       TabFont.Height = -11
       TabFont.Name = 'Tahoma'
       TabFont.Style = []
+      ExplicitWidth = 778
       ExplicitHeight = 277
       object perreichtdetails: TPanel
         Left = 0
         Top = 0
-        Width = 778
-        Height = 657
+        Width = 996
+        Height = 867
         Margins.Left = 5
         Margins.Top = 5
         Margins.Right = 5
@@ -846,6 +848,7 @@
         Color = clWhite
         ParentBackground = False
         TabOrder = 0
+        ExplicitWidth = 778
         ExplicitHeight = 277
         object Label18: TLabel
           Left = 29
@@ -954,12 +957,13 @@
       TabFont.Height = -11
       TabFont.Name = 'Tahoma'
       TabFont.Style = []
+      ExplicitWidth = 778
       ExplicitHeight = 277
       object ptermindetails: TNxPanel
         Left = 0
         Top = 0
-        Width = 778
-        Height = 657
+        Width = 996
+        Height = 867
         Margins.Left = 5
         Margins.Top = 5
         Margins.Right = 5
@@ -974,6 +978,7 @@
         FullRepaint = True
         ParentColor = False
         TabOrder = 0
+        ExplicitWidth = 778
         ExplicitHeight = 277
         object Label13: TLabel
           Left = 192
@@ -995,6 +1000,13 @@
           Width = 13
           Height = 13
           Caption = 'bis'
+        end
+        object lterminheader: TLabel
+          Left = 192
+          Top = 177
+          Width = 38
+          Height = 13
+          Caption = 'Termine'
         end
         object mitHA: TCheckBox
           Left = 423
@@ -1126,15 +1138,15 @@
           TabOrder = 8
           Text = 'Ableser'
           TabOnEnter = False
-          FontColorOnEnter = 36607
-          ColorFocused = 36607
-          ColorNotFocused = clBlack
+          FontColorOnEnter = 10252872
+          ColorFocused = 10252872
+          ColorNotFocused = 6908265
         end
         object gridableser: TNextDBGrid
           Left = 192
-          Top = 176
+          Top = 204
           Width = 571
-          Height = 573
+          Height = 545
           Caption = ''
           TabOrder = 9
           TabStop = True

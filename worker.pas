@@ -3,10 +3,10 @@ unit worker;
 interface
 
 uses Windows, System.generics.collections, strutils, sysutils, classes,
-  udbconnector, uconstants, extctrls, graphics, uutils, uftpconnector, shellapi,
-  controls, shlobj, regularexpressions, updfmain;
+  udbconnector, uconstants, extctrls, graphics, uutils, shellapi, controls,
+  shlobj, regularexpressions, updfmain, uftpconnector;
 
-function setliegenschaftsdaten(liegenschaft: string)
+function setliegenschaftsdaten(liegenschaftst: string)
   : TDictionary<string, string>;
 function setauftraggeberdaten(liegenschaft: string)
   : TDictionary<string, string>;
@@ -38,33 +38,35 @@ var
   tmpdatei: string;
 begin
 
-  dict := TDictionary<string, string>.Create();
-  with formmain do begin
-    dict.Add(auftragstyp, zframe.cbauftragstyp.Text);
-    dict.Add(liegenschaft, zframe.eliegenschaft.Text);
-    dict.Add(Posteingang, zframe.dperstellungsdatum.Text);
-    dict.Add('ausführungstermin', zframe.dperstellungsdatum.Text);
-    dict.Add(Auftragsnummer, zframe.fauftragsnummer.Text);
-    dict.Add(Notizen, zframe.Notizen.Text);
-    dict.Add(nutzernummer, zframe.enutzernummer.Text);
-    dict.Add(Nutzername1, zframe.enutzername1.Text);
-    dict.Add(nutzername2, zframe.enutzername2.Text);
-    dict.Add(strasse, liegenschaftsdaten.estrasse.Text);
-    dict.Add(plz, liegenschaftsdaten.eplz.Text);
-    dict.Add(ort, liegenschaftsdaten.eort.Text);
-    dict.Add(email, zframe.eemail.Text);
-    dict.Add(tel, zframe.etelefon.Text);
-    dict.Add(sachbearbeiter, getsb);
-    dict.Add(abrechnungsende, zframe.dpabrechnungsende.Text);
+  with formmain.aufcon do begin
+    dict := TDictionary<string, string>.Create();
+    with formmain do begin
+      dict.Add(auftragstyp, zframe.cbauftragstyp.Text);
+      dict.Add(liegenschaft, zframe.eliegenschaft.Text);
+      dict.Add(Posteingang, zframe.dperstellungsdatum.Text);
+      dict.Add('ausführungstermin', zframe.dperstellungsdatum.Text);
+      dict.Add(Auftragsnummer, zframe.fauftragsnummer.Text);
+      dict.Add(Notizen, zframe.Notizen.Text);
+      dict.Add(nutzernummer, zframe.enutzernummer.Text);
+      dict.Add(Nutzername1, zframe.enutzername1.Text);
+      dict.Add(nutzername2, zframe.enutzername2.Text);
+      dict.Add(strasse, liegenschaftsdaten.estrasse.Text);
+      dict.Add(plz, liegenschaftsdaten.eplz.Text);
+      dict.Add(ort, liegenschaftsdaten.eort.Text);
+      dict.Add(email, zframe.eemail.Text);
+      dict.Add(tel, zframe.etelefon.Text);
+      dict.Add(sachbearbeiter, getsb);
+      dict.Add(abrechnungsende, zframe.dpabrechnungsende.Text);
 
-    tmpdatei := gettmpfile(createfilename(dict));
-    dict.Add('dateiname', tmpdatei);
+      tmpdatei := gettmpfile(createfilename(dict));
+      dict.Add('dateiname', tmpdatei);
 
-    with liegenschaftsdaten do begin
-      Tframeshowauftr1.lcopen.Caption       := '';
-      Tframeshowauftr1.lcunbe.Caption       := '';
-      if not assigned(formpdf) then formpdf := Tformpdf.Create(nil);
-      Result                                := formpdf.createpdf(dict);
+      with liegenschaftsdaten do begin
+        Tframeshowauftr1.lcopen.Caption       := '';
+        Tframeshowauftr1.lcunbe.Caption       := '';
+        if not assigned(formpdf) then formpdf := Tformpdf.Create(nil);
+        Result                                := formpdf.createpdf(dict);
+      end;
     end;
   end;
 end;
@@ -75,43 +77,47 @@ var
   lg, jahr, kn, typ: string;
   ausfterm         : string;
 begin
-  dict.TryGetValue(liegenschaft, lg);
-  if lg = '' then lg := '0000000';
-  dict.TryGetValue('ausführungstermin', ausfterm);
-  if ausfterm = '' then jahr := '010100';
-  jahr                       := '20' + copy(ausfterm, 5, 2);
-  kn                         := copy(lg, 1, 2);
-  if kn = '' then kn         := '00';
+  with formmain.aufcon do begin
+    dict.TryGetValue(liegenschaft, lg);
+    if lg = '' then lg := '0000000';
+    dict.TryGetValue('ausführungstermin', ausfterm);
+    if ausfterm = '' then jahr := '010100';
+    jahr                       := '20' + copy(ausfterm, 5, 2);
+    kn                         := copy(lg, 1, 2);
+    if kn = '' then kn         := '00';
 
-  dict.TryGetValue(auftragstyp, typ);
-  if typ = '' then typ := '000';
-  Result               := kn + '/' + lg + '/' + typ + '/' + jahr + '/';
+    dict.TryGetValue(auftragstyp, typ);
+    if typ = '' then typ := '000';
+    Result               := kn + '/' + lg + '/' + typ + '/' + jahr + '/';
 
-  Result := Result + createfilename(dict);
+    Result := Result + createfilename(dict);
+  end;
 end;
 
 // ##############################
 
 function createfilename(dict: TDictionary<string, string>): string;
 var
-  lg, nn, typ, jahr, id: string;
-  nowstring            : string;
+  lg, nn, typ, jahr, idx: string;
+  nowstring             : string;
 begin
-  dict.TryGetValue(Auftragsnummer, id);
-  dict.TryGetValue(liegenschaft, lg);
-  dict.TryGetValue(nutzernummer, nn);
-  dict.TryGetValue(auftragstyp, typ);
-  dict.TryGetValue('ausführungstermin', jahr);
+  with formmain.aufcon do begin
+    dict.TryGetValue(formmain.aufcon.Auftragsnummer, idx);
+    dict.TryGetValue(liegenschaft, lg);
+    dict.TryGetValue(nutzernummer, nn);
+    dict.TryGetValue(auftragstyp, typ);
+    dict.TryGetValue('ausführungstermin', jahr);
 
-  // if id = '' then id := '2014-1234';
-  jahr                   := '20' + copy(jahr, 5, 4);
-  if jahr = '' then jahr := '2010';
-  if lg = '' then lg     := '0000000';
-  if typ = '' then typ   := '000';
-  datetimetostring(nowstring, 'yymddhhnnsszz', now);
-  // nowstring := formatdateohnetrennertmj(nowstring);
+    // if id = '' then id := '2014-1234';
+    jahr                   := '20' + copy(jahr, 5, 4);
+    if jahr = '' then jahr := '2010';
+    if lg = '' then lg     := '0000000';
+    if typ = '' then typ   := '000';
+    datetimetostring(nowstring, 'yymddhhnnsszz', now);
+    // nowstring := formatdateohnetrennertmj(nowstring);
 
-  Result := lg + '_' + nn + '_' + typ + '_' + jahr + '_' + nowstring + '.pdf';
+    Result := lg + '_' + nn + '_' + typ + '_' + jahr + '_' + nowstring + '.pdf';
+  end;
 end;
 
 // ################################################
@@ -197,31 +203,36 @@ var
   dict                 : TDictionary<string, string>;
   hostname, wherestring: string;
   list                 : Tstringlist;
-  database             : string;
+  db                   : string;
   table                : string;
 begin
-  list := Tstringlist.Create;
-  list.Add('WO5');
-  list.Add('WO6');
-  database := kuarchiv + kundennummer + '\' + liegenschaft + '\' +
-    liegenschaft + '.DB';
-  wherestring := ' WHERE WO1 = ' + inttostr(strtoint(nutzernummer)) +
-    ' AND WO0=' + QuotedStr('W');
-  table  := 'WO_TYP';
-  dict   := formdb.getfromhn(database, table, wherestring, list);
-  Result := dict;
+  with formmain.aufcon do begin
+    list := Tstringlist.Create;
+    list.Add('WO5');
+    list.Add('WO6');
+    db := kuarchiv + kundennummer + '\' + liegenschaft + '\' +
+      liegenschaft + '.DB';
+    wherestring := ' WHERE WO1 = ' + inttostr(strtoint(nutzernummer)) +
+      ' AND WO0=' + QuotedStr('W');
+    table  := 'WO_TYP';
+    dict   := formdb.getfromhn(database, table, wherestring, list);
+    Result := dict;
+  end;
 end;
 
+// ##############################
 function getprefix(index: integer): string;
 var
   res: string;
 begin
-  case index of
-    ZwischenablsgINT: res := 'z';
-    MontageINT: res       := 'm';
+  with formmain.aufcon do begin
+    case index of
+      ZwischenablsgINT: res := 'z';
+      MontageINT: res       := 'm';
 
+    end;
+    Result := res;
   end;
-  Result := res;
 end;
 
 function setauftraggeberdaten(liegenschaft: string)
@@ -247,40 +258,43 @@ begin
 
 end;
 
-function setliegenschaftsdaten(liegenschaft: string)
+function setliegenschaftsdaten(liegenschaftst: string)
   : TDictionary<string, string>;
 var
   database, wherestring: string;
   list                 : Tstringlist;
   cua, coa             : string;
   res                  : TDictionary<string, string>;
+  db: string;
 begin
-  res         := TDictionary<string, string>.Create;
-  wherestring := ' WHERE liegnr =  ' + liegenschaft;
-  list        := Tstringlist.Create;
-  list.Add('anlagen.plz');
-  list.Add('anlagen.ort');
-  list.Add('anlagen.str');
-  list.Add('anlagen.eigplz');
-  list.Add('anlagen.eigort');
-  list.Add('anlagen.eigstr');
-  list.Add('anlagen.eigent1');
-  list.Add('anlagen.eigent2');
-  list.Add('scandokumente.DANLSUC.DatAbr');
-  // list.add('Databr');
-  list.Add(vermerke);
-  database :=
-    'verwaltung.anlagen join scandokumente.DANLSUC on verwaltung.anlagen.liegnr =scandokumente.DANLSUC.lienr';
-  if not assigned(formdb) then formdb := Tformdb.Create(nil);
-  Result := formdb.get(formdb.queryauftraggeber, database, wherestring, list);
-  if not(Result.count = 0) then begin
-    cua := inttostr(formdb.count('Liegenschaft', table_anf,
-      ' WHERE Liegenschaft = ' + liegenschaft +
-      ' AND AnforderungAbgeschlossen=0'));
-    coa := inttostr(formdb.count('Liegenschaft', table_aufträge,
-      ' WHERE Liegenschaft = ' + liegenschaft));
-    Result.Add('offen', coa);
-    Result.Add('unbearbeitet', cua);
+  with formmain.aufcon do begin
+    res         := TDictionary<string, string>.Create;
+    wherestring := ' WHERE liegnr =  ' + liegenschaftst;
+    list        := Tstringlist.Create;
+    list.Add('anlagen.plz');
+    list.Add('anlagen.ort');
+    list.Add('anlagen.str');
+    list.Add('anlagen.eigplz');
+    list.Add('anlagen.eigort');
+    list.Add('anlagen.eigstr');
+    list.Add('anlagen.eigent1');
+    list.Add('anlagen.eigent2');
+    list.Add('scandokumente.DANLSUC.DatAbr');
+    // list.add('Databr');
+    list.Add(formmain.aufcon.vermerke);
+    db :=
+      'verwaltung.anlagen join scandokumente.DANLSUC on verwaltung.anlagen.liegnr =scandokumente.DANLSUC.lienr';
+    if not assigned(formdb) then formdb := Tformdb.Create(nil);
+    Result := formdb.get(formdb.queryauftraggeber, db, wherestring, list);
+    if not(Result.count = 0) then begin
+      cua := inttostr(formdb.count('Liegenschaft', table_anf,
+        ' WHERE Liegenschaft = ' + liegenschaft +
+        ' AND AnforderungAbgeschlossen=0'));
+      coa := inttostr(formdb.count('Liegenschaft', table_aufträge,
+        ' WHERE Liegenschaft = ' + liegenschaft));
+      Result.Add('offen', coa);
+      Result.Add('unbearbeitet', cua);
+    end;
   end;
 end;
 
