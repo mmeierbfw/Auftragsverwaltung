@@ -5,14 +5,14 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
-  Vcl.ExtCtrls, Vcl.StdCtrls, uutils, umysqlcontroller, udbconnector,
-  Vcl.Imaging.pngimage, uconstants, System.Generics.collections, Data.DB,
-  NxScrollControl, NxCustomGridControl, NxCustomGrid, NxDBGrid, NxCollection,
-  NxSheet, NxToolBox, NxDBColumns, NxColumns, Vcl.Samples.Gauges, shellapi,
-  NxPageControl, worker, ueinstellungen, uliegenschaftsdaten, fComboBox, fEdit,
-  Vcl.Grids, Vcl.DBGrids, Vcl.ImgList, uframewizard, OverbyteIcsSslThrdLock,
-  Vcl.ComCtrls, VirtualTrees, utreedata, vstbutton, strutils, uformwiedervor,
-  uauftragsinfo, ZAbstractRODataset, ZAbstractDataset, ZDataset, updfmain,
+  Vcl.ExtCtrls, Vcl.StdCtrls, uutils, umysqlcontroller, Vcl.Imaging.pngimage,
+  uconstants, System.Generics.collections, Data.DB, NxScrollControl,
+  NxCustomGridControl, NxCustomGrid, NxDBGrid, NxCollection, NxSheet, NxToolBox,
+  NxDBColumns, NxColumns, Vcl.Samples.Gauges, shellapi, NxPageControl, worker,
+  ueinstellungen, uliegenschaftsdaten, fComboBox, fEdit, Vcl.Grids, Vcl.DBGrids,
+  Vcl.ImgList, uframewizard, OverbyteIcsSslThrdLock, Vcl.ComCtrls, VirtualTrees,
+  utreedata, vstbutton, strutils, uformwiedervor, uauftragsinfo,
+  ZAbstractRODataset, ZAbstractDataset, ZDataset, updfmain,
   OverbyteIcsWndControl, OverbyteIcsFtpCli, NPipe_Client, fNPipeClient, NxEdit,
   uframeauftragsverwaltung;
 
@@ -256,7 +256,7 @@ implementation
 
 {$R *.dfm}
 
-uses umemo, uftpconnector;
+uses umemo, uftpconnector, udbconnector;
 // ----------------------------------------------------------------------------------------------------------------------
 
 procedure Tformmain.PaintSelection(Bitmap: TBitmap);
@@ -378,13 +378,19 @@ begin
 end;
 
 procedure Tformmain.FormClose(Sender: TObject; var Action: TCloseAction);
+var
+  programmname: string;
 begin
-  Killprocess(procplink);
-  // KillTask('plink.exe');
-  try DeleteFiles(gettmpfolder);
-  except OutputDebugString('Dateien sind noch geöffnet');
+  programmname := 'Auftragsverwaltung';
+  try Killprocess(procplink);
+  except outputdebugstring('plink lässt sich nicht killen');
 
   end;
+  // // KillTask('plink.exe');
+  // try DeleteFiles(gettmpfolder(programmname));
+  // except outputdebugstring('Dateien sind noch geöffnet');
+  //
+  // end;
 end;
 
 procedure Tformmain.FormCreate(Sender: TObject);
@@ -393,21 +399,27 @@ var
   i    : Integer;
 begin
   aufcon := tauftragskonstanten.Create;
+  {$IFDEF RELEASE }
+  pager.ShowTabs        := False;
+  zframe.pager.ShowTabs := False;
+  {$ENDIF}
+  // if not assigned(formdb) then
+  // formdb := Tformdb.Create(self, aufcon);
   try
     with aufcon do begin
       formmain.Left := 0;
       formmain.Top  := 0;
       startplink;
-      kn := readfromini(getinifile(inidatei), 'Section', 'Kundennummer',
-        default_value);
-      sb := readfromini(getinifile(inidatei), 'Section', 'Sachbearbeiter',
-        default_value);
-      lkundennummer.Caption   := lkundennummer.Caption + kn;
-      lsachbearbeiter.Caption := lsachbearbeiter.Caption + sb;
-      pager.ActivePage        := NxTabSheet1;
-
+      kn := readfromini(getinifile('Auftragsverwaltung', inidatei), 'Section',
+        'Kundennummer', default_value);
+      sb := readfromini(getinifile('Auftragsverwaltung', inidatei), 'Section',
+        'Sachbearbeiter', default_value);
+      if not(AnsiLowerCase(kn) = 'kein wert') then
+          lkundennummer.Caption := lkundennummer.Caption + kn;
+      if not(AnsiLowerCase(sb) = 'kein wert') then
+          lsachbearbeiter.Caption := lsachbearbeiter.Caption + sb;
+      pager.ActivePage            := NxTabSheet1;
       nameserverstart;
-
       if paramcount > 0 then executeparameter;
     end;
   finally aufcon.free;
@@ -440,10 +452,9 @@ end;
 procedure Tformmain.FormDestroy(Sender: TObject);
 begin
   Killprocess(procplink);
-  // try
-  // DeleteFiles(gettmpfolder);
+  // try DeleteFiles(gettmpfolder('Auftragsverwaltung'));
   // except
-
+  // //
   // end;
 end;
 
@@ -486,14 +497,14 @@ begin
   if not assigned(zframe) then zframe := Tframeauftragsdaten.Create(self);
   setcombobox(zframe.cbmonteur);
 
-  Tframeshowauftr1.NxButton1.enabled := false;
-  Tframeshowauftr1.NxButton2.enabled := false;
+  Tframeshowauftr1.NxButton1.enabled := False;
+  Tframeshowauftr1.NxButton2.enabled := False;
 
   zframe.dperstellungsdatum.Text := formatedatefrom4jto2j(DateToStr(now));
   DecodeDate(now, myyear, mymonth, myday);
   zframe.ldayOM.Caption := Format('%.2d ', [myday]);
   zframe.Lmy.Caption := zframe.getmonthstring(mymonth) + ' ' + inttostr(myyear);
-  zframe.hptermin.Expanded := false;
+  zframe.hptermin.Expanded := False;
   zframe.nxdate.Date       := now;
 
 end;
@@ -511,14 +522,15 @@ end;
 procedure Tformmain.getanforderung(query: string);
 begin
   with aufcon do begin
-    getaf(formdb.queryanforderungen, table_anf, query);
+    // getaf(formdb.queryanforderungen, table_anf, query);
+    getaf(formdb.queryanforderungen, view_anforderungen, query);
   end;
 end;
 
 procedure Tformmain.getunbearbeitet(wherestring: string);
 begin
   with aufcon do begin
-    getaf(formdb.queryunbearbeitet, table_unbearbeitet, wherestring);
+    getaf(formdb.queryunbearbeitet, view_unbearbeitet, wherestring);
   end;
 end;
 
@@ -535,7 +547,7 @@ begin
   Result := '';
   Data   := avst.getnodedata(ANode);
   while not(correctlg(Data.FCaption)) do begin
-    OutputDebugString(pchar(Data.FCaption));
+    outputdebugstring(pchar(Data.FCaption));
     ANode  := ANode.Parent;
     Data   := vst.getnodedata(ANode);
     Result := Data.FCaption;
@@ -563,7 +575,8 @@ end;
 procedure Tformmain.getoffeneaufträge(query: string);
 begin
   with aufcon do begin
-    getaf(formdb.queryaufträge, table_aufträge, query);
+    // getaf(formdb.queryaufträge, table_aufträge, query);
+    getaf(formdb.queryaufträge, view_auftraege, query);
   end;
 end;
 
@@ -806,8 +819,8 @@ begin
     pager.ActivePage         := sheetoffene;
     getoffeneaufträge(' ORDER BY liegenschaft asc');
     filloffene(formdb.queryaufträge, vstsearch);
-    psearchoff.enabled := false;
-    pauftrerst.enabled := false;
+    psearchoff.enabled := False;
+    pauftrerst.enabled := False;
   end;
 
 end;
@@ -836,7 +849,7 @@ begin
   with aufcon do begin
     paintallcontrols(peinzelauftr, dunkelblaufm);
     (Sender as TPanel).Color := hellerblaufm;
-    wizard.pager.ShowTabs    := false;
+    wizard.pager.ShowTabs    := False;
     wizard.Show;
     wizard.pager.ActivePageIndex := 0;
     pager.ActivePage             := twizardsheet;
@@ -845,31 +858,37 @@ end;
 
 procedure Tformmain.pneuerauftragDblClick(Sender: TObject);
 begin
-  with aufcon do begin
-    pager.ActivePage := tabneuerauftrag;
-    paintallcontrols(peinzelauftr, dunkelblaufm);
-    (Sender as TPanel).Color := hellerblaufm;
+  try
+    with aufcon do begin
+      pager.ActivePage := tabneuerauftrag;
+      paintallcontrols(peinzelauftr, dunkelblaufm);
+      (Sender as TPanel).Color := hellerblaufm;
+    end;
+  except showmessage('bitte in 10 Sekunden erneut versuchen');
   end;
-
 end;
 
 procedure Tformmain.panforderungenClick(Sender: TObject);
 begin
-  with aufcon do begin
-    paintallcontrols(peinzelauftr, dunkelblaufm);
-    (Sender as TPanel).Color := hellerblaufm;
-    pager.ActivePage         := sheetanforderungen;
+  //
+  try
+    with aufcon do begin
+      paintallcontrols(peinzelauftr, dunkelblaufm);
+      (Sender as TPanel).Color := hellerblaufm;
+      pager.ActivePage         := sheetanforderungen;
 
-    pauftrerst.enabled := true;
-    psearchoff.enabled := true;
+      pauftrerst.enabled := true;
+      psearchoff.enabled := true;
 
-    getanforderung(' WHERE AnforderungAbgeschlossen=0 ORDER BY ' + liegenschaft
-      + ' asc');
-    if Sender is TPanel then
-        fillvst(formdb.queryanforderungen, vstanf, Sender as TPanel)
-    else fillvst(formdb.queryanforderungen, vstanf, pua);
-    // vstsearch.Visible := false;
-    avst := vstanf;
+      getanforderung(' WHERE AnforderungAbgeschlossen=0 ORDER BY ' +
+        liegenschaft + ' asc');
+      if Sender is TPanel then
+          fillvst(formdb.queryanforderungen, vstanf, Sender as TPanel)
+      else fillvst(formdb.queryanforderungen, vstanf, pua);
+      // vstsearch.Visible := false;
+      avst := vstanf;
+    end;
+  except showmessage('bitte in 10 Sekunden erneut versuchen');
   end;
 end;
 
@@ -919,7 +938,7 @@ function Tformmain.saveSettings(kn, sb: string): boolean;
 begin
   self.kn := kn;
   self.sb := sb;
-  writeToIni(kn, sb);
+  writeToIni('Auftragsverwaltung', aufcon.inidatei, kn, sb);
   lsachbearbeiter.Caption := 'Sachbearbeiter: ' + sb;
   lkundennummer.Caption   := 'Kundennummer: ' + kn;
 end;
@@ -969,7 +988,7 @@ end;
 function Tformmain.setcursor(cr: Integer): boolean;
 begin
   try Screen.Cursor := cr;
-  except Result     := false;
+  except Result     := False;
   end;
   Result := true;
 end;
@@ -1007,7 +1026,7 @@ begin
   frame.dpabrechnungsende.Text  := abrende;
   wizard.feliegenschaft.Text    := lg;
   try wizard.enutzernummer.Text := nn;
-  except OutputDebugString('keine Nutzernummer');
+  except outputdebugstring('keine Nutzernummer');
 
   end;
   // wizard.ename1.Text   := dict.Items['eigent1'];
@@ -1025,7 +1044,7 @@ var
 begin
   Result := avst.AddChild(parNode);
   Data   := avst.getnodedata(Result);
-  avst.ValidateChildren(Result, false);
+  avst.ValidateChildren(Result, False);
   Data^.FCaption           := arecord.FCaption;
   Data^.FColumn            := arecord.FColumn;
   Data^.fimagedok          := arecord.fimagedok;
@@ -1037,6 +1056,7 @@ begin
   Data^.fid                := arecord.fid;
   Data^.fausführungstermin := arecord.fausführungstermin;
   Data^.fwiedervorl        := arecord.fwiedervorl;
+  Data^.fimagenotiz        := arecord.fimagenotiz;
 end;
 
 // #########################################
@@ -1071,6 +1091,23 @@ begin
   if (dict = nil) or (dict.count = 0) then begin
     liegenschaftsdaten.pdatenrechts.Caption :=
       'Diese Liegenschaft existiert nicht';
+    with zframe do begin
+      estrasse.Clear;
+      eplz.Clear;
+      eort.Clear;
+      enutzername1.Clear;
+      enutzername2.Clear;
+      ename1.Clear;
+      ename2.Clear;
+    end;
+    with liegenschaftsdaten do begin
+      estrasse.Clear;
+      ename1.Clear;
+      ename2.Clear;
+      eplz.Clear;
+      eort.Clear;
+      vermerke.Text := 'Diese Liegenschaft existiert nicht';
+    end;
     exit;
   end;
 
@@ -1092,7 +1129,7 @@ begin
   with zframe do begin
     try eliegenschaft.SetFocus;
       // fauftragsnummer.SetFocus;
-    except OutputDebugString('kann den Focus nicht erhalten');
+    except outputdebugstring('kann den Focus nicht erhalten');
     end;
   end;
 end;
@@ -1120,7 +1157,7 @@ begin
     for dns in dateilist do begin
       if dns = '' then continue;
       helper  := ReplaceStr(dns, '/', '\\');
-      tmpfile := gettmpfile(ExtractFileName(helper));
+      tmpfile := gettmpfile('Auftragsverwaltung', ExtractFileName(helper));
       if not FileExists(tmpfile) then formftp.getFile(dns, tmpfile);
       ShellExecute(Handle, 'open', pchar(tmpfile), nil, nil, SW_SHOWNORMAL);
     end;
@@ -1132,11 +1169,11 @@ end;
 // #########################################
 procedure Tformmain.executeparameter;
 var
-  index       : Integer;
-  param       : string;
-  command     : string;
-  nnhelper    : Integer;
-  nn, lg, Text: string;
+  index   : Integer;
+  param   : string;
+  command : string;
+  nnhelper: Integer;
+  lg, Text: string;
 begin
   // die richtige Ansicht in den Vordergrund
 
@@ -1237,7 +1274,7 @@ begin
       pmessage.Visible := true;
       exit;
     end;
-    pmessage.Visible := false;
+    pmessage.Visible := False;
     //
     avst.Clear;
     tmppestr          := '__';
@@ -1246,13 +1283,13 @@ begin
     avst.BeginUpdate;
     with formdb.queryaufträge do begin
       while not Eof do begin
-        lg              := FieldByName(liegenschaft).AsString;
-        pestr           := FieldByName(Posteingang).AsString;
-        nnint           := FieldByName(Nutzernummer).AsInteger;
-        auftrstr        := FieldByName(auftragstyp).AsString;
-        dat             := FieldByName(dateiname).AsString;
-        notz            := FieldByName(Notizen).AsString;
-        self.auftragsid := FieldByName('Id').AsInteger;
+        lg       := FieldByName(liegenschaft).AsString;
+        pestr    := FieldByName(Posteingang).AsString;
+        nnint    := FieldByName(Nutzernummer).AsInteger;
+        auftrstr := FieldByName(auftragstyp).AsString;
+        dat      := FieldByName(dateiname).AsString;
+        notz     := FieldByName(Notizen).AsString;
+        // self.auftragsid := FieldByName('Id').AsInteger;
         wiedervorl      := FieldByName(wiedervorlage).AsString;
         ausführungsterm := FieldByName('ausführungstermin').AsString;
         if lg <> tmplg then begin
@@ -1262,13 +1299,13 @@ begin
           treedata.fimagedok   := -1;
           treedata.fimagewied  := -1;
           treedata.fimageerst  := -1;
-          treedata.fspecial    := false;
+          treedata.fspecial    := False;
           treedata.fnotizen    := '';
           treedata.fwiedervorl := '     ';
           liegnode             := setnode(avst, nil, treedata);
           treedata.FCaption    := auftrstr;
           treedata.FColumn     := '';
-          treedata.fspecial    := false;
+          treedata.fspecial    := False;
           treedata.fimagedok   := -1;
           treedata.fimagewied  := -1;
           treedata.fnotizen    := '';
@@ -1277,7 +1314,7 @@ begin
         end else if (auftrstr <> tmpauftrstr) then begin
           treedata.FCaption    := auftrstr;
           treedata.FColumn     := '';
-          treedata.fspecial    := false;
+          treedata.fspecial    := False;
           treedata.fimagedok   := -1;
           treedata.fimagewied  := -1;
           treedata.fnotizen    := '';
@@ -1344,7 +1381,7 @@ begin
       pmessage.Visible := true;
       exit;
     end;
-    pmessage.Visible := false;
+    pmessage.Visible := False;
     //
     // avst.Visible := true;
     avst.Clear;
@@ -1360,7 +1397,7 @@ begin
         auftrstr        := FieldByName(auftragstyp).AsString;
         dat             := FieldByName(dateiname).AsString;
         notz            := FieldByName(Notizen).AsString;
-        self.auftragsid := FieldByName('Id').AsInteger;
+        self.auftragsid := FieldByName('id').AsInteger;
         wiedervorl      := FieldByName(wiedervorlage).AsString;
         if not(tmplg = lg) then begin
 
@@ -1370,13 +1407,13 @@ begin
           treedata.fimagedok   := -1;
           treedata.fimagewied  := -1;
           treedata.fimageerst  := -1;
-          treedata.fspecial    := false;
+          treedata.fspecial    := False;
           treedata.fnotizen    := '';
           treedata.fwiedervorl := '     ';
           liegnode             := setnode(avst, nil, treedata);
           treedata.FCaption    := auftrstr;
           treedata.FColumn     := '';
-          treedata.fspecial    := false;
+          treedata.fspecial    := False;
           treedata.fimagedok   := -1;
           treedata.fimagewied  := -1;
           treedata.fimageerst  := -1;
@@ -1386,7 +1423,7 @@ begin
         end else if (auftrstr <> tmpauftrstr) then begin
           treedata.FCaption    := auftrstr;
           treedata.FColumn     := '';
-          treedata.fspecial    := false;
+          treedata.fspecial    := False;
           treedata.fimagedok   := -1;
           treedata.fimagewied  := -1;
           treedata.fimageerst  := -1;
@@ -1399,6 +1436,7 @@ begin
         treedata.fspecial    := true;
         treedata.fimagedok   := 0;
         treedata.fnotizen    := notz;
+        treedata.fimagenotiz := 3;
         treedata.fimagewied  := 2;
         treedata.fimageerst  := 1;
         treedata.fdateiname  := dat;
@@ -1468,7 +1506,7 @@ begin
   // die Datei(en) lokal herunterladen
   for dat in dateilist do begin
     if dat = '' then continue;
-    tmpfile := gettmpfile(ExtractFileName(dat));
+    tmpfile := gettmpfile('Auftragsverwaltung', ExtractFileName(dat));
     if not FileExists(tmpfile) then formftp.getFile(dat, tmpfile);
     // /// /
   end;
@@ -1532,17 +1570,22 @@ begin
   if not Data.fspecial then exit;
   Left := CellRect.Left + trunc(CellRect.Width / 2) - 5;
   case Column of
-    3: begin
+    1: begin // Notizen anzeigen als Symbol
+        if length(Data.fnotizen) = 0 then exit;
+        Rect := Sender.GetDisplayRect(Node, Column, true);
+        ImageList1.Draw(TargetCanvas, Left, CellRect.Top, Data.fimagenotiz);
+      end;
+    3: begin // Wiedervorlage
 
         Rect := Sender.GetDisplayRect(Node, Column, true);
         ImageList1.Draw(TargetCanvas, Left, CellRect.Top, Data.fimagewied);
       end;
     4: begin
-
+        // Dokument anzeigen
         Rect := Sender.GetDisplayRect(Node, Column, true);
         ImageList1.Draw(TargetCanvas, Left, CellRect.Top, Data.fimagedok);
       end;
-    5: begin
+    5: begin // Auftrag erstellen
         Rect := Sender.GetDisplayRect(Node, Column, true);
         ImageList1.Draw(TargetCanvas, Left, CellRect.Top, Data.fimageerst);
       end;
@@ -1554,16 +1597,25 @@ procedure Tformmain.vstanfAfterCellPaint(Sender: TBaseVirtualTree;
   TargetCanvas: TCanvas; Node: PVirtualNode; Column: TColumnIndex;
   CellRect: TRect);
 var
-  Rect : TRect;
-  Data : PTreedata;
-  count: Integer;
-  Left : Integer;
+  Rect   : TRect;
+  Data   : PTreedata;
+  count  : Integer;
+  Left   : Integer;
+  Notizen: string;
+  image  : Integer;
 begin
 
   Data := Sender.getnodedata(Node);
   if not Data.fspecial then exit;
-  Left := CellRect.Left + trunc(CellRect.Width / 2) - 5;
+  Left    := CellRect.Left + trunc(CellRect.Width / 2) - 5;
+  Notizen := Data.fnotizen;
+  image   := Data.fimagenotiz;
   case Column of
+    1: begin // Notizen anzeigen als Symbol
+        if length(Notizen) = 0 then exit;
+        Rect := Sender.GetDisplayRect(Node, Column, true);
+        ImageList1.Draw(TargetCanvas, Left, CellRect.Top, Data.fimagenotiz);
+      end;
     3: begin
 
         Rect := Sender.GetDisplayRect(Node, Column, true);
@@ -1634,7 +1686,9 @@ begin
 
         showdata(Sender as TVirtualStringTree);
         pager.ActivePage := tabneuerauftrag;
-        try zframe.fauftragsnummer.SetFocus;
+        try
+          zframe.enutzernummer.SetFocus;
+          zframe.fauftragsnummer.SetFocus;
         except
 
         end;
@@ -1675,7 +1729,7 @@ begin
 
         // font.Style := font.Style + [fsStrikeOut];
       end;
-    1: CellText       := Data^.fnotizen;
+    // 1: CellText       := Data^.fnotizen;
     2: CellText       := Data^.FColumn;
     3, 4, 5: CellText := '               ';
     // 4: CellText := '  ' + Data^.fwiedervorl;
@@ -1877,7 +1931,7 @@ begin
 
         // font.Style := font.Style + [fsStrikeOut];
       end;
-    1: CellText       := Data^.fnotizen;
+    // 1: CellText       := Data^.fnotizen;
     2: CellText       := Data^.FColumn;
     3, 4, 5: CellText := '               ';
     // 4: CellText := '  ' + Data^.fwiedervorl;
@@ -1909,7 +1963,8 @@ begin
 
   Data := Sender.getnodedata(Node);
   if not Data.fspecial then exit;
-  Left := CellRect.Left + trunc(CellRect.Width / 2) - 5;
+  Left := CellRect.Left;
+  // + trunc(CellRect.Width / 2) - 5;
   case Column of
     3: begin
 
@@ -1917,7 +1972,7 @@ begin
         ImageList1.Draw(TargetCanvas, Left, CellRect.Top, Data.fimagewied);
       end;
 
-    5: begin
+    4: begin
         Rect := Sender.GetDisplayRect(Node, Column, true);
         ImageList1.Draw(TargetCanvas, Left, CellRect.Top, Data.fimagedok);
       end;
@@ -1967,7 +2022,7 @@ begin
 
     2, 3: // Wiedervorlage
       formwieder.Show;
-    5: begin // Dokument öffnen
+    4: begin // Dokument öffnen
         // if avst = vstsearch then formwieder.Show
         // else
         opendocuments(Application.Handle, Data.fdateiname);
@@ -2071,9 +2126,9 @@ begin
   if length(zframe.eliegenschaft.Text) = 7 then
       Tframeshowauftr1.NxButton1.enabled := true;
   Tframeshowauftr1.NxButton2.enabled     := true;
-
-  zframe.enutzernummer.Clear;
-  zframeenutzernummerExit(zframe.enutzernummer);
+  //
+  // zframe.enutzernummer.Clear;
+  // zframeenutzernummerExit(zframe.enutzernummer);
 end;
 
 procedure Tformmain.zframeenutzernummerExit(Sender: TObject);
@@ -2091,133 +2146,219 @@ begin
 
   if ((zframe.eliegenschaft.Text = '')) then exit;
 
-  zframe.enutzernummerExit(Sender); list := TStringList.Create; list.Add('WO5');
-  list.Add('WO6'); database := aufcon.kuarchiv + getkundennummer + '\' +
-    zframe.eliegenschaft.Text + '\' + zframe.eliegenschaft.Text + '.DB';
-  wherestring := ' WHERE WO1 = ' + inttostr(strtoint((Sender as TfEdit).Text)) +
-    ' AND WO0=' + QuotedStr('W'); table := 'WO_TYP';
+  try
+    zframe.enutzernummerExit(Sender);
+    list := TStringList.Create;
+    list.Add('WO5');
+    list.Add('WO6');
+    database := aufcon.kuarchiv + getkundennummer + '\' +
+      zframe.eliegenschaft.Text + '\' + zframe.eliegenschaft.Text + '.DB';
+    wherestring := ' WHERE WO1 = ' + inttostr(strtoint((Sender as TfEdit).Text))
+      + ' AND WO0=' + QuotedStr('W');
+    table := 'WO_TYP';
 
-  if not assigned(formdb) then formdb := Tformdb.Create(nil);
-  dict := formdb.getfromhn(database, table, wherestring, list);
+    if not assigned(formdb) then formdb := Tformdb.Create(nil);
+    dict := formdb.getfromhn(database, table, wherestring, list);
 
-  try name1 := dict.Items['WO5']; name2 := dict.Items['WO6'];
-  except OutputDebugString('keine Namen'); name1 := ''; name2 := ''; end;
+    try
+      name1 := dict.Items['WO5'];
+      name2 := dict.Items['WO6'];
+    except
+      outputdebugstring('keine Namen');
+      name1 := '';
+      name2 := '';
+    end;
 
-  liegenschaftsdaten.ename1.Text := name1;
-  liegenschaftsdaten.ename2.Text := name2; zframe.enutzername1.Text := name1;
-  zframe.enutzername2.Text := name2; end;
-
-    procedure Tformmain.zframeNxButton1Click(Sender: TObject);
-  begin zframe.nxbutton1click(Sender); end;
-
-    procedure Tformmain.zframeNxButton2Click(Sender: TObject);
-  begin zframe.NxButton2Click(Sender);
+    liegenschaftsdaten.ename1.Text := name1;
+    liegenschaftsdaten.ename2.Text := name2;
+    zframe.enutzername1.Text       := name1;
+    zframe.enutzername2.Text       := name2;
+  except
+    begin
+      zframe.enutzername1.Clear;
+      zframe.enutzername2.Clear;
+      outputdebugstring(pchar('irgendwas passt da nicht'));
+    end;
 
   end;
+end;
 
-    procedure Tformmain.babschließen(Sender: TObject);
-  var dict: TDictionary<string, string>; ausf: string; helperdate: string;
-  tmpdatei: string; hostfilename: string; localfile: string; err: string;
-  begin with aufcon do begin with zframe do begin if cberreicht.Checked then err
-    := '1' else err := '0';
+procedure Tformmain.zframeNxButton1Click(Sender: TObject);
+begin
+  zframe.nxbutton1click(Sender);
+end;
 
-  dict := TDictionary<string, string>.Create; ausf := getausführungsdatum;
-  dict.Add(aufcon.wiedervorlage, ausf); dict.Add(aufcon.liegenschaft,
-    eliegenschaft.Text);
-  helperdate := formatDateOhneTrenner(dperstellungsdatum.Text);
-  dict.Add(Posteingang, helperdate);
-  helperdate := formatDateOhneTrenner(dpabrechnungsende.Text);
-  dict.Add(abrechnungsende, helperdate);
-  dict.Add(auftragstyp, cbauftragstyp.Items[cbauftragstyp.ItemIndex]);
-  dict.Add(Nutzernummer, enutzernummer.Text);
-  // dict.Add(Nutzername, enutzername1.Text);
-  // dict.Add(Nutzername, enutzername2);
-  dict.Add(nutzeremail, eemail.Text); dict.Add(Auftragsnummer,
-    fauftragsnummer.Text); dict.Add(Telefonnummer, etelefon.Text);
-  dict.Add(ableser, cbmonteur.Items[cbmonteur.ItemIndex]);
-  dict.Add(aufcon.Notizen, Notizen.Text); dict.Add(sachbearbeiter, sb);
-  dict.Add(Kundennummer, copy(eliegenschaft.Text, 1, 2));
-  dict.Add(aufcon.auftragsid, inttostr(self.auftragsid));
-  dict.Add('ausführungsdatum', formatDateOhneTrenner(ausf));
-  hostfilename := 'scdb/' + createhostfilename(dict);
-  dict.Add(dateiname, hostfilename); dict.Add(monteur, cbmonteur.Text);
-  dict.Add(erreicht, err);
-  // dict.Add(ausführungsdatum, getausführungstermin);
-  dict.Add(ausführungsstart, getstart); dict.Add(ausführungsende, getende);
-  dict.Add(informiert, cberreichtdetail.Text);
-  // dict.Add(uconstants.Notizen, Notizen.Text);
-  if not formdb.update(inttostr(self.auftragsid), table_anf,
-    'AnforderungAbgeschlossen',
-    '1') then showmessage('unbearbeiteter Auftrag lässt sich nicht updaten');
+procedure Tformmain.zframeNxButton2Click(Sender: TObject);
+begin
+  zframe.NxButton2Click(Sender);
 
-  end; if not formdb.insertintoauftrag(dict)
-  then begin showmessage
-    ('Auftrag kann nicht in die Datenbank eingetragen werden'); exit; end;
-  // if not formdb.insertquery(table_aufträge, dict) then begin
-  // showmessage('bullshit');
-  // exit;
-  // end;
+end;
 
-  tmpdatei := createpdf;
+procedure Tformmain.babschließen(Sender: TObject);
+var
+  dict        : TDictionary<string, string>;
+  ausf        : string;
+  helperdate  : string;
+  tmpdatei    : string;
+  hostfilename: string;
+  localfile   : string;
+  err         : string;
+begin
+  with aufcon do begin
+    with zframe do begin
+      if cberreicht.Checked then err := '1'
+      else err                       := '0';
 
-  if (mrYes = MessageDlg('Auftrag drucken?', mtConfirmation, mbYesNo, 0))
-  then begin localfile := gettmpshowfile(ExtractFileName(tmpdatei));
-  CopyFile(pchar(tmpdatei), pchar(localfile), false);
-  ShellExecute(Application.Handle, 'open', pchar(localfile), nil, nil,
-    sw_normal) end; FNpipeClient1.Send('SET ' + tmpdatei + '^' + hostfilename);
-  zframe.resetpage;
-
-  end; end;
-
-    procedure Tformmain.zframePanel3Click(Sender: TObject);
-  begin showmessage('Rechnunung und co'); end;
-
-  // --------------------------------
-
-    function Tformmain.getausführungsdatum: string;
-  begin Result := zframe.getausführungstermin; end;
-
-  // --------------------------------------
-    function Tformmain.getdatum(avst: TVirtualStringTree;
-    ANode: PVirtualNode): string; var Data: PTreedata; begin Result := '';
-    Data := avst.getnodedata(ANode);
-    while not(correctnn(Data.FCaption)) do begin OutputDebugString(pchar
-      (Data.FCaption)); ANode := ANode.Parent; Data := vst.getnodedata(ANode);
-    Result := Data.FColumn; end;
+      dict := TDictionary<string, string>.Create;
+      ausf := getausführungsdatum;
+      dict.Add(aufcon.wiedervorlage, ausf);
+      dict.Add(liegenschaft, eliegenschaft.Text);
+      helperdate := formatDateOhneTrenner(dperstellungsdatum.Text);
+      dict.Add(Posteingang, helperdate);
+      helperdate := formatDateOhneTrenner(dpabrechnungsende.Text);
+      dict.Add(abrechnungsende, helperdate);
+      dict.Add(auftragstyp, cbauftragstyp.Items[cbauftragstyp.ItemIndex]);
+      dict.Add(Nutzernummer, enutzernummer.Text);
+      // dict.Add(Nutzername, enutzername1.Text);
+      // dict.Add(Nutzername, enutzername2);
+      dict.Add(nutzeremail, eemail.Text);
+      dict.Add(Auftragsnummer, fauftragsnummer.Text);
+      dict.Add(Telefonnummer, etelefon.Text);
+      dict.Add(ableser, cbmonteur.Items[cbmonteur.ItemIndex]);
+      dict.Add(aufcon.Notizen, Notizen.Text);
+      dict.Add(sachbearbeiter, sb);
+      dict.Add(Kundennummer, copy(eliegenschaft.Text, 1, 2));
+      dict.Add(aufcon.auftragsid, inttostr(self.auftragsid));
+      dict.Add('ausführungsdatum', formatDateOhneTrenner(ausf));
+      hostfilename := 'scdb/' + createhostfilename(dict);
+      dict.Add(dateiname, hostfilename);
+      outputdebugstring(pchar(cbmonteur.Text));
+      dict.Add(monteur, cbmonteur.Text);
+      dict.Add(erreicht, err);
+      // dict.Add(ausführungsdatum, getausführungstermin);
+      dict.Add(ausführungsstart, getstart);
+      dict.Add(ausführungsende, getende);
+      dict.Add(informiert, cberreichtdetail.Text);
+      // dict.Add(uconstants.Notizen, Notizen.Text);
+      if not formdb.update(inttostr(self.auftragsid), table_anf,
+        'AnforderungAbgeschlossen', '1') then
+          showmessage('unbearbeiteter Auftrag lässt sich nicht updaten');
 
     end;
-    // ------------------------------------
+    if not formdb.insertintoauftrag(dict) then begin
+      showmessage('Auftrag kann nicht in die Datenbank eingetragen werden');
+      exit;
+    end;
+    // if not formdb.insertquery(table_aufträge, dict) then begin
+    // showmessage('bullshit');
+    // exit;
+    // end;
 
-    function Tformmain.startplink: boolean;
-    begin procplink := Shellmyex(pchar
-      (IncludeTrailingPathDelimiter(ExtractFilePath(Application.ExeName)) +
-      'plink.exe -ssh 148.251.138.2 -l tiffy  -L 7777:127.0.0.1:3306 -pw maunze01'),
-      sw_hide); Result := procplink > 0; end;
+    tmpdatei := createpdf;
 
-    procedure Tformmain.sheetunbearbeitetShow(Sender: TObject);
-    begin try vst.Visible := true; vstsearch.Visible := true; except
+    if (mrYes = MessageDlg('Auftrag drucken?', mtConfirmation, mbYesNo, 0)) then
+    begin
+      localfile := gettmpshowfile('Auftragsverwaltung',
+        ExtractFileName(tmpdatei));
+      CopyFile(pchar(tmpdatei), pchar(localfile), False);
+      ShellExecute(Application.Handle, 'open', pchar(localfile), nil, nil,
+        sw_normal)
+    end;
+    FNpipeClient1.Send('SET ' + tmpdatei + '^' + hostfilename);
+    zframe.resetpage;
 
-    end; end;
+  end;
+end;
 
-    procedure Tformmain.Tframeshowauftr1NxButton2Click(Sender: TObject);
-    var query: string; begin vst.Visible := true; vstsearch.Visible := false;
-    pauftrerst.enabled := true; psearchoff.enabled := true;
+procedure Tformmain.zframePanel3Click(Sender: TObject);
+begin
+  showmessage('Rechnunung und co');
+end;
 
-    query := ' WHERE  AnforderungAbgeschlossen=0 AND ' + aufcon.liegenschaft +
-      ' =' + zframe.eliegenschaft.Text + ' ORDER BY ' + aufcon.liegenschaft +
-      ' asc;'; getunbearbeitet(query);
-    if Sender is TPanel then fillvst(formdb.queryanforderungen, vst,
-      Sender as TPanel) else fillvst(formdb.queryanforderungen, vst, pua);
-    pager.ActivePage := sheetunbearbeitet; vstsearch.Visible := false; end;
+// --------------------------------
 
-    procedure Tformmain.Tframeshowauftr1NxButton1Click(Sender: TObject);
-    var query: string; begin pauftrerst.enabled := true;
-    psearchoff.enabled := true; query := ' WHERE ' + aufcon.liegenschaft + ' ='
-      + zframe.eliegenschaft.Text + ' ORDER BY ' + aufcon.liegenschaft +
-      ' asc;'; getoffeneaufträge(query); vst.Visible := false;
-    try if Sender is TPanel then begin fillvst(formdb.queryaufträge, vst,
-      Sender as TPanel); end else begin fillvst(formdb.queryaufträge, vstsearch,
-      pua); end; pager.ActivePage := sheetoffene; vst.Visible := false;
-    except showmessage('keine gültige Liegenschaft'); end; end;
+function Tformmain.getausführungsdatum: string;
+begin
+  Result := zframe.getausführungstermin;
+end;
 
-    end.
+// --------------------------------------
+function Tformmain.getdatum(avst: TVirtualStringTree;
+  ANode: PVirtualNode): string;
+var
+  Data: PTreedata;
+begin
+  Result := '';
+  Data   := avst.getnodedata(ANode);
+  while not(correctnn(Data.FCaption)) do begin
+    outputdebugstring(pchar(Data.FCaption));
+    ANode  := ANode.Parent;
+    Data   := vst.getnodedata(ANode);
+    Result := Data.FColumn;
+  end;
+
+end;
+// ------------------------------------
+
+function Tformmain.startplink: boolean;
+begin
+  procplink := Shellmyex
+    (pchar(IncludeTrailingPathDelimiter(ExtractFilePath(Application.ExeName)) +
+    'plink.exe -ssh 148.251.138.2 -l tiffy  -L 7777:127.0.0.1:3306 -pw maunze01'),
+    sw_hide);
+  Result := procplink > 0;
+end;
+
+procedure Tformmain.sheetunbearbeitetShow(Sender: TObject);
+begin
+  try
+    vst.Visible       := true;
+    vstsearch.Visible := true;
+  except
+
+  end;
+end;
+
+procedure Tformmain.Tframeshowauftr1NxButton2Click(Sender: TObject);
+var
+  query: string;
+begin
+  vst.Visible        := true;
+  vstsearch.Visible  := False;
+  pauftrerst.enabled := true;
+  psearchoff.enabled := true;
+
+  query := ' WHERE  AnforderungAbgeschlossen=0 AND ' + aufcon.liegenschaft +
+    ' =' + zframe.eliegenschaft.Text + ' ORDER BY ' + aufcon.liegenschaft
+    + ' asc;';
+  getunbearbeitet(query);
+  if Sender is TPanel then
+      fillvst(formdb.queryanforderungen, vst, Sender as TPanel)
+  else fillvst(formdb.queryanforderungen, vst, pua);
+  pager.ActivePage  := sheetunbearbeitet;
+  vstsearch.Visible := False;
+end;
+
+procedure Tformmain.Tframeshowauftr1NxButton1Click(Sender: TObject);
+var
+  query: string;
+begin
+  pauftrerst.enabled := true;
+  psearchoff.enabled := true;
+  query := ' WHERE ' + aufcon.liegenschaft + ' =' + zframe.eliegenschaft.Text +
+    ' ORDER BY ' + aufcon.liegenschaft + ' asc;';
+  getoffeneaufträge(query);
+  vst.Visible := False;
+  try
+    if Sender is TPanel then begin
+      fillvst(formdb.queryaufträge, vst, Sender as TPanel);
+    end else begin
+      fillvst(formdb.queryaufträge, vstsearch, pua);
+    end;
+    pager.ActivePage := sheetoffene;
+    vst.Visible      := False;
+  except showmessage('keine gültige Liegenschaft');
+  end;
+end;
+
+end.

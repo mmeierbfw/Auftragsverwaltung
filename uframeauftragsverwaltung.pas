@@ -101,7 +101,8 @@ type
     NxDBTextColumn4: TNxDBTextColumn;
     NxDBTextColumn6: TNxDBTextColumn;
     NxDBTextColumn7: TNxDBTextColumn;
-    lterminheader: TLabel;
+    Label1: TLabel;
+    Label21: TLabel;
     function calcleftchars: integer;
 
     procedure checkinput(var Key: Word);
@@ -131,6 +132,7 @@ type
     procedure notizenChange(Sender: TObject);
     procedure mitHAMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: integer);
+    procedure edateExit(Sender: TObject);
   private
     writtenchars: integer;
     // function getmonth(monthasstring: string): string;
@@ -248,6 +250,22 @@ begin
 
 end;
 
+procedure Tframeauftragsdaten.edateExit(Sender: TObject);
+var
+  datestr, resdate: string;
+begin
+  datestr := (Sender as TfEdit).Text;
+  if not((length(datestr) = 6) or (length(datestr) = 8)) then exit;
+  if not numeric(datestr) then exit;
+
+  resdate := Copy(datestr, 1, 2) + '.' + Copy(datestr, 3, 2) + '.' +
+    Copy(datestr, 5, 2);
+  if length(datestr) = 8 then resdate := resdate + Copy(datestr, 7, 2);
+
+  (Sender as TfEdit).Text := resdate;
+
+end;
+
 procedure Tframeauftragsdaten.eliegenschaftExit(Sender: TObject);
 var
   len  : integer;
@@ -280,12 +298,12 @@ begin
   time                          := (Sender as TfEdit).Text;
   if length(time) = 2 then time := time + '00';
   if not(length(time) = 4) then exit;
-  time                    := copy(time, 1, 2) + ':' + copy(time, 3, 2);
+  time                    := Copy(time, 1, 2) + ':' + Copy(time, 3, 2);
   (Sender as TfEdit).Text := time;
 
   if (Sender as TfEdit) = ebis then begin
     if evon.Text > ebis.Text then begin
-      Showmessage('Endzeit muss nach Startzeit liegen');
+      showmessage('Endzeit muss nach Startzeit liegen');
       ebis.SetFocus;
     end;
 
@@ -449,7 +467,7 @@ begin
   createmonthdic;
   date := nxdate.SelectedDate;
   DecodeDate(date, jahr, monat, tag);
-  pdivisor.Visible := true;
+  pdivisor.Visible := True;
   Lmy.Caption      := getmonthstring(monat) + ' ' + inttostr(jahr);
   ldayOM.Caption   := inttostr(tag);
   if ('' = evon.Text) then begin
@@ -548,7 +566,7 @@ begin
   ename2.Clear;
   dperstellungsdatum.Clear;
   dpabrechnungsende.Clear;
-  cbauftragstyp.Clear;
+  // cbauftragstyp.Clear;
   estrasse.Clear;
   eort.Clear;
   eplz.Clear;
@@ -557,12 +575,12 @@ begin
   enutzername2.Clear;
   eemail.Clear;
   etelefon.Clear;
-  cbauftragstyp.Clear;
+  cbauftragstyp.Text := '';
   notizen.Clear;
   todstring      := DateToStr(now);
-  ldayOM.Caption := copy(todstring, 1, 2);
-  Lmy.Caption    := getmonthstring(strtoint(copy(todstring, 4, 2))) + ' ' +
-    copy(todstring, 7, 4);
+  ldayOM.Caption := Copy(todstring, 1, 2);
+  Lmy.Caption    := getmonthstring(strtoint(Copy(todstring, 4, 2))) + ' ' +
+    Copy(todstring, 7, 4);
   dperstellungsdatum.Text := DateToStr(now);
 
 end;
@@ -581,14 +599,14 @@ var
   date            : string;
   valid           : Boolean;
 begin
-  valid := true;
+  valid := True;
   Mask  := Sender as TMaskEdit;
   date  := Mask.Text;
   if AnsiStartsText('  ', date) or AnsiStartsText('__', date) then exit;
 
-  day   := strtoint(trimright(copy(date, 0, 2)));
-  month := strtoint(trimright(copy(date, 4, 2)));
-  year  := strtoint(trimright(copy(date, 7, 4)));
+  day   := strtoint(trimright(Copy(date, 0, 2)));
+  month := strtoint(trimright(Copy(date, 4, 2)));
+  year  := strtoint(trimright(Copy(date, 7, 4)));
 
   if (month < 1) or (month > 12) then begin
     valid := false;

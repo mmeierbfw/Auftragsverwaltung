@@ -11,17 +11,30 @@ type
     inidatei     = 'auftraege.ini';
     programmname = 'auftragsverwaltung';
 
-    table_aufträge     = 'aufträge';
-    table_auftrag_neu  = 'test.auftrag';
-    table_dok          = 'test.dokument';
-    table_montagen     = 'montagen';
-    table_reklamation  = 'reklamation';
-    table_anf          = 'auftragsanforderung';
-    table_unbearbeitet = 'unbearbeitete';
-    database           = 'scandokumente';
-    insertBegin        = '%s %s (';
-    insertMiddle       = ') VALUES(';
-    insertEnd          = ');';
+
+    table_aufträge          = 'aufträge';
+    table_auftrag_neu       = 'test.auftraege';
+    table_anforderungen_neu = 'test.anforderungen';
+    table_dok               = 'test.dokument';
+    table_montagen          = 'montagen';
+    table_reklamation       = 'reklamation';
+    table_anf               = 'auftragsanforderung';
+    table_unbearbeitet      = 'unbearbeitete';
+    table_vert_neu          = 'test.vertrag';
+
+    table_zwi_neu   = 'test.zwischenablesung';
+    table_mon_neu   = 'test.montage';
+    table_rekl_neu  = 'test.reklamation';
+    table_en_neu    = 'test.energieausweis';
+    table_kos_neu   = 'test.kostenermittlung';
+    table_nut_neu   = 'test.nutzerliste';
+    table_sonst_neu = 'test.sonstiges';
+    table_ang_neu   = 'test.angebotsanfrage';
+    table_auf_neu   = 'test.auftragsanforderung';
+    database        = 'scandokumente';
+    insertBegin     = '%s %s (';
+    insertMiddle    = ') VALUES(';
+    insertEnd       = ');';
 
     { Farben }
     // $00696969
@@ -57,7 +70,7 @@ type
     angebote           = 'Angebotsanfrage';
     auftrag            = 'Auftragsanforderung';
     vermerke           = 'Vermerke';
-    wiedervorlage      = 'Wiedervorlage';
+    wiedervorlage      = 'wiedervorlage';
     Begrwiedervotl     = 'begrWiedervorl';
     auftragsdatei      = 'auftrag.txt';
 
@@ -68,31 +81,31 @@ type
     tel              = 'verwaltung.Tel';
     fax              = 'verwaltung.Fax';
     email            = 'verwaltung.Email';
-    auftragstyp      = 'Auftragstyp';
-    liegenschaft     = 'Liegenschaft';
-    Kundennummer     = 'Kundennummer';
-    Posteingang      = 'Posteingang';
-    Vertragsbeginn   = 'Vertragsbeginn';
-    Ablesedatum      = 'Ablesedatum';
-    Nutzernummer     = 'Nutzernummer';
-    Nutzername       = 'Nutzername';
+    auftragstyp      = 'auftragstyp';
+    liegenschaft     = 'liegenschaft';
+    Kundennummer     = 'kundennummer';
+    Posteingang      = 'posteingang';
+    Vertragsbeginn   = 'vertragsbeginn';
+    Ablesedatum      = 'ablesedatum';
+//    Nutzernummer     = 'nutzernummer';
+//    Nutzername       = 'Nutzername';
     Nutzername1      = 'Nutzername';
     nutzername2      = 'Nutzername2';
     erledigt         = 'erledigt';
-    Notizen          = 'Notizen';
-    Auftragsnummer   = 'Auftragsnummer';
+//    Notizen          = 'Notizen';
+//    Auftragsnummer   = 'Auftragsnummer';
     Monteur          = 'monteur';
     erreicht         = 'erreicht';
     ausführungsdatum = 'ausführungsdatum';
     ausführungsstart = 'ausführungsstart';
     ausführungsende  = 'ausführungsende';
     informiert       = 'informiert';
-    Dateiname        = 'Dateiname';
+//    Dateiname        = 'dateiname';
     id               = 'Dokumentid';
-    sachbearbeiter   = 'Sachbearbeiter';
+//    sachbearbeiter   = 'Sachbearbeiter';
     datumgepr        = 'datumgeprueft';
     sammelordner     = 'Sammelordner';
-    abrechnungsende  = 'Abrechnungsende';
+//    abrechnungsende  = 'Abrechnungsende';
     auftragsid       = 'auftragsanforderungsid';
     ableser          = 'Ablesedienst';
     nutzeremail      = 'Email';
@@ -121,6 +134,7 @@ type
     Vertragsint       = 7;
     Angebotsint       = 8;
     Auftragsint       = 9;
+    vertragstyp       = 'vertragstyp_id';
 
     { für Email }
     Absendername     = 'Absendername';

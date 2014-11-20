@@ -2,7 +2,7 @@
   Left = 0
   Top = 0
   Width = 1002
-  Height = 894
+  Height = 823
   Align = alLeft
   Color = 14933977
   Font.Charset = DEFAULT_CHARSET
@@ -14,14 +14,15 @@
   ParentColor = False
   ParentFont = False
   TabOrder = 0
+  ExplicitHeight = 304
   object pager: TNxPageControl
     AlignWithMargins = True
     Left = 3
     Top = 3
     Width = 996
-    Height = 888
-    ActivePage = NxTabSheet3
-    ActivePageIndex = 2
+    Height = 817
+    ActivePage = NxTabSheet1
+    ActivePageIndex = 0
     Align = alClient
     Color = clWhite
     ParentColor = False
@@ -31,7 +32,6 @@
     Options = [pgBoldActiveTab, pgCloseButton]
     Spacing = 0
     TabHeight = 17
-    ExplicitWidth = 778
     ExplicitHeight = 298
     object NxTabSheet1: TNxTabSheet
       Caption = 'NxTabSheet1'
@@ -42,20 +42,18 @@
       TabFont.Height = -11
       TabFont.Name = 'Tahoma'
       TabFont.Style = []
-      ExplicitWidth = 778
       ExplicitHeight = 277
       object FlowPanel1: TFlowPanel
         Left = 0
         Top = 0
         Width = 996
-        Height = 867
+        Height = 796
         Align = alClient
         BevelOuter = bvNone
         Caption = 'FlowPanel1'
         Color = clWhite
         ParentBackground = False
         TabOrder = 0
-        ExplicitWidth = 778
         ExplicitHeight = 277
         object pliegenschaft: TPanel
           Left = 0
@@ -141,12 +139,12 @@
             MaxLength = 7
             NumbersOnly = True
             ParentFont = False
-            TabOrder = 0
+            TabOrder = 1
             OnExit = eliegenschaftExit
             TabOnEnter = False
             FontColorOnEnter = 10252872
             ColorFocused = 10252872
-            ColorNotFocused = 11776947
+            ColorNotFocused = 6908265
           end
           object fauftragsnummer: TfEdit
             Left = 204
@@ -163,11 +161,11 @@
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
-            TabOrder = 1
+            TabOrder = 2
             TabOnEnter = False
             FontColorOnEnter = 10252872
             ColorFocused = 10252872
-            ColorNotFocused = 11776947
+            ColorNotFocused = 6908265
           end
           object dperstellungsdatum: TNxDatePicker
             Left = 654
@@ -176,7 +174,7 @@
             Height = 21
             BevelOuter = bvNone
             Color = clWhite
-            TabOrder = 2
+            TabOrder = 0
             Text = '07.10.2014'
             HideFocus = False
             Date = 41919.000000000000000000
@@ -192,21 +190,21 @@
             BevelKind = bkTile
             BevelOuter = bvNone
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
+            Font.Color = 6908265
             Font.Height = -13
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
-            TabOrder = 3
+            TabOrder = 4
             Text = 'Auftragstyp'
             Items.Strings = (
               'Nachablesung'
               'Montage'
               'Ger'#228'tetausch')
             TabOnEnter = False
-            FontColorOnEnter = 36607
-            ColorFocused = 36607
-            ColorNotFocused = clBlack
+            FontColorOnEnter = 10252872
+            ColorFocused = 10252872
+            ColorNotFocused = 6908265
           end
           object dpabrechnungsende: TNxDatePicker
             Left = 501
@@ -216,7 +214,7 @@
             BevelInner = bvNone
             BevelOuter = bvNone
             Color = clWhite
-            TabOrder = 4
+            TabOrder = 3
             Text = '07.10.2014'
             HideFocus = False
             Date = 41919.000000000000000000
@@ -303,7 +301,7 @@
             TabOnEnter = False
             FontColorOnEnter = 10252872
             ColorFocused = 10252872
-            ColorNotFocused = 11776947
+            ColorNotFocused = 6908265
           end
           object estrasse: TfEdit
             Left = 200
@@ -325,7 +323,7 @@
             TabOnEnter = False
             FontColorOnEnter = 10252872
             ColorFocused = 10252872
-            ColorNotFocused = 11776947
+            ColorNotFocused = 6908265
           end
           object eort: TfEdit
             Left = 240
@@ -347,7 +345,7 @@
             TabOnEnter = False
             FontColorOnEnter = 10252872
             ColorFocused = 10252872
-            ColorNotFocused = 11776947
+            ColorNotFocused = 6908265
           end
           object eplz: TfEdit
             Left = 200
@@ -370,7 +368,7 @@
             TabOnEnter = False
             FontColorOnEnter = 10252872
             ColorFocused = 10252872
-            ColorNotFocused = 11776947
+            ColorNotFocused = 6908265
           end
           object ename2: TfEdit
             Left = 423
@@ -392,7 +390,7 @@
             TabOnEnter = False
             FontColorOnEnter = 10252872
             ColorFocused = 10252872
-            ColorNotFocused = 11776947
+            ColorNotFocused = 6908265
           end
         end
         object perreichbarkeit: TPanel
@@ -502,7 +500,7 @@
             TabOnEnter = False
             FontColorOnEnter = 10252872
             ColorFocused = 10252872
-            ColorNotFocused = 11776947
+            ColorNotFocused = 6908265
           end
           object eemail: TfEdit
             Left = 200
@@ -519,11 +517,11 @@
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
-            TabOrder = 2
+            TabOrder = 3
             TabOnEnter = False
             FontColorOnEnter = 10252872
             ColorFocused = 10252872
-            ColorNotFocused = 11776947
+            ColorNotFocused = 6908265
           end
           object etelefon: TfEdit
             Left = 200
@@ -540,11 +538,11 @@
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
-            TabOrder = 3
+            TabOrder = 4
             TabOnEnter = False
             FontColorOnEnter = 10252872
             ColorFocused = 10252872
-            ColorNotFocused = 11776947
+            ColorNotFocused = 6908265
           end
           object enutzernummer: TfEdit
             Left = 200
@@ -569,7 +567,7 @@
             TabOnEnter = False
             FontColorOnEnter = 10252872
             ColorFocused = 10252872
-            ColorNotFocused = 11776947
+            ColorNotFocused = 6908265
           end
           object pausführung: TPanel
             Left = 654
@@ -580,7 +578,7 @@
             Caption = '  '
             Color = clWhite
             ParentBackground = False
-            TabOrder = 4
+            TabOrder = 8
             object ldayOM: TLabel
               Left = 32
               Top = -6
@@ -637,7 +635,7 @@
             Width = 114
             Height = 25
             Caption = 'Termin festsetzen'
-            TabOrder = 5
+            TabOrder = 7
             OnClick = Button1Click
           end
           object cberreichtdetail: TNxComboBox
@@ -646,7 +644,7 @@
             Width = 120
             Height = 21
             BevelInner = bvNone
-            TabOrder = 6
+            TabOrder = 5
             HideFocus = False
             AutoCompleteDelay = 0
             Items.Strings = (
@@ -672,11 +670,11 @@
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
-            TabOrder = 7
+            TabOrder = 2
             TabOnEnter = False
             FontColorOnEnter = 10252872
             ColorFocused = 10252872
-            ColorNotFocused = 11776947
+            ColorNotFocused = 6908265
           end
           object cberreicht: TNxCheckBox
             Left = 384
@@ -684,7 +682,7 @@
             Width = 75
             Height = 21
             BorderStyle = bsNone
-            TabOrder = 8
+            TabOrder = 6
             Text = 'cberreicht'
             Caption = 'erreicht'
           end
@@ -833,13 +831,12 @@
       TabFont.Height = -11
       TabFont.Name = 'Tahoma'
       TabFont.Style = []
-      ExplicitWidth = 778
       ExplicitHeight = 277
       object perreichtdetails: TPanel
         Left = 0
         Top = 0
         Width = 996
-        Height = 867
+        Height = 796
         Margins.Left = 5
         Margins.Top = 5
         Margins.Right = 5
@@ -848,7 +845,6 @@
         Color = clWhite
         ParentBackground = False
         TabOrder = 0
-        ExplicitWidth = 778
         ExplicitHeight = 277
         object Label18: TLabel
           Left = 29
@@ -957,13 +953,12 @@
       TabFont.Height = -11
       TabFont.Name = 'Tahoma'
       TabFont.Style = []
-      ExplicitWidth = 778
       ExplicitHeight = 277
       object ptermindetails: TNxPanel
         Left = 0
         Top = 0
         Width = 996
-        Height = 867
+        Height = 796
         Margins.Left = 5
         Margins.Top = 5
         Margins.Right = 5
@@ -978,39 +973,57 @@
         FullRepaint = True
         ParentColor = False
         TabOrder = 0
-        ExplicitWidth = 778
         ExplicitHeight = 277
         object Label13: TLabel
-          Left = 192
-          Top = 58
+          Left = 23
+          Top = 71
           Width = 31
           Height = 13
           Caption = 'Datum'
         end
         object Label14: TLabel
-          Left = 192
-          Top = 94
+          Left = 23
+          Top = 107
           Width = 21
           Height = 13
           Caption = 'von '
         end
         object Label3: TLabel
-          Left = 192
-          Top = 131
+          Left = 23
+          Top = 144
           Width = 13
           Height = 13
           Caption = 'bis'
         end
-        object lterminheader: TLabel
-          Left = 192
-          Top = 177
-          Width = 38
-          Height = 13
-          Caption = 'Termine'
+        object Label1: TLabel
+          Left = 488
+          Top = 30
+          Width = 155
+          Height = 19
+          Caption = 'keine Terminauswahl '
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = 6908265
+          Font.Height = -16
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Label21: TLabel
+          Left = 23
+          Top = 23
+          Width = 119
+          Height = 19
+          Caption = 'von BFW geplant'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = 6908265
+          Font.Height = -16
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
         end
         object mitHA: TCheckBox
-          Left = 423
-          Top = 57
+          Left = 488
+          Top = 75
           Width = 161
           Height = 17
           Caption = 'mit der Hauptablesung'
@@ -1020,7 +1033,7 @@
         end
         object NxButton2: TNxButton
           Left = 581
-          Top = 755
+          Top = 719
           Width = 75
           Caption = 'speichern'
           TabOrder = 0
@@ -1028,15 +1041,15 @@
         end
         object NxButton3: TNxButton
           Left = 688
-          Top = 755
+          Top = 719
           Width = 75
           Caption = 'verwerfen'
           TabOrder = 1
           OnClick = NxButton3Click
         end
         object nxdate: TNxMonthCalendar
-          Left = 23
-          Top = 3
+          Left = 247
+          Top = 67
           Width = 151
           Height = 163
           Day = 8
@@ -1048,8 +1061,8 @@
           OnChange = nxdateChange
         end
         object externGeplant: TCheckBox
-          Left = 423
-          Top = 80
+          Left = 488
+          Top = 98
           Width = 161
           Height = 17
           Caption = 'extern geplant'
@@ -1057,8 +1070,8 @@
           OnClick = mitHAClick
         end
         object edate: TfEdit
-          Left = 264
-          Top = 54
+          Left = 93
+          Top = 67
           Width = 121
           Height = 23
           AutoSize = False
@@ -1072,14 +1085,15 @@
           ParentFont = False
           TabOrder = 5
           TextHint = 'ttmmjj'
+          OnExit = edateExit
           TabOnEnter = False
           FontColorOnEnter = 10252872
           ColorFocused = 10252872
           ColorNotFocused = 6908265
         end
         object evon: TfEdit
-          Left = 264
-          Top = 89
+          Left = 93
+          Top = 102
           Width = 121
           Height = 23
           AutoSize = False
@@ -1100,8 +1114,8 @@
           ColorNotFocused = 6908265
         end
         object ebis: TfEdit
-          Left = 264
-          Top = 126
+          Left = 93
+          Top = 139
           Width = 121
           Height = 23
           AutoSize = False
@@ -1123,8 +1137,8 @@
         end
         object cbmonteur: TfComboBox
           Left = 23
-          Top = 172
-          Width = 151
+          Top = 260
+          Width = 740
           Height = 24
           BevelInner = bvLowered
           BevelKind = bkTile
@@ -1143,15 +1157,15 @@
           ColorNotFocused = 6908265
         end
         object gridableser: TNextDBGrid
-          Left = 192
-          Top = 204
-          Width = 571
-          Height = 545
+          Left = 23
+          Top = 288
+          Width = 740
+          Height = 408
           Caption = ''
           TabOrder = 9
           TabStop = True
           object NxDBTextColumn1: TNxDBTextColumn
-            DefaultWidth = 69
+            DefaultWidth = 73
             Font.Charset = DEFAULT_CHARSET
             Font.Color = 6908265
             Font.Height = -11
@@ -1167,10 +1181,10 @@
             ParentFont = False
             Position = 0
             SortType = stAlphabetic
-            Width = 69
+            Width = 73
           end
           object NxDBTextColumn2: TNxDBTextColumn
-            DefaultWidth = 91
+            DefaultWidth = 125
             Font.Charset = DEFAULT_CHARSET
             Font.Color = 6908265
             Font.Height = -11
@@ -1186,10 +1200,10 @@
             ParentFont = False
             Position = 1
             SortType = stAlphabetic
-            Width = 91
+            Width = 125
           end
           object NxDBTextColumn3: TNxDBTextColumn
-            DefaultWidth = 96
+            DefaultWidth = 120
             Font.Charset = DEFAULT_CHARSET
             Font.Color = 6908265
             Font.Height = -11
@@ -1205,10 +1219,10 @@
             ParentFont = False
             Position = 2
             SortType = stAlphabetic
-            Width = 96
+            Width = 120
           end
           object NxDBTextColumn4: TNxDBTextColumn
-            DefaultWidth = 99
+            DefaultWidth = 126
             Font.Charset = DEFAULT_CHARSET
             Font.Color = 6908265
             Font.Height = -11
@@ -1224,10 +1238,10 @@
             ParentFont = False
             Position = 3
             SortType = stAlphabetic
-            Width = 99
+            Width = 126
           end
           object NxDBTextColumn6: TNxDBTextColumn
-            DefaultWidth = 87
+            DefaultWidth = 120
             Font.Charset = DEFAULT_CHARSET
             Font.Color = 6908265
             Font.Height = -11
@@ -1243,10 +1257,10 @@
             ParentFont = False
             Position = 4
             SortType = stAlphabetic
-            Width = 87
+            Width = 120
           end
           object NxDBTextColumn7: TNxDBTextColumn
-            DefaultWidth = 127
+            DefaultWidth = 174
             Font.Charset = DEFAULT_CHARSET
             Font.Color = 6908265
             Font.Height = -11
@@ -1262,7 +1276,7 @@
             ParentFont = False
             Position = 5
             SortType = stAlphabetic
-            Width = 127
+            Width = 174
           end
         end
       end

@@ -17,6 +17,8 @@ object Einstellungen: TEinstellungen
   Padding.Bottom = 10
   OldCreateOrder = False
   Position = poMainFormCenter
+  OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
@@ -84,7 +86,7 @@ object Einstellungen: TEinstellungen
     end
     object esachbearbeiter: TLabeledEdit
       Left = 280
-      Top = 50
+      Top = 55
       Width = 28
       Height = 25
       Margins.Left = 2
@@ -159,6 +161,7 @@ object Einstellungen: TEinstellungen
       Font.Style = []
       ParentFont = False
       TabOrder = 3
+      OnClick = Button3Click
     end
   end
 end

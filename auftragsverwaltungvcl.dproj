@@ -100,10 +100,6 @@
             <Form>formmain</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="..\dbconnector\udbconnector.pas">
-            <Form>formdb</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="uconstants.pas"/>
         <DCCReference Include="worker.pas"/>
         <DCCReference Include="uliegenschaftsdaten.pas">
@@ -143,6 +139,10 @@
         </DCCReference>
         <DCCReference Include="..\neueftpverbindung\uftpconnector.pas">
             <Form>formftp</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\dbconnector\udbconnector.pas">
+            <Form>formdb</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">

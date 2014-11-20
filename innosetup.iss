@@ -35,13 +35,13 @@ Name: "german"; MessagesFile: "compiler:Languages\German.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]                 
-Source: C:\Users\jovani\Documents\Embarcadero\Studio\Projekte\AuftragsverwaltungVCL3010\Win32\Release\auftragsverwaltungvcl.exe; DestDir: {app}; Flags: ignoreversion
-Source: C:\Users\jovani\Documents\Embarcadero\Studio\Projekte\AuftragsverwaltungVCL3010\Win32\Release\libmysql.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\Users\jovani\Documents\Embarcadero\Studio\Projekte\AuftragsverwaltungVCL3010\Win32\Release\sqlite3.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\Users\jovani\Documents\Embarcadero\Studio\Projekte\AuftragsverwaltungVCL3010\Win32\Release\doppelstart.dcu; DestDir: {app}; Flags: ignoreversion
-Source: C:\Users\jovani\Documents\Embarcadero\Studio\Projekte\AuftragsverwaltungVCL3010\Win32\Release\plink.exe; DestDir: {app}; Flags: ignoreversion
+Source: c:\repositories\Auftragsverwaltung\Win32\Release\auftragsverwaltungvcl.exe; DestDir: {app}; Flags: ignoreversion
+Source:c:\repositories\Auftragsverwaltung\Win32\Release\libmysql.dll; DestDir: {app}; Flags: ignoreversion
+Source: c:\repositories\Auftragsverwaltung\Win32\Release\sqlite3.dll; DestDir: {app}; Flags: ignoreversion
+Source: c:\repositories\Auftragsverwaltung\Win32\Release\doppelstart.dcu; DestDir: {app}; Flags: ignoreversion
+Source: c:\repositories\Auftragsverwaltung\Win32\Release\plink.exe; DestDir: {app}; Flags: ignoreversion
 Source: C:\Users\jovani\Documents\Embarcadero\Studio\Projekte\namepipeserver\Win32\Debug\pnamepipeserver.exe; DestDir: {app}; Flags: ignoreversion
-Source: C:\Users\jovani\Documents\Embarcadero\Studio\Projekte\AuftragsverwaltungVCL3010\Win32\Release\plinkini.bat; DestDir: {app}; Flags: ignoreversion deleteafterinstall
+Source:c:\repositories\Auftragsverwaltung\Win32\Release\plinkini.bat; DestDir: {app}; Flags: ignoreversion deleteafterinstall
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 Source: aenderung.txt; DestDir: {commonappdata}; DestName: Auftragsverwaltung/aenderung.txt
 
