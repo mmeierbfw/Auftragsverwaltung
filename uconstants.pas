@@ -11,25 +11,26 @@ type
     inidatei     = 'auftraege.ini';
     programmname = 'auftragsverwaltung';
 
-    table_aufträge          = 'aufträge';
-    table_auftrag_neu       = 'test.auftraege';
-    table_anforderungen_neu = 'test.anforderungen';
-    table_dok               = 'test.dokument';
-    table_montagen          = 'montagen';
-    table_reklamation       = 'reklamation';
-    table_anf               = 'auftragsanforderung';
-    table_unbearbeitet      = 'unbearbeitete';
-    table_vert_neu          = 'test.vertrag';
+//    table_aufträge          = 'aufträge';
+//    table_auftrag_neu       = 'test.auftraege';
+//    table_anforderungen_neu = 'test.anforderungen';
+//    table_dok               = 'test.dokument';
+//    table_montagen          = 'montagen';
+//    table_reklamation       = 'reklamation';
+//    table_anf               = 'auftragsanforderung';
+//    table_unbearbeitet      = 'unbearbeitete';
+//    table_vert_neu          = 'test.vertrag';
+//
+//    table_zwi_neu   = 'test.zwischenablesung';
+//    table_mon_neu   = 'test.montage';
+//    table_rekl_neu  = 'test.reklamation';
+//    table_en_neu    = 'test.energieausweis';
+//    table_kos_neu   = 'test.kostenermittlung';
+//    table_nut_neu   = 'test.nutzerliste';
+//    table_sonst_neu = 'test.sonstiges';
+//    table_ang_neu   = 'test.angebotsanfrage';
+//    table_auf_neu   = 'test.auftragsanforderung';
 
-    table_zwi_neu   = 'test.zwischenablesung';
-    table_mon_neu   = 'test.montage';
-    table_rekl_neu  = 'test.reklamation';
-    table_en_neu    = 'test.energieausweis';
-    table_kos_neu   = 'test.kostenermittlung';
-    table_nut_neu   = 'test.nutzerliste';
-    table_sonst_neu = 'test.sonstiges';
-    table_ang_neu   = 'test.angebotsanfrage';
-    table_auf_neu   = 'test.auftragsanforderung';
     database        = 'scandokumente';
     insertBegin     = '%s %s (';
     insertMiddle    = ') VALUES(';
@@ -93,17 +94,14 @@ type
     erledigt    = 'erledigt';
     // Notizen          = 'Notizen';
     // Auftragsnummer   = 'Auftragsnummer';
-    Monteur          = 'monteur';
-    erreicht         = 'erreicht';
-    ausführungsdatum = 'ausführungsdatum';
-    ausführungsstart = 'ausführungsstart';
-    ausführungsende  = 'ausführungsende';
-    informiert       = 'informiert';
+    Monteur    = 'monteur';
+    erreicht   = 'erreicht';
+    informiert = 'informiert';
     // Dateiname        = 'dateiname';
-    id = 'Dokumentid';
-     sachbearbeiter   = 'sachbearbeiter';
-    datumgepr    = 'datumgeprueft';
-    sammelordner = 'Sammelordner';
+    id             = 'Dokumentid';
+    sachbearbeiter = 'sachbearbeiter';
+    datumgepr      = 'datumgeprueft';
+    sammelordner   = 'Sammelordner';
     // abrechnungsende  = 'Abrechnungsende';
     auftragsid    = 'auftragsanforderungsid';
     ableser       = 'Ablesedienst';
@@ -144,8 +142,8 @@ type
     Betref           = 'betreff';
 
     { für anrufe }
-    Anrufer       = 'anrufer';
-//    Telefonnummer = 'telefonnummer';
+    Anrufer = 'anrufer';
+    // Telefonnummer = 'telefonnummer';
 
     // Variable für count(*) Aufrufe
     cntVar = 'cnt';

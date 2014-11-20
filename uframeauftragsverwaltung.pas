@@ -473,7 +473,7 @@ begin
   Lmy.Caption      := getmonthstring(monat) + ' ' + inttostr(jahr);
   ldayOM.Caption   := inttostr(tag);
   if ('' = evon.Text) then begin
-    lvon.Visible := false;
+    lvon.hide;
     // lbis.Visible := false;
     pager.ActivePage := NxTabSheet1;
     // ptermindetails.Hide;
@@ -481,6 +481,7 @@ begin
   end;
 
   if not(ebis.Text = '') then begin
+    lvon.show;
     lvon.Caption   := evon.Text;
     lvon.Caption   := lvon.Caption + ' - ' + ebis.Text;
     lvon.Alignment := TAlignment.taLeftJustify;

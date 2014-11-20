@@ -2,7 +2,7 @@
   Left = 0
   Top = 0
   Width = 1002
-  Height = 1032
+  Height = 761
   Align = alLeft
   Color = 14933977
   Font.Charset = DEFAULT_CHARSET
@@ -20,9 +20,9 @@
     Left = 3
     Top = 3
     Width = 996
-    Height = 1026
-    ActivePage = NxTabSheet1
-    ActivePageIndex = 0
+    Height = 755
+    ActivePage = NxTabSheet3
+    ActivePageIndex = 2
     Align = alClient
     Color = clWhite
     ParentColor = False
@@ -47,7 +47,7 @@
         Left = 0
         Top = 0
         Width = 996
-        Height = 1005
+        Height = 734
         Align = alClient
         BevelOuter = bvNone
         Caption = 'FlowPanel1'
@@ -481,10 +481,12 @@
             Caption = 'informiert'
           end
           object lmonteur: TLabel
-            Left = 654
+            Left = 536
             Top = 189
-            Width = 3
+            Width = 235
             Height = 13
+            BiDiMode = bdRightToLeft
+            ParentBiDiMode = False
           end
           object enutzername1: TfEdit
             Left = 144
@@ -842,7 +844,7 @@
         Left = 0
         Top = 0
         Width = 996
-        Height = 1005
+        Height = 734
         Margins.Left = 5
         Margins.Top = 5
         Margins.Right = 5
@@ -964,7 +966,7 @@
         Left = 0
         Top = 0
         Width = 996
-        Height = 1005
+        Height = 734
         Margins.Left = 5
         Margins.Top = 5
         Margins.Right = 5

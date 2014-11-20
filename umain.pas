@@ -923,8 +923,8 @@ var
 begin
   with aufcon do begin
     if avst = vst then table       := table_unbearbeitet;
-    if avst = vstsearch then table := table_aufträge;
-    if avst = vstanf then table    := table_anf;
+    if avst = vstsearch then table := table_auftrag;
+    if avst = vstanf then table    := table_auf;
 
     Node := avst.focusedNode;
     Data := avst.getnodedata(Node);
@@ -952,23 +952,23 @@ var
   avst : TVirtualStringTree;
   table: string;
 begin
-  with aufcon do begin
-    case pager.ActivePageIndex of
-      1: begin
-          avst  := vstsearch;
-          table := table_aufträge;
-        end;
-      2: begin
-          avst  := vst;
-          table := table_anf;
-        end;
-
-    end;
-    Node := avst.focusedNode;
-    Data := avst.getnodedata(Node);
-    formdb.update(inttostr(Data.fid), table, Begrwiedervotl, begr);
-
-  end;
+  // with aufcon do begin
+  // case pager.ActivePageIndex of
+  // 1: begin
+  // avst  := vstsearch;
+  // table := table_aufträge;
+  // end;
+  // 2: begin
+  // avst  := vst;
+  // table := table_anf;
+  // end;
+  //
+  // end;
+  // Node := avst.focusedNode;
+  // Data := avst.getnodedata(Node);
+  // formdb.update(inttostr(Data.fid), table, Begrwiedervotl, begr);
+  //
+  // end;
 end;
 
 // #########################################
@@ -1539,11 +1539,11 @@ begin
     case pager.ActivePageIndex of
       1: begin
           avst  := vstsearch;
-          table := table_aufträge;
+          table := table_auftrag;
         end;
       2: begin
           avst  := vst;
-          table := table_anf;
+          table := table_auf;
         end;
 
     end;
@@ -2120,8 +2120,14 @@ begin
     zframe.eliegenschaftExit(Sender);
     dict := setliegenschaftsdaten(zframe.eliegenschaft.Text);
     setrightside(dict);
-    setleftside(dict);
+
   except
+    on e: Exception do showmessage(e.Message);
+  end;
+  try setleftside(dict);
+  except
+    on e: Exception do showmessage(e.Message);
+
   end;
   if length(zframe.eliegenschaft.Text) = 7 then
       Tframeshowauftr1.NxButton1.enabled := true;
@@ -2229,22 +2235,22 @@ begin
       dict.Add(sachbearbeiter, sb);
       dict.Add(Kundennummer, copy(eliegenschaft.Text, 1, 2));
       dict.Add(aufcon.auftragsid, inttostr(self.auftragsid));
-      dict.Add('ausführungsdatum', formatDateOhneTrenner(ausf));
+      dict.Add(ausführungsdatum, formatDateOhneTrenner(ausf));
+      dict.Add(ausführungsstart, evon.Text);
+      dict.Add(ausführungsende, ebis.Text);
       hostfilename := 'scdb/' + createhostfilename(dict);
       dict.Add(dateiname, hostfilename);
       outputdebugstring(pchar(cbmonteur.Text));
       dict.Add(monteur, cbmonteur.Text);
       dict.Add(erreicht, err);
 
-      // dict.Add(ausführungsdatum, getausführungstermin);
-      dict.Add(ausführungsstart, getstart);
-      dict.Add(ausführungsende, getende);
       dict.Add(informiert, cberreichtdetail.Text);
       // dict.Add(uconstants.Notizen, Notizen.Text);
-      if not formdb.update(inttostr(self.auftragsid), table_anf,
-        'AnforderungAbgeschlossen', '1') then
-          showmessage('unbearbeiteter Auftrag lässt sich nicht updaten');
-
+      if not(self.auftragsid > -1) then begin // da sein muss die aber schon
+        if not formdb.update(inttostr(self.auftragsid), table_auf,
+          'anforderungAbgeschlossen', '1') then
+            showmessage('unbearbeiteter Auftrag lässt sich nicht updaten');
+      end;
     end;
     if not formdb.insertintoauftrag(dict) then begin
       showmessage('Auftrag kann nicht in die Datenbank eingetragen werden');

@@ -2,8 +2,8 @@ unit worker;
 
 interface
 
-uses Windows, System.generics.collections, strutils, sysutils, classes,  udbconnector,
-   uconstants, extctrls, graphics, uutils, shellapi, controls,
+uses Windows, System.generics.collections, strutils, sysutils, classes,
+  udbconnector, uconstants, extctrls, graphics, uutils, shellapi, controls,
   shlobj, regularexpressions, updfmain, uftpconnector;
 
 function setliegenschaftsdaten(liegenschaftst: string)
@@ -27,24 +27,64 @@ function paintauftrag(values: TDictionary<string, string>): boolean;
 function createfilename(dict: TDictionary<string, string>): string;
 function createhostfilename(dict: TDictionary<string, string>): string;
 function createpdf: string;
+function getzeitraum(von, bis: string): string;
+// function getempfname(auftraggeber: string): string;
+function getempfstrasse(name: string): string;
+function getempfaengerdaten(name: string): TDictionary<string, string>;
 
 implementation
 
 uses umain;
 
+function getempfaengerdaten(name: string): TDictionary<string, string>;
+var
+  values: Tstringlist;
+begin
+  values := Tstringlist.Create;
+  values.Add('Strasse');
+  values.Add('PLZ');
+  values.Add('Ort');
+  values.Add('Ansprech');
+  Result := TDictionary<string, string>.Create;
+  Result := formdb.get(formmain.aufcon.table_ableser, ' WHERE Name1 LIKE ' +
+    quotedstr(name), values);
+end;
+
+(* hole Strasse aus db für Ableser "name" *)
+function getempfstrasse(name: string): string;
+begin
+  // formdb.get(formmain.aufcon.table_ableser, ' WHERE Name1 LIKE ' + name,
+  // Tstringlist.Create.Add('Strasse'));
+end;
+
+(* erzeuge aus Anfangs- un Enduhrzeit einen "von-bis" string *)
+function getzeitraum(von, bis: string): string;
+begin
+  if not(von = '') then begin
+    Result                       := von;
+    if not(bis = '') then Result := Result + ' - ' + bis;
+    exit;
+  end;
+  if not(bis = '') then Result := bis;
+end;
+
 function createpdf: string;
 var
-  dict    : TDictionary<string, string>;
-  tmpdatei: string;
+  dict     : TDictionary<string, string>;
+  tmpdatei : string;
+  empfdaten: TDictionary<string, string>;
 begin
 
   with formmain.aufcon do begin
     dict := TDictionary<string, string>.Create();
     with formmain do begin
+      empfdaten := getempfaengerdaten(zframe.cbmonteur.Text);
+
       dict.Add(auftragstyp, zframe.cbauftragstyp.Text);
       dict.Add(liegenschaft, zframe.eliegenschaft.Text);
       dict.Add(Posteingang, zframe.dperstellungsdatum.Text);
-      dict.Add('ausführungstermin', zframe.dperstellungsdatum.Text);
+      dict.Add(ausführungsdatum, zframe.dperstellungsdatum.Text);
+      dict.Add(uhrzeit, getzeitraum(zframe.evon.Text, zframe.ebis.Text));
       dict.Add(Auftragsnummer, zframe.fauftragsnummer.Text);
       dict.Add(Notizen, zframe.Notizen.Text);
       dict.Add(nutzernummer, zframe.enutzernummer.Text);
@@ -57,8 +97,20 @@ begin
       dict.Add(Telefonnummer, zframe.etelefon.Text);
       dict.Add(sachbearbeiter, getsb);
       dict.Add(abrechnungsende, zframe.dpabrechnungsende.Text);
-
-      tmpdatei := gettmpfile('Auftragsverwaltung',createfilename(dict));
+      dict.Add(empfname, zframe.cbmonteur.Text);
+      try dict.Add(empfstrasse, empfdaten.Items['Strasse']);
+      except dict.Add(empfstrasse, '');
+      end;
+      try dict.Add(empfplz, empfdaten.Items['PLZ']);
+      except dict.Add(empfplz, '');
+      end;
+      try dict.Add(empfort, empfdaten.Items['Ort']);
+      except dict.Add(empfort, '');
+      end;
+      try dict.Add(empfansprech, empfdaten.Items['Ansprech']);
+      except dict.Add(empfansprech, zframe.cbmonteur.text);
+      end;
+      tmpdatei := gettmpfile('Auftragsverwaltung', createfilename(dict));
       dict.Add('dateiname', tmpdatei);
 
       with liegenschaftsdaten do begin
@@ -157,7 +209,7 @@ begin
   namelist := getfilenames(names);
   for filename in namelist do begin
     helper  := ReplaceStr(filename, '/', '\');
-    tmpfile := gettmpfile('Auftragsverwaltung',ExtractFileName(helper));
+    tmpfile := gettmpfile('Auftragsverwaltung', ExtractFileName(helper));
     if not assigned(formftp) then formftp := Tformftp.Create(nil);
     if not FileExists(tmpfile) then formftp.getFile(helper, tmpfile);
     Result := ShellExecute(handle, 'open', pchar(tmpfile), nil, nil, 1);
@@ -213,7 +265,7 @@ begin
     db := kuarchiv + kundennummer + '\' + liegenschaft + '\' +
       liegenschaft + '.DB';
     wherestring := ' WHERE WO1 = ' + inttostr(strtoint(nutzernummer)) +
-      ' AND WO0=' + QuotedStr('W');
+      ' AND WO0=' + quotedstr('W');
     table  := 'WO_TYP';
     dict   := formdb.getfromhn(database, table, wherestring, list);
     Result := dict;
@@ -265,7 +317,7 @@ var
   list                 : Tstringlist;
   cua, coa             : string;
   res                  : TDictionary<string, string>;
-  db: string;
+  db                   : string;
 begin
   with formmain.aufcon do begin
     res         := TDictionary<string, string>.Create;
@@ -282,16 +334,15 @@ begin
     list.Add('scandokumente.DANLSUC.DatAbr');
     // list.add('Databr');
     list.Add(formmain.aufcon.vermerke);
-    db :=
-      'verwaltung.anlagen join scandokumente.DANLSUC on verwaltung.anlagen.liegnr =scandokumente.DANLSUC.lienr';
+    db := 'verwaltung.anlagen join scandokumente.DANLSUC on verwaltung.anlagen.liegnr =scandokumente.DANLSUC.lienr';
     if not assigned(formdb) then formdb := Tformdb.Create(nil);
     Result := formdb.get(formdb.queryauftraggeber, db, wherestring, list);
     if not(Result.count = 0) then begin
-      cua := inttostr(formdb.count('Liegenschaft', table_anf,
-        ' WHERE Liegenschaft = ' + liegenschaft +
-        ' AND AnforderungAbgeschlossen=0'));
-      coa := inttostr(formdb.count('Liegenschaft', table_aufträge,
-        ' WHERE Liegenschaft = ' + liegenschaft));
+      cua := inttostr(formdb.count('liegenschaft', view_anforderungen,
+        ' WHERE liegenschaft = ' + liegenschaft +
+        ' AND anforderungAbgeschlossen=0'));
+      coa := inttostr(formdb.count('liegenschaft', view_auftraege,
+        ' WHERE liegenschaft = ' + liegenschaft));
       Result.Add('offen', coa);
       Result.Add('unbearbeitet', cua);
     end;
