@@ -53,8 +53,8 @@ begin
       dict.Add(strasse, liegenschaftsdaten.estrasse.Text);
       dict.Add(plz, liegenschaftsdaten.eplz.Text);
       dict.Add(ort, liegenschaftsdaten.eort.Text);
-      dict.Add(email, zframe.eemail.Text);
-      dict.Add(tel, zframe.etelefon.Text);
+      dict.Add(emailadr, zframe.eemail.Text);
+      dict.Add(Telefonnummer, zframe.etelefon.Text);
       dict.Add(sachbearbeiter, getsb);
       dict.Add(abrechnungsende, zframe.dpabrechnungsende.Text);
 

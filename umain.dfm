@@ -994,8 +994,8 @@
       Top = 3
       Width = 1131
       Height = 824
-      ActivePage = sheetanforderungen
-      ActivePageIndex = 0
+      ActivePage = tabneuerauftrag
+      ActivePageIndex = 3
       Align = alClient
       Color = clWhite
       Font.Charset = ANSI_CHARSET
@@ -1013,6 +1013,7 @@
       Options = [pgAlwaysShowTabsRect, pgScrollButtons, pgTabsPopup, pgTopBorder]
       Spacing = 0
       TabHeight = 17
+      ExplicitLeft = 2
       object sheetanforderungen: TNxTabSheet
         Caption = 'Anforderungen'
         PageIndex = 0
@@ -3678,7 +3679,6 @@
             ExplicitWidth = 776
             ExplicitHeight = 797
             inherited NxTabSheet1: TNxTabSheet
-              ExplicitTop = 21
               ExplicitWidth = 776
               ExplicitHeight = 776
               inherited FlowPanel1: TFlowPanel
@@ -3717,7 +3717,6 @@
               end
             end
             inherited NxTabSheet2: TNxTabSheet
-              ExplicitTop = 21
               ExplicitWidth = 776
               ExplicitHeight = 776
               inherited perreichtdetails: TPanel
@@ -3728,7 +3727,6 @@
               end
             end
             inherited NxTabSheet3: TNxTabSheet
-              ExplicitTop = 21
               ExplicitWidth = 776
               ExplicitHeight = 776
               inherited ptermindetails: TNxPanel

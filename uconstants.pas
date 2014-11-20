@@ -11,7 +11,6 @@ type
     inidatei     = 'auftraege.ini';
     programmname = 'auftragsverwaltung';
 
-
     table_aufträge          = 'aufträge';
     table_auftrag_neu       = 'test.auftraege';
     table_anforderungen_neu = 'test.anforderungen';
@@ -76,40 +75,40 @@ type
 
     aenderungsdatei = 'aenderung.txt';
 
-    kuarchiv         = '\\BFWKA\KUARCHIV\';
-    name             = 'verwaltung.Name';
-    tel              = 'verwaltung.Tel';
-    fax              = 'verwaltung.Fax';
-    email            = 'verwaltung.Email';
-    auftragstyp      = 'auftragstyp';
-    liegenschaft     = 'liegenschaft';
-    Kundennummer     = 'kundennummer';
-    Posteingang      = 'posteingang';
-    Vertragsbeginn   = 'vertragsbeginn';
-    Ablesedatum      = 'ablesedatum';
-//    Nutzernummer     = 'nutzernummer';
-//    Nutzername       = 'Nutzername';
-    Nutzername1      = 'Nutzername';
-    nutzername2      = 'Nutzername2';
-    erledigt         = 'erledigt';
-//    Notizen          = 'Notizen';
-//    Auftragsnummer   = 'Auftragsnummer';
+    kuarchiv       = '\\BFWKA\KUARCHIV\';
+    name           = 'verwaltung.Name';
+    tel            = 'verwaltung.Tel';
+    fax            = 'verwaltung.Fax';
+    email          = 'verwaltung.Email';
+    auftragstyp    = 'auftragstyp';
+    liegenschaft   = 'liegenschaft';
+    Kundennummer   = 'kundennummer';
+    Posteingang    = 'posteingang';
+    Vertragsbeginn = 'vertragsbeginn';
+    Ablesedatum    = 'ablesedatum';
+    // Nutzernummer     = 'nutzernummer';
+    // Nutzername       = 'Nutzername';
+    Nutzername1 = 'nutzername1';
+    nutzername2 = 'nutzername2';
+    erledigt    = 'erledigt';
+    // Notizen          = 'Notizen';
+    // Auftragsnummer   = 'Auftragsnummer';
     Monteur          = 'monteur';
     erreicht         = 'erreicht';
     ausführungsdatum = 'ausführungsdatum';
     ausführungsstart = 'ausführungsstart';
     ausführungsende  = 'ausführungsende';
     informiert       = 'informiert';
-//    Dateiname        = 'dateiname';
-    id               = 'Dokumentid';
-//    sachbearbeiter   = 'Sachbearbeiter';
-    datumgepr        = 'datumgeprueft';
-    sammelordner     = 'Sammelordner';
-//    abrechnungsende  = 'Abrechnungsende';
-    auftragsid       = 'auftragsanforderungsid';
-    ableser          = 'Ablesedienst';
-    nutzeremail      = 'Email';
-    default_value    = '';
+    // Dateiname        = 'dateiname';
+    id = 'Dokumentid';
+     sachbearbeiter   = 'sachbearbeiter';
+    datumgepr    = 'datumgeprueft';
+    sammelordner = 'Sammelordner';
+    // abrechnungsende  = 'Abrechnungsende';
+    auftragsid    = 'auftragsanforderungsid';
+    ableser       = 'Ablesedienst';
+    nutzeremail   = 'Email';
+    default_value = '';
 
     { für Montage }
     Gueltigkeitsdatum = 'Gueltigkeitsdatum';
@@ -137,15 +136,16 @@ type
     vertragstyp       = 'vertragstyp_id';
 
     { für Email }
-    Absendername     = 'Absendername';
-    Absenderadresse  = 'Absenderadresse';
-    Empfängername    = 'Empfängername';
-    Empfängeradresse = 'Empfängeradresse';
-    Betref           = 'Betreff';
+    emailadr         = 'email';
+    Absendername     = 'absendername';
+    Absenderadresse  = 'absenderadresse';
+    Empfängername    = 'empfängername';
+    Empfängeradresse = 'empfängeradresse';
+    Betref           = 'betreff';
 
     { für anrufe }
-    Anrufer       = 'Anrufer';
-    Telefonnummer = 'Telefonnummer';
+    Anrufer       = 'anrufer';
+//    Telefonnummer = 'telefonnummer';
 
     // Variable für count(*) Aufrufe
     cntVar = 'cnt';

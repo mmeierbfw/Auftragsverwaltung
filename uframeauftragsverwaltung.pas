@@ -103,6 +103,7 @@ type
     NxDBTextColumn7: TNxDBTextColumn;
     Label1: TLabel;
     Label21: TLabel;
+    lmonteur: TLabel;
     function calcleftchars: integer;
 
     procedure checkinput(var Key: Word);
@@ -464,6 +465,7 @@ begin
     pager.ActivePage := NxTabSheet1;
     exit;
   end;
+  lmonteur.Caption := cbmonteur.Text;
   createmonthdic;
   date := nxdate.SelectedDate;
   DecodeDate(date, jahr, monat, tag);

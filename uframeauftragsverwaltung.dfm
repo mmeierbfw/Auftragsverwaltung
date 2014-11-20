@@ -2,7 +2,7 @@
   Left = 0
   Top = 0
   Width = 1002
-  Height = 823
+  Height = 1032
   Align = alLeft
   Color = 14933977
   Font.Charset = DEFAULT_CHARSET
@@ -20,7 +20,7 @@
     Left = 3
     Top = 3
     Width = 996
-    Height = 817
+    Height = 1026
     ActivePage = NxTabSheet1
     ActivePageIndex = 0
     Align = alClient
@@ -47,7 +47,7 @@
         Left = 0
         Top = 0
         Width = 996
-        Height = 796
+        Height = 1005
         Align = alClient
         BevelOuter = bvNone
         Caption = 'FlowPanel1'
@@ -86,7 +86,7 @@
             Layout = tlCenter
           end
           object Label2: TLabel
-            Left = 617
+            Left = 609
             Top = 3
             Width = 31
             Height = 13
@@ -94,7 +94,7 @@
             Layout = tlCenter
           end
           object Label5: TLabel
-            Left = 437
+            Left = 373
             Top = 70
             Width = 58
             Height = 13
@@ -115,7 +115,7 @@
             ParentFont = False
           end
           object Label17: TLabel
-            Left = 408
+            Left = 344
             Top = 48
             Width = 87
             Height = 13
@@ -123,7 +123,7 @@
             Layout = tlCenter
           end
           object eliegenschaft: TfEdit
-            Left = 204
+            Left = 144
             Top = 48
             Width = 146
             Height = 23
@@ -147,7 +147,7 @@
             ColorNotFocused = 6908265
           end
           object fauftragsnummer: TfEdit
-            Left = 204
+            Left = 144
             Top = 70
             Width = 146
             Height = 23
@@ -168,7 +168,7 @@
             ColorNotFocused = 6908265
           end
           object dperstellungsdatum: TNxDatePicker
-            Left = 654
+            Left = 646
             Top = 2
             Width = 122
             Height = 21
@@ -182,8 +182,8 @@
             TodayCaption = 'Today'
           end
           object cbauftragstyp: TfComboBox
-            Left = 501
-            Top = 70
+            Left = 446
+            Top = 68
             Width = 146
             Height = 24
             BevelInner = bvLowered
@@ -207,7 +207,7 @@
             ColorNotFocused = 6908265
           end
           object dpabrechnungsende: TNxDatePicker
-            Left = 501
+            Left = 446
             Top = 48
             Width = 146
             Height = 21
@@ -282,7 +282,7 @@
             Layout = tlCenter
           end
           object ename1: TfEdit
-            Left = 200
+            Left = 144
             Top = 42
             Width = 224
             Height = 23
@@ -304,7 +304,7 @@
             ColorNotFocused = 6908265
           end
           object estrasse: TfEdit
-            Left = 200
+            Left = 144
             Top = 64
             Width = 448
             Height = 23
@@ -326,7 +326,7 @@
             ColorNotFocused = 6908265
           end
           object eort: TfEdit
-            Left = 240
+            Left = 184
             Top = 86
             Width = 408
             Height = 23
@@ -348,7 +348,7 @@
             ColorNotFocused = 6908265
           end
           object eplz: TfEdit
-            Left = 200
+            Left = 144
             Top = 86
             Width = 41
             Height = 23
@@ -371,7 +371,7 @@
             ColorNotFocused = 6908265
           end
           object ename2: TfEdit
-            Left = 423
+            Left = 367
             Top = 42
             Width = 225
             Height = 23
@@ -397,7 +397,7 @@
           Left = 0
           Top = 220
           Width = 781
-          Height = 197
+          Height = 269
           Margins.Left = 1
           Margins.Top = 0
           Margins.Right = 1
@@ -454,7 +454,7 @@
             Layout = tlCenter
           end
           object lausfürhung: TLabel
-            Left = 638
+            Left = 646
             Top = 16
             Width = 125
             Height = 16
@@ -474,14 +474,20 @@
             Caption = 'Nutzer wurde per '
           end
           object Label16: TLabel
-            Left = 326
+            Left = 270
             Top = 133
             Width = 46
             Height = 13
             Caption = 'informiert'
           end
+          object lmonteur: TLabel
+            Left = 654
+            Top = 189
+            Width = 3
+            Height = 13
+          end
           object enutzername1: TfEdit
-            Left = 200
+            Left = 144
             Top = 61
             Width = 224
             Height = 23
@@ -503,7 +509,7 @@
             ColorNotFocused = 6908265
           end
           object eemail: TfEdit
-            Left = 200
+            Left = 144
             Top = 82
             Width = 448
             Height = 23
@@ -524,7 +530,7 @@
             ColorNotFocused = 6908265
           end
           object etelefon: TfEdit
-            Left = 200
+            Left = 144
             Top = 104
             Width = 448
             Height = 23
@@ -545,7 +551,7 @@
             ColorNotFocused = 6908265
           end
           object enutzernummer: TfEdit
-            Left = 200
+            Left = 144
             Top = 39
             Width = 34
             Height = 23
@@ -630,8 +636,8 @@
             end
           end
           object Button1: TButton
-            Left = 649
-            Top = 156
+            Left = 646
+            Top = 236
             Width = 114
             Height = 25
             Caption = 'Termin festsetzen'
@@ -639,7 +645,7 @@
             OnClick = Button1Click
           end
           object cberreichtdetail: TNxComboBox
-            Left = 200
+            Left = 144
             Top = 126
             Width = 120
             Height = 21
@@ -655,7 +661,7 @@
               'Hausaushang')
           end
           object enutzername2: TfEdit
-            Left = 423
+            Left = 367
             Top = 61
             Width = 225
             Height = 23
@@ -677,7 +683,7 @@
             ColorNotFocused = 6908265
           end
           object cberreicht: TNxCheckBox
-            Left = 384
+            Left = 328
             Top = 130
             Width = 75
             Height = 21
@@ -689,7 +695,7 @@
         end
         object pnotizen: TPanel
           Left = 0
-          Top = 417
+          Top = 489
           Width = 784
           Height = 352
           Margins.Left = 1
@@ -723,9 +729,9 @@
             ParentFont = False
           end
           object notizen: TfMemo
-            Left = 200
+            Left = 144
             Top = 16
-            Width = 563
+            Width = 624
             Height = 233
             BevelInner = bvLowered
             BevelKind = bkTile
@@ -836,7 +842,7 @@
         Left = 0
         Top = 0
         Width = 996
-        Height = 796
+        Height = 1005
         Margins.Left = 5
         Margins.Top = 5
         Margins.Right = 5
@@ -958,7 +964,7 @@
         Left = 0
         Top = 0
         Width = 996
-        Height = 796
+        Height = 1005
         Margins.Left = 5
         Margins.Top = 5
         Margins.Right = 5
