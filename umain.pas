@@ -97,6 +97,8 @@ type
     pneuerauftrag: TPanel;
     Label4: TLabel;
     Label5: TLabel;
+    Shape1: TShape;
+    Shape2: TShape;
     // zframe: Tframeauftragsdaten;
     // procedure aufträgeAnzeigen(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -483,6 +485,7 @@ begin
       NxExpandPanel4.Expanded := False;
     end;
   end;
+  // zframe.NxHeaderPanel1.Expanded := false;
   list := TStringList.Create;
   list.Add('Name1');
   list.Add('Name2');
@@ -514,8 +517,8 @@ begin
   DecodeDate(now, myyear, mymonth, myday);
   zframe.ldayOM.Caption := Format('%.2d ', [myday]);
   zframe.Lmy.Caption := zframe.getmonthstring(mymonth) + ' ' + inttostr(myyear);
-  zframe.hptermin.Expanded := False;
-  zframe.nxdate.Date       := now;
+  // zframe.hptermin.Expanded := False;
+  // zframe.nxdate.Date       := now;
 
 end;
 
@@ -1175,6 +1178,10 @@ begin
     except outputdebugstring('kann den Focus nicht erhalten');
     end;
   end;
+  // Shape1.Top := zframe.Top -1;
+  // Shape1.Left := zframe.left -1;
+  // Shape1.Height := zframe.Height  + 2;
+  // Shape1.Width := zframe.Width + 2;
 end;
 
 // #########################################
@@ -2183,7 +2190,7 @@ end;
 
 procedure Tformmain.zframeButton1Click(Sender: TObject);
 begin
-  zframe.Button1Click(Sender);
+  // zframe.Button1Click(Sender);
 
 end;
 
@@ -2192,6 +2199,8 @@ var
   dict: TDictionary<string, string>;
 begin
   try
+    if zframe.eliegenschaft.Text = '' then exit;
+
     zframe.eliegenschaftExit(Sender);
     dict := setliegenschaftsdaten(zframe.eliegenschaft.Text);
     setrightside(dict);
@@ -2225,9 +2234,7 @@ var
 begin
   if ((zframe.enutzernummer.Text) = '') or (zframe.enutzernummer.Text = '000')
   then exit;
-
   if ((zframe.eliegenschaft.Text = '')) then exit;
-
   try
     zframe.enutzernummerExit(Sender);
     list  := TStringList.Create;

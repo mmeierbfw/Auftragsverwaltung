@@ -19,70 +19,30 @@ type
     pliegenschaft: TPanel;
     Label7: TLabel;
     lauftragsnummer: TLabel;
-    Label2: TLabel;
     Label5: TLabel;
     eliegenschaft: TfEdit;
     fauftragsnummer: TfEdit;
-    dperstellungsdatum: TNxDatePicker;
     cbauftragstyp: TfComboBox;
-    pauftragsdaten: TPanel;
-    Label8: TLabel;
-    Label9: TLabel;
-    Label10: TLabel;
-    Label11: TLabel;
-    Label12: TLabel;
-    ename1: TfEdit;
-    estrasse: TfEdit;
-    eort: TfEdit;
-    eplz: TfEdit;
-    ename2: TfEdit;
     perreichbarkeit: TPanel;
     lnutzername: TLabel;
     lerreichbarkeit: TLabel;
     lemail: TLabel;
     ltelefon: TLabel;
     lnutzernr: TLabel;
-    lausfürhung: TLabel;
     enutzername1: TfEdit;
     eemail: TfEdit;
     etelefon: TfEdit;
     enutzernummer: TfEdit;
-    pausführung: TPanel;
-    ldayOM: TLabel;
-    Lmy: TLabel;
-    pdivisor: TPanel;
-    Button1: TButton;
     pnotizen: TPanel;
     lcharleft: TLabel;
     notizen: TfMemo;
     NxButton1: TNxButton;
     NxButton4: TNxButton;
     NxTabSheet2: TNxTabSheet;
-    lvon: TLabel;
     Label4: TLabel;
     perreichtdetails: TPanel;
-    Label18: TLabel;
-    Label19: TLabel;
-    Label20: TLabel;
-    NxComboBox2: TNxComboBox;
-    NxCheckBox62: TNxCheckBox6;
-    NxButton8: TNxButton;
-    NxButton9: TNxButton;
     NxTabSheet3: TNxTabSheet;
     ptermindetails: TNxPanel;
-    Label13: TLabel;
-    Label14: TLabel;
-    Label3: TLabel;
-    mitHA: TCheckBox;
-    NxButton2: TNxButton;
-    NxButton3: TNxButton;
-    nxdate: TNxMonthCalendar;
-    externGeplant: TCheckBox;
-    einfodate: TfEdit;
-    NxMonthCalendar2: TNxMonthCalendar;
-    edate: TfEdit;
-    evon: TfEdit;
-    ebis: TfEdit;
     Label6: TLabel;
     Label15: TLabel;
     cberreichtdetail: TNxComboBox;
@@ -90,10 +50,8 @@ type
     Label17: TLabel;
     dpabrechnungsende: TNxDatePicker;
     enutzername2: TfEdit;
-    hptermin: TNxHeaderPanel;
     // cbableser: TfComboBox;
     cberreicht: TNxCheckBox;
-    cbmonteur: TfComboBox;
     gridableser: TNextDBGrid;
     NxDBTextColumn1: TNxDBTextColumn;
     NxDBTextColumn2: TNxDBTextColumn;
@@ -101,9 +59,51 @@ type
     NxDBTextColumn4: TNxDBTextColumn;
     NxDBTextColumn6: TNxDBTextColumn;
     NxDBTextColumn7: TNxDBTextColumn;
-    Label1: TLabel;
-    Label21: TLabel;
+    ptermin: TPanel;
+    pausführung: TPanel;
+    ldayOM: TLabel;
+    Lmy: TLabel;
+    lvon: TLabel;
+    pdivisor: TPanel;
+    lausfürhung: TLabel;
     lmonteur: TLabel;
+    Label13: TLabel;
+    edate: TfEdit;
+    Label14: TLabel;
+    evon: TfEdit;
+    Label3: TLabel;
+    ebis: TfEdit;
+    cbmonteur: TfComboBox;
+    Label22: TLabel;
+    showmonteurcal: TButton;
+    cbableserdetail: TfComboBox;
+    Label1: TLabel;
+    mitHA: TCheckBox;
+    externGeplant: TCheckBox;
+    Panel1: TPanel;
+    Label8: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    Label11: TLabel;
+    eplz: TfEdit;
+    eort: TfEdit;
+    estrasse: TfEdit;
+    ename1: TfEdit;
+    Label12: TLabel;
+    dperstellungsdatum: TNxDatePicker;
+    Label2: TLabel;
+    ename2: TfEdit;
+    Button1: TButton;
+    Label23: TLabel;
+    edatemonteur: TfEdit;
+    Label24: TLabel;
+    Label25: TLabel;
+    evonmonteur: TfEdit;
+    ebismonteur: TfEdit;
+    NxButton2: TNxButton;
+    NxButton3: TNxButton;
+    NxButton5: TNxButton;
+    NxButton6: TNxButton;
     function calcleftchars: integer;
 
     procedure checkinput(var Key: Word);
@@ -113,13 +113,13 @@ type
     procedure eliegenschaftExit(Sender: TObject);
     procedure NxButton2Click(Sender: TObject);
     procedure NxButton3Click(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
+    procedure n1click(Sender: TObject);
     procedure nxdateChange(Sender: TObject);
     procedure mitHAClick(Sender: TObject);
     procedure tfdateExit(Sender: TObject);
     procedure NxButton1Click(Sender: TObject);
     procedure NxButton7Click(Sender: TObject);
-    procedure NxButton5Click(Sender: TObject);
+    procedure Back(Sender: TObject);
     procedure NxButton8Click(Sender: TObject);
     procedure tfvonExit(Sender: TObject);
     procedure tfbisExit(Sender: TObject);
@@ -134,6 +134,12 @@ type
     procedure mitHAMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: integer);
     procedure edateExit(Sender: TObject);
+    procedure showcalClick(Sender: TObject);
+    procedure showmonteurcalClick(Sender: TObject);
+    procedure NxTabSheet3Show(Sender: TObject);
+    procedure NxTabSheet3Hide(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure click(Sender: TObject);
   private
     writtenchars: integer;
     // function getmonth(monthasstring: string): string;
@@ -173,7 +179,7 @@ uses umain;
 {$R *.dfm}
 { Tframeauftragsdaten }
 
-procedure Tframeauftragsdaten.Button1Click(Sender: TObject);
+procedure Tframeauftragsdaten.n1click(Sender: TObject);
 begin
   pager.ActivePage := NxTabSheet3;
   ptermindetails.show;
@@ -183,16 +189,15 @@ begin
     ;
 
   end;
-  edate.Text := DateToStr(nxdate.SelectedDate);
+  // edate.Text := DateToStr(nxdate.SelectedDate);
 end;
 
 procedure Tframeauftragsdaten.mitHAClick(Sender: TObject);
 var
   enable: Boolean;
 begin
-  enable         := not(externGeplant.Checked or mitHA.Checked);
-  nxdate.Enabled := enable;
-
+  enable := not(externGeplant.Checked or mitHA.Checked);
+  pausführung.hide;
   evon.Enabled  := enable;
   ebis.Enabled  := enable;
   edate.Enabled := enable;
@@ -254,6 +259,9 @@ end;
 procedure Tframeauftragsdaten.edateExit(Sender: TObject);
 var
   datestr, resdate: string;
+  jahr, monat, tag: Word;
+  day             : integer;
+  termin          : tdate;
 begin
   datestr := (Sender as TfEdit).Text;
   if not((length(datestr) = 6) or (length(datestr) = 8)) then exit;
@@ -265,6 +273,14 @@ begin
 
   (Sender as TfEdit).Text := resdate;
 
+  // ldayOM.Caption :=
+
+  termin := StrToDate(resdate);
+  DecodeDate(termin, jahr, monat, tag);
+  // day := int(tag);
+
+  ldayOM.Caption := Format('%.2d', [tag]);
+  Lmy.Caption    := getmonthstring(monat) + ' ' + inttostr(jahr);
 end;
 
 procedure Tframeauftragsdaten.eliegenschaftExit(Sender: TObject);
@@ -288,7 +304,7 @@ procedure Tframeauftragsdaten.enutzernummerExit(Sender: TObject);
 begin
   // enutzernummer.Text := Format('%.3d', [strtoint(enutzerummer.text)]);
   try enutzernummer.Text    := Format('%.3d', [strtoint(enutzernummer.Text)]);
-  except enutzernummer.Text := Format('%.3d', [0]);
+  except enutzernummer.Text := '';
   end;
 end;
 
@@ -298,7 +314,10 @@ var
 begin
   time                          := (Sender as TfEdit).Text;
   if length(time) = 2 then time := time + '00';
-  if not(length(time) = 4) then exit;
+  if not(length(time) = 4) then begin
+    lvon.Caption := '';
+    exit;
+  end;
   time                    := Copy(time, 1, 2) + ':' + Copy(time, 3, 2);
   (Sender as TfEdit).Text := time;
 
@@ -307,9 +326,9 @@ begin
       showmessage('Endzeit muss nach Startzeit liegen');
       ebis.SetFocus;
     end;
-
   end;
-
+  if (Sender as TfEdit) = evon then lvon.Caption := time
+  else lvon.Caption                              := evon.Text + ' - ' + time;
 end;
 
 function Tframeauftragsdaten.getausführungstermin: string;
@@ -422,7 +441,17 @@ begin
 
 end;
 
+procedure Tframeauftragsdaten.click(Sender: TObject);
+begin
+  pager.ActivePage := NxTabSheet1;
+end;
+
 // #######################
+procedure Tframeauftragsdaten.Button1Click(Sender: TObject);
+begin
+  pager.ActivePage := NxTabSheet2;
+end;
+
 function Tframeauftragsdaten.calcleftchars: integer;
 var
   charleft: integer;
@@ -441,7 +470,7 @@ end;
 
 procedure Tframeauftragsdaten.NxButton2Click(Sender: TObject);
 var
-  date            : Tdate;
+  date            : tdate;
   jahr, monat, tag: Word;
 begin
   if mitHA.Checked then begin
@@ -467,7 +496,7 @@ begin
   end;
   lmonteur.Caption := cbmonteur.Text;
   createmonthdic;
-  date := nxdate.SelectedDate;
+  // date := nxdate.SelectedDate;
   DecodeDate(date, jahr, monat, tag);
   pdivisor.Visible := True;
   Lmy.Caption      := getmonthstring(monat) + ' ' + inttostr(jahr);
@@ -495,6 +524,9 @@ begin
     // lbis.Visible := false;
     lvon.Left := 0;
   end;
+  evon.Text        := evonmonteur.Text;
+  ebis.Text        := ebismonteur.Text;
+  edate.text            := edatemonteur.Text;
   pager.ActivePage := NxTabSheet1;
 end;
 
@@ -503,7 +535,7 @@ begin
   pager.ActivePage := NxTabSheet1;
 end;
 
-procedure Tframeauftragsdaten.NxButton5Click(Sender: TObject);
+procedure Tframeauftragsdaten.Back(Sender: TObject);
 begin
   pager.ActivePage := NxTabSheet2;
   // perreichtdetails.Align:=TAlign.alClient;
@@ -523,7 +555,7 @@ end;
 
 procedure Tframeauftragsdaten.nxdateChange(Sender: TObject);
 begin
-  edate.Text := DateToStr(nxdate.SelectedDate);
+  // edate.Text := DateToStr(nxdate.SelectedDate);
   try evon.SetFocus;
   except
 
@@ -553,9 +585,20 @@ procedure Tframeauftragsdaten.NxMonthCalendar2Change(Sender: TObject);
 var
   datestring: string;
 begin
-  datestring     := DateToStr(NxMonthCalendar2.SelectedDate);
-  datestring     := formatedatefrom4jto2j(datestring);
-  einfodate.Text := datestring;
+  // datestring     := DateToStr(NxMonthCalendar2.SelectedDate);
+  // datestring     := formatedatefrom4jto2j(datestring);
+  // einfodate.Text := datestring;
+end;
+
+procedure Tframeauftragsdaten.NxTabSheet3Hide(Sender: TObject);
+begin
+  cbmonteur.ItemIndex := cbableserdetail.ItemIndex;
+end;
+
+procedure Tframeauftragsdaten.NxTabSheet3Show(Sender: TObject);
+begin
+  cbableserdetail.Items     := cbmonteur.Items;
+  cbableserdetail.ItemIndex := cbmonteur.ItemIndex;
 end;
 
 procedure Tframeauftragsdaten.resetpage;
@@ -586,6 +629,16 @@ begin
     Copy(todstring, 7, 4);
   dperstellungsdatum.Text := DateToStr(now);
 
+end;
+
+procedure Tframeauftragsdaten.showcalClick(Sender: TObject);
+begin
+  // MonthCalendar1.Show;
+end;
+
+procedure Tframeauftragsdaten.showmonteurcalClick(Sender: TObject);
+begin
+  pager.ActivePage := NxTabSheet3;
 end;
 
 procedure Tframeauftragsdaten.tfbisExit(Sender: TObject);
@@ -639,8 +692,8 @@ begin
   else Mask.color := clWhite;
 
   try
-    nxdate.date := strtodate(edate.Text);
-    nxdate.update;
+    // nxdate.date := strtodate(edate.Text);
+    // nxdate.update;
   except
     ;
   end;

@@ -1,9 +1,8 @@
 ﻿object frameauftragsdaten: Tframeauftragsdaten
-  AlignWithMargins = True
-  Left = 3
-  Top = 3
-  Width = 1002
-  Height = 0
+  Left = 0
+  Top = 0
+  Width = 784
+  Height = 905
   Align = alLeft
   Color = clGray
   Font.Charset = DEFAULT_CHARSET
@@ -11,17 +10,20 @@
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  Padding.Left = 1
+  Padding.Top = 1
+  Padding.Right = 1
+  Padding.Bottom = 1
   ParentBackground = False
   ParentColor = False
   ParentFont = False
   TabOrder = 0
-  ExplicitLeft = 0
   object pager: TNxPageControl
     AlignWithMargins = True
-    Left = 3
-    Top = 3
-    Width = 996
-    Height = 0
+    Left = 4
+    Top = 4
+    Width = 776
+    Height = 897
     ActivePage = NxTabSheet1
     ActivePageIndex = 0
     Align = alClient
@@ -33,7 +35,10 @@
     Options = [pgBoldActiveTab, pgCloseButton]
     Spacing = 0
     TabHeight = 17
-    ExplicitHeight = 298
+    ExplicitLeft = 3
+    ExplicitTop = 3
+    ExplicitWidth = 996
+    ExplicitHeight = 0
     object NxTabSheet1: TNxTabSheet
       Caption = 'NxTabSheet1'
       PageIndex = 0
@@ -43,24 +48,25 @@
       TabFont.Height = -11
       TabFont.Name = 'Tahoma'
       TabFont.Style = []
-      ExplicitHeight = 277
+      ExplicitWidth = 996
+      ExplicitHeight = 1
       object FlowPanel1: TFlowPanel
         Left = 0
         Top = 0
-        Width = 996
-        Height = 4
+        Width = 776
+        Height = 876
         Align = alClient
         BevelOuter = bvNone
-        Caption = 'FlowPanel1'
         Color = clWhite
         ParentBackground = False
         TabOrder = 0
-        ExplicitHeight = 277
+        ExplicitWidth = 996
+        ExplicitHeight = 1
         object pliegenschaft: TPanel
           Left = 0
           Top = 0
           Width = 784
-          Height = 105
+          Height = 162
           Margins.Left = 1
           Margins.Top = 1
           Margins.Right = 1
@@ -86,17 +92,9 @@
             Caption = 'Auftragsnummer'
             Layout = tlCenter
           end
-          object Label2: TLabel
-            Left = 609
-            Top = 3
-            Width = 31
-            Height = 13
-            Caption = 'Datum'
-            Layout = tlCenter
-          end
           object Label5: TLabel
-            Left = 553
-            Top = 70
+            Left = 32
+            Top = 94
             Width = 58
             Height = 13
             Caption = 'Auftragstyp'
@@ -116,8 +114,8 @@
             ParentFont = False
           end
           object Label17: TLabel
-            Left = 524
-            Top = 48
+            Left = 33
+            Top = 131
             Width = 87
             Height = 13
             Caption = 'Abrechnungsende'
@@ -140,7 +138,7 @@
             MaxLength = 7
             NumbersOnly = True
             ParentFont = False
-            TabOrder = 1
+            TabOrder = 0
             OnExit = eliegenschaftExit
             TabOnEnter = False
             FontColorOnEnter = 10252872
@@ -162,29 +160,15 @@
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
-            TabOrder = 2
+            TabOrder = 1
             TabOnEnter = False
             FontColorOnEnter = 10252872
             ColorFocused = 10252872
             ColorNotFocused = 6908265
           end
-          object dperstellungsdatum: TNxDatePicker
-            Left = 646
-            Top = 2
-            Width = 122
-            Height = 21
-            BevelOuter = bvNone
-            Color = clWhite
-            TabOrder = 0
-            Text = '07.10.2014'
-            HideFocus = False
-            Date = 41919.000000000000000000
-            NoneCaption = 'None'
-            TodayCaption = 'Today'
-          end
           object cbauftragstyp: TfComboBox
-            Left = 626
-            Top = 68
+            Left = 144
+            Top = 92
             Width = 146
             Height = 24
             BevelInner = bvLowered
@@ -196,7 +180,7 @@
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
-            TabOrder = 4
+            TabOrder = 2
             Text = 'Auftragstyp'
             Items.Strings = (
               'Nachablesung'
@@ -208,8 +192,8 @@
             ColorNotFocused = 6908265
           end
           object dpabrechnungsende: TNxDatePicker
-            Left = 626
-            Top = 48
+            Left = 144
+            Top = 131
             Width = 146
             Height = 21
             BevelInner = bvNone
@@ -222,183 +206,202 @@
             NoneCaption = 'None'
             TodayCaption = 'Today'
           end
-        end
-        object pauftragsdaten: TPanel
-          Left = 0
-          Top = 105
-          Width = 784
-          Height = 115
-          Margins.Left = 1
-          Margins.Top = 0
-          Margins.Right = 1
-          Margins.Bottom = 1
-          Align = alTop
-          BevelOuter = bvNone
-          Color = clWhite
-          ParentBackground = False
-          TabOrder = 1
-          object Label8: TLabel
-            Left = 32
-            Top = 16
-            Width = 89
-            Height = 16
-            Caption = 'Auftraggeber'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = 6908265
-            Font.Height = -13
-            Font.Name = 'Tahoma'
-            Font.Style = [fsBold]
-            ParentFont = False
-          end
-          object Label9: TLabel
-            Left = 32
-            Top = 42
-            Width = 54
-            Height = 13
-            Caption = 'Eigent'#252'mer'
-            Layout = tlCenter
-          end
-          object Label10: TLabel
-            Left = 32
-            Top = 65
-            Width = 32
-            Height = 13
-            Caption = 'Stra'#223'e'
-            Layout = tlCenter
-          end
-          object Label11: TLabel
-            Left = 32
-            Top = 86
-            Width = 17
-            Height = 13
-            Caption = 'PLZ'
-            Layout = tlCenter
-          end
-          object Label12: TLabel
-            Left = 56
-            Top = 86
-            Width = 16
-            Height = 13
-            Caption = 'Ort'
-            Layout = tlCenter
-          end
-          object ename1: TfEdit
-            Left = 144
-            Top = 42
-            Width = 321
-            Height = 23
-            AutoSize = False
-            BevelInner = bvLowered
-            BevelKind = bkTile
-            CharCase = ecUpperCase
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = 6908265
-            Font.Height = -13
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentColor = True
-            ParentFont = False
-            TabOrder = 0
-            TabOnEnter = False
-            FontColorOnEnter = 10252872
-            ColorFocused = 10252872
-            ColorNotFocused = 6908265
-          end
-          object estrasse: TfEdit
-            Left = 144
-            Top = 64
-            Width = 628
-            Height = 23
-            AutoSize = False
-            BevelInner = bvLowered
-            BevelKind = bkTile
-            CharCase = ecUpperCase
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = 6908265
-            Font.Height = -13
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentColor = True
-            ParentFont = False
-            TabOrder = 2
-            TabOnEnter = False
-            FontColorOnEnter = 10252872
-            ColorFocused = 10252872
-            ColorNotFocused = 6908265
-          end
-          object eort: TfEdit
-            Left = 184
-            Top = 86
-            Width = 588
-            Height = 23
-            AutoSize = False
-            BevelInner = bvLowered
-            BevelKind = bkTile
-            CharCase = ecUpperCase
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = 6908265
-            Font.Height = -13
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentColor = True
-            ParentFont = False
+          object Panel1: TPanel
+            Left = 291
+            Top = 1
+            Width = 525
+            Height = 162
             TabOrder = 4
-            TabOnEnter = False
-            FontColorOnEnter = 10252872
-            ColorFocused = 10252872
-            ColorNotFocused = 6908265
-          end
-          object eplz: TfEdit
-            Left = 144
-            Top = 86
-            Width = 41
-            Height = 23
-            AutoSize = False
-            BevelInner = bvLowered
-            BevelKind = bkTile
-            CharCase = ecUpperCase
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = 6908265
-            Font.Height = -13
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            NumbersOnly = True
-            ParentColor = True
-            ParentFont = False
-            TabOrder = 3
-            TabOnEnter = False
-            FontColorOnEnter = 10252872
-            ColorFocused = 10252872
-            ColorNotFocused = 6908265
-          end
-          object ename2: TfEdit
-            Left = 464
-            Top = 42
-            Width = 308
-            Height = 23
-            AutoSize = False
-            BevelInner = bvLowered
-            BevelKind = bkTile
-            CharCase = ecUpperCase
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = 6908265
-            Font.Height = -13
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentColor = True
-            ParentFont = False
-            TabOrder = 1
-            TabOnEnter = False
-            FontColorOnEnter = 10252872
-            ColorFocused = 10252872
-            ColorNotFocused = 6908265
+            object Label8: TLabel
+              Left = 66
+              Top = 24
+              Width = 89
+              Height = 16
+              Caption = 'Auftraggeber'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGray
+              Font.Height = -13
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+            end
+            object Label9: TLabel
+              Left = 67
+              Top = 47
+              Width = 54
+              Height = 13
+              Caption = 'Eigent'#252'mer'
+              Layout = tlCenter
+            end
+            object Label10: TLabel
+              Left = 66
+              Top = 69
+              Width = 32
+              Height = 13
+              Caption = 'Stra'#223'e'
+              Layout = tlCenter
+            end
+            object Label11: TLabel
+              Left = 96
+              Top = 93
+              Width = 17
+              Height = 13
+              Caption = 'PLZ'
+              Layout = tlCenter
+            end
+            object Label12: TLabel
+              Left = 66
+              Top = 93
+              Width = 16
+              Height = 13
+              Caption = 'Ort'
+              Layout = tlCenter
+            end
+            object Label2: TLabel
+              Left = 494
+              Top = 6
+              Width = 31
+              Height = 13
+              Caption = 'Datum'
+              Layout = tlCenter
+            end
+            object eplz: TfEdit
+              Left = 135
+              Top = 89
+              Width = 41
+              Height = 23
+              TabStop = False
+              AutoSize = False
+              BevelInner = bvLowered
+              BevelKind = bkTile
+              CharCase = ecUpperCase
+              Color = 15656925
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = 6908265
+              Font.Height = -13
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              NumbersOnly = True
+              ParentFont = False
+              TabOrder = 0
+              TabOnEnter = False
+              FontColorOnEnter = 10252872
+              ColorFocused = 10252872
+              ColorNotFocused = 6908265
+            end
+            object eort: TfEdit
+              Left = 175
+              Top = 89
+              Width = 306
+              Height = 23
+              TabStop = False
+              AutoSize = False
+              BevelInner = bvLowered
+              BevelKind = bkTile
+              CharCase = ecUpperCase
+              Color = 15656925
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = 6908265
+              Font.Height = -13
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 1
+              TabOnEnter = False
+              FontColorOnEnter = 10252872
+              ColorFocused = 10252872
+              ColorNotFocused = 6908265
+            end
+            object estrasse: TfEdit
+              Left = 135
+              Top = 67
+              Width = 346
+              Height = 23
+              TabStop = False
+              AutoSize = False
+              BevelInner = bvLowered
+              BevelKind = bkTile
+              CharCase = ecUpperCase
+              Color = 15656925
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = 6908265
+              Font.Height = -13
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 2
+              TabOnEnter = False
+              FontColorOnEnter = 10252872
+              ColorFocused = 10252872
+              ColorNotFocused = 6908265
+            end
+            object ename1: TfEdit
+              Left = 135
+              Top = 46
+              Width = 185
+              Height = 23
+              TabStop = False
+              AutoSize = False
+              BevelInner = bvLowered
+              BevelKind = bkTile
+              CharCase = ecUpperCase
+              Color = 15656925
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = 6908265
+              Font.Height = -13
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 3
+              TabOnEnter = False
+              FontColorOnEnter = 10252872
+              ColorFocused = 10252872
+              ColorNotFocused = 6908265
+            end
+            object dperstellungsdatum: TNxDatePicker
+              Left = 355
+              Top = 3
+              Width = 122
+              Height = 21
+              BevelOuter = bvNone
+              Color = clWhite
+              TabOrder = 4
+              Text = '07.10.2014'
+              HideFocus = False
+              Date = 41919.000000000000000000
+              NoneCaption = 'None'
+              TodayCaption = 'Today'
+            end
+            object ename2: TfEdit
+              Left = 318
+              Top = 46
+              Width = 163
+              Height = 23
+              TabStop = False
+              AutoSize = False
+              BevelInner = bvLowered
+              BevelKind = bkTile
+              CharCase = ecUpperCase
+              Color = 15656925
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = 6908265
+              Font.Height = -13
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 5
+              TabOnEnter = False
+              FontColorOnEnter = 10252872
+              ColorFocused = 10252872
+              ColorNotFocused = 6908265
+            end
           end
         end
         object perreichbarkeit: TPanel
           Left = 0
-          Top = 220
+          Top = 162
           Width = 781
-          Height = 269
+          Height = 167
           Margins.Left = 1
           Margins.Top = 0
           Margins.Right = 1
@@ -408,7 +411,7 @@
           BevelOuter = bvNone
           Color = clWhite
           ParentBackground = False
-          TabOrder = 2
+          TabOrder = 1
           object lnutzername: TLabel
             Left = 33
             Top = 61
@@ -454,19 +457,6 @@
             Caption = 'Nutzernummer'
             Layout = tlCenter
           end
-          object lausfürhung: TLabel
-            Left = 646
-            Top = 16
-            Width = 125
-            Height = 16
-            Caption = 'Ausf'#252'hrungstermin'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = 6908265
-            Font.Height = -13
-            Font.Name = 'Tahoma'
-            Font.Style = [fsBold]
-            ParentFont = False
-          end
           object Label15: TLabel
             Left = 32
             Top = 126
@@ -481,18 +471,10 @@
             Height = 13
             Caption = 'informiert'
           end
-          object lmonteur: TLabel
-            Left = 768
-            Top = 189
-            Width = 3
-            Height = 13
-            BiDiMode = bdRightToLeft
-            ParentBiDiMode = False
-          end
           object enutzername1: TfEdit
             Left = 144
-            Top = 61
-            Width = 224
+            Top = 60
+            Width = 310
             Height = 23
             AutoSize = False
             BevelInner = bvLowered
@@ -514,7 +496,7 @@
           object eemail: TfEdit
             Left = 144
             Top = 82
-            Width = 448
+            Width = 620
             Height = 23
             AutoSize = False
             BevelInner = bvLowered
@@ -535,7 +517,7 @@
           object etelefon: TfEdit
             Left = 144
             Top = 104
-            Width = 448
+            Width = 620
             Height = 23
             AutoSize = False
             BevelInner = bvLowered
@@ -555,7 +537,7 @@
           end
           object enutzernummer: TfEdit
             Left = 144
-            Top = 39
+            Top = 38
             Width = 34
             Height = 23
             AutoSize = False
@@ -578,75 +560,6 @@
             ColorFocused = 10252872
             ColorNotFocused = 6908265
           end
-          object pausführung: TPanel
-            Left = 654
-            Top = 39
-            Width = 115
-            Height = 130
-            BevelOuter = bvNone
-            Caption = '  '
-            Color = clWhite
-            ParentBackground = False
-            TabOrder = 8
-            object ldayOM: TLabel
-              Left = 32
-              Top = -6
-              Width = 31
-              Height = 58
-              Caption = '7'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = 6908265
-              Font.Height = -48
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-            end
-            object Lmy: TLabel
-              Left = 0
-              Top = 58
-              Width = 88
-              Height = 25
-              Alignment = taCenter
-              Caption = 'Aug 2014'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = 6908265
-              Font.Height = -21
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-            end
-            object lvon: TLabel
-              Left = 0
-              Top = 92
-              Width = 42
-              Height = 19
-              Align = alCustom
-              Caption = '12:00'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = 6908265
-              Font.Height = -16
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-              Layout = tlCenter
-            end
-            object pdivisor: TPanel
-              Left = 0
-              Top = 90
-              Width = 100
-              Height = 2
-              TabOrder = 0
-            end
-          end
-          object Button1: TButton
-            Left = 646
-            Top = 236
-            Width = 114
-            Height = 25
-            Caption = 'Termin festsetzen'
-            TabOrder = 7
-            OnClick = Button1Click
-          end
           object cberreichtdetail: TNxComboBox
             Left = 144
             Top = 126
@@ -664,9 +577,9 @@
               'Hausaushang')
           end
           object enutzername2: TfEdit
-            Left = 367
-            Top = 61
-            Width = 225
+            Left = 454
+            Top = 60
+            Width = 310
             Height = 23
             AutoSize = False
             BevelInner = bvLowered
@@ -696,9 +609,283 @@
             Caption = 'erreicht'
           end
         end
+        object ptermin: TPanel
+          Left = 0
+          Top = 329
+          Width = 889
+          Height = 208
+          Align = alTop
+          BevelOuter = bvNone
+          TabOrder = 3
+          object lausfürhung: TLabel
+            Left = 32
+            Top = 16
+            Width = 125
+            Height = 16
+            Caption = 'Ausf'#252'hrungstermin'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6908265
+            Font.Height = -13
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lmonteur: TLabel
+            Left = 609
+            Top = 155
+            Width = 154
+            Height = 13
+            BiDiMode = bdRightToLeft
+            ParentBiDiMode = False
+          end
+          object Label13: TLabel
+            Left = 23
+            Top = 71
+            Width = 31
+            Height = 13
+            Caption = 'Datum'
+          end
+          object Label14: TLabel
+            Left = 23
+            Top = 94
+            Width = 21
+            Height = 13
+            Caption = 'von '
+          end
+          object Label3: TLabel
+            Left = 55
+            Top = 94
+            Width = 13
+            Height = 13
+            Caption = 'bis'
+          end
+          object Label22: TLabel
+            Left = 23
+            Top = 114
+            Width = 36
+            Height = 13
+            Caption = 'Ableser'
+          end
+          object Label1: TLabel
+            Left = 367
+            Top = 65
+            Width = 155
+            Height = 19
+            Caption = 'keine Terminauswahl '
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6908265
+            Font.Height = -16
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+          end
+          object pausführung: TPanel
+            Left = 641
+            Top = 57
+            Width = 127
+            Height = 132
+            BevelEdges = []
+            BevelInner = bvRaised
+            BevelKind = bkTile
+            BevelOuter = bvSpace
+            BevelWidth = 2
+            Caption = '  '
+            Color = clWhite
+            ParentBackground = False
+            TabOrder = 0
+            object ldayOM: TLabel
+              Left = 4
+              Top = 4
+              Width = 119
+              Height = 58
+              Align = alTop
+              Alignment = taCenter
+              Caption = '7'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = 6908265
+              Font.Height = -48
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+              ExplicitLeft = 40
+              ExplicitTop = -6
+              ExplicitWidth = 31
+            end
+            object Lmy: TLabel
+              Left = 4
+              Top = 62
+              Width = 119
+              Height = 25
+              Align = alTop
+              Alignment = taCenter
+              Caption = 'Aug 2014'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = 6908265
+              Font.Height = -21
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              ExplicitLeft = 8
+              ExplicitTop = 58
+              ExplicitWidth = 88
+            end
+            object lvon: TLabel
+              AlignWithMargins = True
+              Left = 7
+              Top = 102
+              Width = 113
+              Height = 19
+              Margins.Top = 5
+              Align = alTop
+              Alignment = taCenter
+              Caption = '12:00'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = 6908265
+              Font.Height = -16
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              Layout = tlCenter
+              ExplicitLeft = 3
+              ExplicitTop = 116
+              ExplicitWidth = 117
+            end
+            object pdivisor: TPanel
+              AlignWithMargins = True
+              Left = 7
+              Top = 92
+              Width = 113
+              Height = 2
+              Margins.Top = 5
+              Align = alTop
+              TabOrder = 0
+              ExplicitLeft = 3
+              ExplicitTop = 88
+              ExplicitWidth = 121
+            end
+          end
+          object edate: TfEdit
+            Left = 144
+            Top = 67
+            Width = 80
+            Height = 23
+            AutoSize = False
+            BevelInner = bvLowered
+            BevelKind = bkTile
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6908265
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 1
+            Text = '12.04.14'
+            TextHint = 'ttmmjj'
+            OnExit = edateExit
+            TabOnEnter = False
+            FontColorOnEnter = 10252872
+            ColorFocused = 10252872
+            ColorNotFocused = 6908265
+          end
+          object evon: TfEdit
+            Left = 144
+            Top = 89
+            Width = 40
+            Height = 23
+            AutoSize = False
+            BevelInner = bvLowered
+            BevelKind = bkTile
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6908265
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 2
+            Text = '12:00'
+            TextHint = 'ssmm'
+            OnExit = evonExit
+            TabOnEnter = False
+            FontColorOnEnter = 10252872
+            ColorFocused = 10252872
+            ColorNotFocused = 6908265
+          end
+          object ebis: TfEdit
+            Left = 184
+            Top = 89
+            Width = 40
+            Height = 23
+            AutoSize = False
+            BevelInner = bvLowered
+            BevelKind = bkTile
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6908265
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 3
+            Text = '14:00'
+            TextHint = 'ssmm'
+            OnExit = evonExit
+            TabOnEnter = False
+            FontColorOnEnter = 10252872
+            ColorFocused = 10252872
+            ColorNotFocused = 6908265
+          end
+          object cbmonteur: TfComboBox
+            Left = 144
+            Top = 111
+            Width = 193
+            Height = 24
+            BevelInner = bvLowered
+            BevelKind = bkTile
+            BevelOuter = bvNone
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -13
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 4
+            Text = 'Ableser'
+            TabOnEnter = False
+            FontColorOnEnter = 10252872
+            ColorFocused = 10252872
+            ColorNotFocused = 6908265
+          end
+          object showmonteurcal: TButton
+            Left = 143
+            Top = 141
+            Width = 194
+            Height = 23
+            Caption = 'Monteurtermine anzeigen'
+            TabOrder = 5
+            OnClick = showmonteurcalClick
+          end
+          object mitHA: TCheckBox
+            Left = 367
+            Top = 110
+            Width = 161
+            Height = 17
+            Caption = 'mit der Hauptablesung'
+            TabOrder = 6
+            OnClick = mitHAClick
+            OnMouseDown = mitHAMouseDown
+          end
+          object externGeplant: TCheckBox
+            Left = 367
+            Top = 133
+            Width = 161
+            Height = 17
+            Caption = 'extern geplant'
+            TabOrder = 7
+            OnClick = mitHAClick
+          end
+        end
         object pnotizen: TPanel
           Left = 0
-          Top = 489
+          Top = 537
           Width = 784
           Height = 352
           Margins.Left = 1
@@ -709,10 +896,10 @@
           BevelOuter = bvNone
           Color = clWhite
           ParentBackground = False
-          TabOrder = 3
+          TabOrder = 2
           object lcharleft: TLabel
             Left = 641
-            Top = 255
+            Top = 207
             Width = 122
             Height = 13
             Caption = 'noch 612 Zeichen m'#246'glich'
@@ -735,7 +922,7 @@
             Left = 144
             Top = 16
             Width = 624
-            Height = 233
+            Height = 185
             BevelInner = bvLowered
             BevelKind = bkTile
             Color = clWhite
@@ -755,8 +942,8 @@
             ColorNotFocused = 11776947
           end
           object NxButton1: TNxButton
-            Left = 626
-            Top = 285
+            Left = 627
+            Top = 261
             Width = 137
             Caption = 'Werte zur'#252'cksetzen'
             Font.Charset = DEFAULT_CHARSET
@@ -770,7 +957,7 @@
           end
           object NxButton4: TNxButton
             Left = 484
-            Top = 285
+            Top = 261
             Width = 137
             Caption = 'abschlie'#223'en'
             Font.Charset = DEFAULT_CHARSET
@@ -781,53 +968,15 @@
             ParentFont = False
             TabOrder = 2
           end
-        end
-      end
-      object hptermin: TNxHeaderPanel
-        Left = 13
-        Top = 800
-        Width = 908
-        Height = 4
-        AdaptiveColors = False
-        BorderWidth = 0
-        Caption = 'Termin festlegen'
-        CollapseWidth = 126
-        DockSite = True
-        DragKind = dkDock
-        HeaderColor = 13743257
-        HeaderFont.Charset = DEFAULT_CHARSET
-        HeaderFont.Color = 6908265
-        HeaderFont.Height = -11
-        HeaderFont.Name = 'Tahoma'
-        HeaderFont.Style = []
-        HeaderStyle = psFlat
-        Options = [hoClickOnBodyExpand, hoCollapseButton]
-        ParentHeaderFont = False
-        TabOrder = 1
-        Visible = False
-        OnCollapse = hpterminCollapse
-        OnExpand = hpterminExpand
-        FullWidth = 908
-        object cbableser: TfComboBox
-          Left = 384
-          Top = 242
-          Width = 145
-          Height = 24
-          BevelInner = bvLowered
-          BevelKind = bkTile
-          BevelOuter = bvNone
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -13
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 0
-          Text = 'cbableser'
-          TabOnEnter = False
-          FontColorOnEnter = 36607
-          ColorFocused = 36607
-          ColorNotFocused = clBlack
+          object Button1: TButton
+            Left = 484
+            Top = 230
+            Width = 280
+            Height = 25
+            Caption = 'Rechnungsdetails'
+            TabOrder = 3
+            OnClick = Button1Click
+          end
         end
       end
     end
@@ -840,12 +989,13 @@
       TabFont.Height = -11
       TabFont.Name = 'Tahoma'
       TabFont.Style = []
-      ExplicitHeight = 277
+      ExplicitWidth = 996
+      ExplicitHeight = 1
       object perreichtdetails: TPanel
         Left = 0
         Top = 0
-        Width = 996
-        Height = 4
+        Width = 776
+        Height = 876
         Margins.Left = 5
         Margins.Top = 5
         Margins.Right = 5
@@ -854,102 +1004,23 @@
         Color = clWhite
         ParentBackground = False
         TabOrder = 0
-        ExplicitHeight = 277
-        object Label18: TLabel
-          Left = 29
-          Top = 35
-          Width = 87
-          Height = 13
-          Caption = 'Nutzer wurde per '
-        end
-        object Label19: TLabel
-          Left = 259
-          Top = 35
-          Width = 46
-          Height = 13
-          Caption = 'informiert'
-        end
-        object Label20: TLabel
-          Left = 32
-          Top = 79
-          Width = 69
-          Height = 13
-          Caption = 'informiert am  '
-        end
-        object NxComboBox2: TNxComboBox
-          Left = 125
-          Top = 35
-          Width = 120
-          Height = 21
-          BevelInner = bvNone
-          TabOrder = 0
-          HideFocus = False
-          AutoCompleteDelay = 0
-          Items.Strings = (
-            'Email'
-            'Anruf'
-            'Brief'
-            'Postkarte'
-            'Hausaushang')
-        end
-        object NxCheckBox62: TNxCheckBox6
-          Left = 30
-          Top = 118
-          Width = 97
-          Height = 17
-          TagString = ''
-          Caption = 'Nutzer erreicht'
-          TabOrder = 1
-        end
-        object NxButton8: TNxButton
-          Left = 119
-          Top = 162
+        ExplicitWidth = 996
+        ExplicitHeight = 1
+        object NxButton5: TNxButton
+          Left = 589
+          Top = 9
           Width = 75
-          Caption = 'speichern'
-          TabOrder = 2
-          OnClick = NxButton8Click
+          Caption = #252'bernehmen'
+          TabOrder = 0
+          OnClick = click
         end
-        object NxButton9: TNxButton
-          Left = 215
-          Top = 159
+        object NxButton6: TNxButton
+          Left = 696
+          Top = 9
           Width = 75
           Caption = 'verwerfen'
-          TabOrder = 3
-          OnClick = NxButton7Click
-        end
-        object einfodate: TfEdit
-          Left = 125
-          Top = 74
-          Width = 116
-          Height = 23
-          AutoSize = False
-          BevelInner = bvLowered
-          BevelKind = bkTile
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = 6908265
-          Font.Height = -13
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 4
-          TextHint = 'ttmmjj'
-          TabOnEnter = False
-          FontColorOnEnter = 10252872
-          ColorFocused = 10252872
-          ColorNotFocused = 6908265
-        end
-        object NxMonthCalendar2: TNxMonthCalendar
-          Left = 344
-          Top = 35
-          Width = 151
-          Height = 163
-          Day = 29
-          Month = 10
-          NoneCaption = 'None'
-          SelectedDate = 41941.000000000000000000
-          TodayCaption = 'Today'
-          Year = 2014
-          OnChange = NxMonthCalendar2Change
+          TabOrder = 1
+          OnClick = NxButton3Click
         end
       end
     end
@@ -962,12 +1033,15 @@
       TabFont.Height = -11
       TabFont.Name = 'Tahoma'
       TabFont.Style = []
-      ExplicitHeight = 277
+      OnHide = NxTabSheet3Hide
+      OnShow = NxTabSheet3Show
+      ExplicitWidth = 996
+      ExplicitHeight = 1
       object ptermindetails: TNxPanel
         Left = 0
         Top = 0
-        Width = 996
-        Height = 4
+        Width = 776
+        Height = 876
         Margins.Left = 5
         Margins.Top = 5
         Margins.Right = 5
@@ -982,196 +1056,36 @@
         FullRepaint = True
         ParentColor = False
         TabOrder = 0
-        ExplicitHeight = 277
-        object Label13: TLabel
-          Left = 23
-          Top = 71
+        ExplicitWidth = 996
+        ExplicitHeight = 1
+        object Label23: TLabel
+          Left = 272
+          Top = 22
           Width = 31
           Height = 13
           Caption = 'Datum'
         end
-        object Label14: TLabel
-          Left = 23
-          Top = 107
+        object Label24: TLabel
+          Left = 272
+          Top = 45
           Width = 21
           Height = 13
           Caption = 'von '
         end
-        object Label3: TLabel
-          Left = 23
-          Top = 144
+        object Label25: TLabel
+          Left = 293
+          Top = 45
           Width = 13
           Height = 13
           Caption = 'bis'
         end
-        object Label1: TLabel
-          Left = 488
-          Top = 30
-          Width = 155
-          Height = 19
-          Caption = 'keine Terminauswahl '
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = 6908265
-          Font.Height = -16
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-        end
-        object Label21: TLabel
-          Left = 23
-          Top = 23
-          Width = 119
-          Height = 19
-          Caption = 'von BFW geplant'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = 6908265
-          Font.Height = -16
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-        end
-        object mitHA: TCheckBox
-          Left = 488
-          Top = 75
-          Width = 161
-          Height = 17
-          Caption = 'mit der Hauptablesung'
-          TabOrder = 2
-          OnClick = mitHAClick
-          OnMouseDown = mitHAMouseDown
-        end
-        object NxButton2: TNxButton
-          Left = 581
-          Top = 719
-          Width = 75
-          Caption = 'speichern'
-          TabOrder = 0
-          OnClick = NxButton2Click
-        end
-        object NxButton3: TNxButton
-          Left = 688
-          Top = 719
-          Width = 75
-          Caption = 'verwerfen'
-          TabOrder = 1
-          OnClick = NxButton3Click
-        end
-        object nxdate: TNxMonthCalendar
-          Left = 247
-          Top = 67
-          Width = 151
-          Height = 163
-          Day = 8
-          Month = 10
-          NoneCaption = 'None'
-          SelectedDate = 41920.000000000000000000
-          TodayCaption = 'Today'
-          Year = 2014
-          OnChange = nxdateChange
-        end
-        object externGeplant: TCheckBox
-          Left = 488
-          Top = 98
-          Width = 161
-          Height = 17
-          Caption = 'extern geplant'
-          TabOrder = 4
-          OnClick = mitHAClick
-        end
-        object edate: TfEdit
-          Left = 93
-          Top = 67
-          Width = 121
-          Height = 23
-          AutoSize = False
-          BevelInner = bvLowered
-          BevelKind = bkTile
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = 6908265
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 5
-          TextHint = 'ttmmjj'
-          OnExit = edateExit
-          TabOnEnter = False
-          FontColorOnEnter = 10252872
-          ColorFocused = 10252872
-          ColorNotFocused = 6908265
-        end
-        object evon: TfEdit
-          Left = 93
-          Top = 102
-          Width = 121
-          Height = 23
-          AutoSize = False
-          BevelInner = bvLowered
-          BevelKind = bkTile
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = 6908265
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 6
-          TextHint = 'ssmm'
-          OnExit = evonExit
-          TabOnEnter = False
-          FontColorOnEnter = 10252872
-          ColorFocused = 10252872
-          ColorNotFocused = 6908265
-        end
-        object ebis: TfEdit
-          Left = 93
-          Top = 139
-          Width = 121
-          Height = 23
-          AutoSize = False
-          BevelInner = bvLowered
-          BevelKind = bkTile
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = 6908265
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 7
-          TextHint = 'ssmm'
-          OnExit = evonExit
-          TabOnEnter = False
-          FontColorOnEnter = 10252872
-          ColorFocused = 10252872
-          ColorNotFocused = 6908265
-        end
-        object cbmonteur: TfComboBox
-          Left = 23
-          Top = 260
-          Width = 740
-          Height = 24
-          BevelInner = bvLowered
-          BevelKind = bkTile
-          BevelOuter = bvNone
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -13
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 8
-          Text = 'Ableser'
-          TabOnEnter = False
-          FontColorOnEnter = 10252872
-          ColorFocused = 10252872
-          ColorNotFocused = 6908265
-        end
         object gridableser: TNextDBGrid
           Left = 23
-          Top = 288
+          Top = 67
           Width = 740
-          Height = 408
+          Height = 629
           Caption = ''
-          TabOrder = 9
+          TabOrder = 0
           TabStop = True
           object NxDBTextColumn1: TNxDBTextColumn
             DefaultWidth = 73
@@ -1287,6 +1201,112 @@
             SortType = stAlphabetic
             Width = 174
           end
+        end
+        object cbableserdetail: TfComboBox
+          Left = 23
+          Top = 21
+          Width = 230
+          Height = 24
+          BevelInner = bvLowered
+          BevelKind = bkTile
+          BevelOuter = bvNone
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 1
+          Text = 'cbableserdetail'
+          TabOnEnter = False
+          FontColorOnEnter = 36607
+          ColorFocused = 36607
+          ColorNotFocused = clBlack
+        end
+        object edatemonteur: TfEdit
+          Left = 393
+          Top = 18
+          Width = 80
+          Height = 23
+          AutoSize = False
+          BevelInner = bvLowered
+          BevelKind = bkTile
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = 6908265
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 2
+          Text = '12.04.14'
+          TextHint = 'ttmmjj'
+          OnExit = edateExit
+          TabOnEnter = False
+          FontColorOnEnter = 10252872
+          ColorFocused = 10252872
+          ColorNotFocused = 6908265
+        end
+        object evonmonteur: TfEdit
+          Left = 393
+          Top = 40
+          Width = 40
+          Height = 23
+          AutoSize = False
+          BevelInner = bvLowered
+          BevelKind = bkTile
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = 6908265
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 3
+          Text = '12:00'
+          TextHint = 'ssmm'
+          OnExit = evonExit
+          TabOnEnter = False
+          FontColorOnEnter = 10252872
+          ColorFocused = 10252872
+          ColorNotFocused = 6908265
+        end
+        object ebismonteur: TfEdit
+          Left = 433
+          Top = 40
+          Width = 40
+          Height = 23
+          AutoSize = False
+          BevelInner = bvLowered
+          BevelKind = bkTile
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = 6908265
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 4
+          Text = '14:00'
+          TextHint = 'ssmm'
+          OnExit = evonExit
+          TabOnEnter = False
+          FontColorOnEnter = 10252872
+          ColorFocused = 10252872
+          ColorNotFocused = 6908265
+        end
+        object NxButton2: TNxButton
+          Left = 581
+          Top = 38
+          Width = 75
+          Caption = #252'bernehmen'
+          TabOrder = 5
+          OnClick = NxButton2Click
+        end
+        object NxButton3: TNxButton
+          Left = 688
+          Top = 38
+          Width = 75
+          Caption = 'verwerfen'
+          TabOrder = 6
+          OnClick = NxButton3Click
         end
       end
     end

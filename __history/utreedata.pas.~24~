@@ -1,0 +1,28 @@
+unit utreedata;
+
+interface
+
+uses StdCtrls, winapi.windows;
+
+type
+  PTreeData = ^TTreeData;
+
+  TTreeData = record
+    fliegenschaft: String;         // Liegenschaft
+    FColumn: string;          // Datum
+
+    fwiedervorl: string;
+    fimagedok: integer;
+    fimagewied: integer;
+    fimageerst: integer;
+    fimagenotiz: integer;
+    fspecial: boolean;
+    fnotizen: string;
+    fdateiname: string;
+    fid: integer;
+    fausführungstermin: string;
+  end;
+
+implementation
+
+end.

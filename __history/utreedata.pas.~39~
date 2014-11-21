@@ -1,0 +1,43 @@
+unit utreedata;
+
+interface
+
+uses StdCtrls, winapi.windows;
+
+type
+  PTreeData = ^TTreeData;
+
+  TTreeData = record
+    fliegenschaft: String; // Liegenschaft
+    fdatum: string;        // Datum
+    fauftrtyp: string;
+    fnutzer: string;
+    fwiedervorl: string;
+    fimagedok: integer;
+    fimagewied: integer;
+    fimageerst: integer;
+    fimagenotiz: integer;
+    fspecial: boolean;
+    fnotizen: string;
+    fdateiname: string;
+    fid: integer;
+    fausführungstermin: string;
+
+    procedure clear;
+  end;
+
+implementation
+
+procedure TTreeData.clear;
+begin
+  // with TTreeData do begin
+  TTreeData.fliegenschaft := '';
+  TTreeData.fdatum        := '';
+  TTreeData.fauftrtyp     := '';
+  TTreeData.fnutzer       := '';
+  TTreeData.fwiedervorl   := '';
+  // end;
+
+end;
+
+end.
