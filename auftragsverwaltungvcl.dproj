@@ -145,6 +145,11 @@
             <Form>formdb</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="..\Dokumentenverwaltung Layouttesting\frame.pas">
+            <Form>frleft</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

@@ -14,7 +14,7 @@ uses
   utreedata, vstbutton, strutils, uformwiedervor, uauftragsinfo,
   ZAbstractRODataset, ZAbstractDataset, ZDataset, updfmain,
   OverbyteIcsWndControl, OverbyteIcsFtpCli, NPipe_Client, fNPipeClient, NxEdit,
-  uframeauftragsverwaltung;
+  uframeauftragsverwaltung, frame;
 
 type
   Tformmain = class(TForm)
@@ -25,17 +25,6 @@ type
     lkundennummer: TLabel;
     lsachbearbeiter: TLabel;
     pleft: TPanel;
-    pvorschau: TPanel;
-    Panel3: TPanel;
-    Panel4: TPanel;
-    Panel1: TPanel;
-    Panel2: TPanel;
-    peinzelauftr: TPanel;
-    pauftraggenerieren: TPanel;
-    pneuerauftrag: TPanel;
-    pua: TPanel;
-    poA: TPanel;
-    panforderungen: TPanel;
     pmiddle: TPanel;
     pager: TNxPageControl;
     sheetanforderungen: TNxTabSheet;
@@ -104,6 +93,11 @@ type
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
+    leftexpandables: Tfrleft;
+    poa: TPanel;
+    peinzelauftr: TPanel;
+    pua: TPanel;
+    pneuerauftrag: TPanel;
     // zframe: Tframeauftragsdaten;
     // procedure aufträgeAnzeigen(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -185,6 +179,7 @@ type
       Column: TColumnIndex; Shift: TShiftState);
     procedure zframeNxButton1Click(Sender: TObject);
     procedure FormResize(Sender: TObject);
+    procedure Panel1Click(Sender: TObject);
 
   private
     lg           : string;
@@ -276,6 +271,11 @@ begin
     Canvas.Brush.Style := bsClear;
     Canvas.Rectangle(0, 0, Width, Height);
   end;
+end;
+
+procedure Tformmain.Panel1Click(Sender: TObject);
+begin
+
 end;
 
 // ----------------------------------------------------------------------------------------------------------------------
@@ -398,6 +398,7 @@ var
   Width: Integer;
   i    : Integer;
 begin
+
   aufcon := tauftragskonstanten.Create;
   {$IFDEF RELEASE }
   pager.ShowTabs        := False;
@@ -472,7 +473,16 @@ var
   ds                    : TDataSet;
   mydate                : TDatetime;
   mymonth, myday, myyear: word;
+  i                     : Integer;
+  expp                  : TNxExpandPanel;
 begin
+  if not assigned(leftexpandables) then leftexpandables := Tfrleft.Create(self);
+  for i := 1 to 4 do begin
+    with leftexpandables do begin
+      expp := (FindComponent('NxExpandPanel' + inttostr(i)) as TNxExpandPanel);
+      expp.Expanded := False;
+    end;
+  end;
   list := TStringList.Create;
   list.Add('Name1');
   list.Add('Name2');
@@ -546,11 +556,11 @@ var
 begin
   Result := '';
   Data   := avst.getnodedata(ANode);
-  while not(correctlg(Data.FCaption)) do begin
-    outputdebugstring(pchar(Data.FCaption));
+  while not(correctlg(Data.fliegenschaft)) do begin
+    outputdebugstring(pchar(Data.fliegenschaft));
     ANode  := ANode.Parent;
     Data   := vst.getnodedata(ANode);
-    Result := Data.FCaption;
+    Result := Data.fliegenschaft;
   end;
 
 end;
@@ -563,11 +573,11 @@ var
 begin
 
   Data   := vst.getnodedata(ANode);
-  Result := Data.FCaption;
-  while not(correctnn(Data.FCaption)) do begin
+  Result := Data.fliegenschaft;
+  while not(correctnn(Data.fliegenschaft)) do begin
     ANode  := ANode.Parent;
     Data   := vst.getnodedata(ANode);
-    Result := Data.FCaption;
+    Result := Data.fliegenschaft;
   end;
 end;
 
@@ -597,11 +607,11 @@ var
 begin
 
   Data   := vst.getnodedata(ANode);
-  Result := Data.FCaption;
-  while not(correcttyp(Data.FCaption)) do begin
+  Result := Data.fliegenschaft;
+  while not(correcttyp(Data.fliegenschaft)) do begin
     ANode  := ANode.Parent;
     Data   := vst.getnodedata(ANode);
-    Result := Data.FCaption;
+    Result := Data.fliegenschaft;
   end;
 end;
 
@@ -718,13 +728,13 @@ begin
   end;
   Node   := vst.focusedNode;
   Data   := vst.getnodedata(Node);
-  try lg := Data.FCaption;
+  try lg := Data.fliegenschaft;
   except
   end;
   while not(correctlg(lg)) do begin
     Node   := Node.Parent;
     Data   := vst.getnodedata(Node);
-    try lg := Data.FCaption;
+    try lg := Data.fliegenschaft;
     except
     end;
     // if AnsiStartsText('lieg', LowerCase(lg)) then
@@ -733,7 +743,7 @@ begin
   getoffeneaufträge(' WHERE liegenschaft = ' + lg + ' ORDER BY liegenschaft');
   vstsearch.Align  := TAlign.alBottom;
   vstsearch.Height := trunc((pauftr.Height / 2) - pmessage.Height);
-  fillvst(formdb.queryaufträge, vstsearch, poA);
+  fillvst(formdb.queryaufträge, vstsearch, poa);
   exit;
 
 end;
@@ -847,9 +857,9 @@ end;
 procedure Tformmain.pauftraggenerierenClick(Sender: TObject);
 begin
   with aufcon do begin
-    paintallcontrols(peinzelauftr, dunkelblaufm);
-    (Sender as TPanel).Color := hellerblaufm;
-    wizard.pager.ShowTabs    := False;
+    // paintallcontrols(peinzelauftr, dunkelblaufm);
+    // (Sender as TPanel).Color := hellerblaufm;
+    // wizard.pager.ShowTabs    := False;
     wizard.Show;
     wizard.pager.ActivePageIndex := 0;
     pager.ActivePage             := twizardsheet;
@@ -861,8 +871,8 @@ begin
   try
     with aufcon do begin
       pager.ActivePage := tabneuerauftrag;
-      paintallcontrols(peinzelauftr, dunkelblaufm);
-      (Sender as TPanel).Color := hellerblaufm;
+      // paintallcontrols(peinzelauftr, dunkelblaufm);
+      // (Sender as TPanel).Color := hellerblaufm;
     end;
   except showmessage('bitte in 10 Sekunden erneut versuchen');
   end;
@@ -873,9 +883,9 @@ begin
   //
   try
     with aufcon do begin
-      paintallcontrols(peinzelauftr, dunkelblaufm);
-      (Sender as TPanel).Color := hellerblaufm;
-      pager.ActivePage         := sheetanforderungen;
+      // paintallcontrols(peinzelauftr, dunkelblaufm);
+      // (Sender as TPanel).Color := hellerblaufm;
+      pager.ActivePage := sheetanforderungen;
 
       pauftrerst.enabled := true;
       psearchoff.enabled := true;
@@ -1045,8 +1055,8 @@ begin
   Result := avst.AddChild(parNode);
   Data   := avst.getnodedata(Result);
   avst.ValidateChildren(Result, False);
-  Data^.FCaption           := arecord.FCaption;
-  Data^.FColumn            := arecord.FColumn;
+  Data^.fliegenschaft      := arecord.fliegenschaft;
+  Data^.fdatum             := arecord.fdatum;
   Data^.fimagedok          := arecord.fimagedok;
   Data^.fimagewied         := arecord.fimagewied;
   Data^.fimageerst         := arecord.fimageerst;
@@ -1057,6 +1067,8 @@ begin
   Data^.fausführungstermin := arecord.fausführungstermin;
   Data^.fwiedervorl        := arecord.fwiedervorl;
   Data^.fimagenotiz        := arecord.fimagenotiz;
+  Data^.fauftrtyp          := arecord.fauftrtyp;
+  Data^.fnutzer            := arecord.fnutzer;
 end;
 
 // #########################################
@@ -1294,43 +1306,43 @@ begin
         ausführungsterm := FieldByName('ausführungstermin').AsString;
         if lg <> tmplg then begin
           // neuer Lieg.Knoten, wenn noch nicht vorhanden
-          treedata.FCaption    := lg;
-          treedata.FColumn     := '';
-          treedata.fimagedok   := -1;
-          treedata.fimagewied  := -1;
-          treedata.fimageerst  := -1;
-          treedata.fspecial    := False;
-          treedata.fnotizen    := '';
-          treedata.fwiedervorl := '     ';
-          liegnode             := setnode(avst, nil, treedata);
-          treedata.FCaption    := auftrstr;
-          treedata.FColumn     := '';
-          treedata.fspecial    := False;
-          treedata.fimagedok   := -1;
-          treedata.fimagewied  := -1;
-          treedata.fnotizen    := '';
-          treedata.fwiedervorl := '     ';
-          aufnode              := setnode(avst, liegnode, treedata);
+          treedata.fliegenschaft := lg;
+          treedata.fdatum        := '';
+          treedata.fimagedok     := -1;
+          treedata.fimagewied    := -1;
+          treedata.fimageerst    := -1;
+          treedata.fspecial      := False;
+          treedata.fnotizen      := '';
+          treedata.fwiedervorl   := '     ';
+          liegnode               := setnode(avst, nil, treedata);
+          treedata.fliegenschaft := auftrstr;
+          treedata.fdatum        := '';
+          treedata.fspecial      := False;
+          treedata.fimagedok     := -1;
+          treedata.fimagewied    := -1;
+          treedata.fnotizen      := '';
+          treedata.fwiedervorl   := '     ';
+          aufnode                := setnode(avst, liegnode, treedata);
         end else if (auftrstr <> tmpauftrstr) then begin
-          treedata.FCaption    := auftrstr;
-          treedata.FColumn     := '';
-          treedata.fspecial    := False;
-          treedata.fimagedok   := -1;
-          treedata.fimagewied  := -1;
-          treedata.fnotizen    := '';
-          treedata.fwiedervorl := '     ';
-          aufnode              := setnode(avst, liegnode, treedata);
+          treedata.fliegenschaft := auftrstr;
+          treedata.fdatum        := '';
+          treedata.fspecial      := False;
+          treedata.fimagedok     := -1;
+          treedata.fimagewied    := -1;
+          treedata.fnotizen      := '';
+          treedata.fwiedervorl   := '     ';
+          aufnode                := setnode(avst, liegnode, treedata);
         end;
-        treedata.FCaption    := Format('%.3d', [nnint]);
-        treedata.FColumn     := wiedervorl;
-        treedata.fspecial    := true;
-        treedata.fimagedok   := 0;
-        treedata.fnotizen    := notz;
-        treedata.fimagewied  := 2;
-        treedata.fdateiname  := dat;
-        treedata.fid         := self.auftragsid;
-        treedata.fwiedervorl := wiedervorl;
-        if treedata.FColumn = '' then treedata.FColumn := pestr;
+        treedata.fliegenschaft := Format('%.3d', [nnint]);
+        treedata.fdatum        := wiedervorl;
+        treedata.fspecial      := true;
+        treedata.fimagedok     := 0;
+        treedata.fnotizen      := notz;
+        treedata.fimagewied    := 2;
+        treedata.fdateiname    := dat;
+        treedata.fid           := self.auftragsid;
+        treedata.fwiedervorl   := wiedervorl;
+        if treedata.fdatum = '' then treedata.fdatum := pestr;
 
         treedata.fausführungstermin := ausführungsterm;
         nnnode                      := setnode(avst, aufnode, treedata);
@@ -1354,25 +1366,28 @@ var
   row, rowcount: Integer;
   i, j         : Integer;
   // CustomerDataObject: TCustomerNode;
-  liegnode, penode, nnnode, aufnode, dateinode: PVirtualNode;
-  liegcount                                   : Integer;
-  dict                                        : TDictionary<string, string>;
-  tmplg, lg                                   : string;
-  tmpnn                                       : string;
-  tmppe                                       : string;
-  pestr                                       : string;
-  nnstr                                       : string;
-  auftrstr                                    : string;
-  tmpauftrstr                                 : string;
+  RootNode, liegnode, penode, nnnode, aufnode, dateinode: PVirtualNode;
+  liegcount                                             : Integer;
+  dict: TDictionary<string, string>;
+  tmplg, lg  : string;
+  tmpnn      : string;
+  tmppe      : string;
+  pestr      : string;
+  nnstr      : string;
+  auftrstr   : string;
+  tmpauftrstr: string;
 
   tmppestr  : string;
   treedata  : tTreedata;
   nnint     : Integer;
+  tmpnnint  : Integer;
   index     : Integer;
   dat       : string;
   notz      : string;
   wiedervorl: string;
 begin
+  tmpnnint := -1;
+  treedata.Clear;
   with aufcon do begin
     query.open;
 
@@ -1391,6 +1406,7 @@ begin
     avst.BeginUpdate;
     with query do begin
       while not Eof do begin
+
         lg              := FieldByName(liegenschaft).AsString;
         pestr           := FieldByName(Posteingang).AsString;
         nnint           := FieldByName(Nutzernummer).AsInteger;
@@ -1399,55 +1415,42 @@ begin
         notz            := FieldByName(Notizen).AsString;
         self.auftragsid := FieldByName('id').AsInteger;
         wiedervorl      := FieldByName(wiedervorlage).AsString;
-        if not(tmplg = lg) then begin
 
+        if auftrstr = '' then auftrstr := 'Montage';
+
+        treedata.Clear;
+        treedata.fliegenschaft := lg;
+        treedata.fdatum        := pestr;
+        treedata.fid           := self.auftragsid;
+        treedata.fimagedok     := -1;
+        treedata.fimagewied    := -1;
+        treedata.fimageerst    := -1;
+        treedata.fspecial      := False;
+        treedata.fnotizen      := notz;
+        treedata.fwiedervorl   := wiedervorl;
+        treedata.fnutzer       := Format('%.3d', [nnint]);;
+
+        // if (not(auftrstr = tmpauftrstr)) or not(tmplg = lg) then
+        treedata.fauftrtyp  := auftrstr;
+        treedata.fdateiname := dat;
+        if not(tmplg = lg) then begin
           // neuer Lieg.Knoten, wenn noch nicht vorhanden
-          treedata.FCaption    := lg;
-          treedata.FColumn     := '';
-          treedata.fimagedok   := -1;
-          treedata.fimagewied  := -1;
-          treedata.fimageerst  := -1;
-          treedata.fspecial    := False;
-          treedata.fnotizen    := '';
-          treedata.fwiedervorl := '     ';
-          liegnode             := setnode(avst, nil, treedata);
-          treedata.FCaption    := auftrstr;
-          treedata.FColumn     := '';
-          treedata.fspecial    := False;
-          treedata.fimagedok   := -1;
-          treedata.fimagewied  := -1;
-          treedata.fimageerst  := -1;
-          treedata.fnotizen    := '';
-          treedata.fwiedervorl := '     ';
-          aufnode              := setnode(avst, liegnode, treedata);
-        end else if (auftrstr <> tmpauftrstr) then begin
-          treedata.FCaption    := auftrstr;
-          treedata.FColumn     := '';
-          treedata.fspecial    := False;
-          treedata.fimagedok   := -1;
-          treedata.fimagewied  := -1;
-          treedata.fimageerst  := -1;
-          treedata.fnotizen    := '';
-          treedata.fwiedervorl := '     ';
-          aufnode              := setnode(avst, liegnode, treedata);
+          liegnode := setnode(avst, RootNode, treedata);
+          if (auftrstr <> tmpauftrstr) or (tmplg <> lg) then begin
+            // kein neuer Knoten und auftrag ungleich => neuer AUftragsknoten
+            treedata.fauftrtyp := auftrstr;
+            aufnode            := setnode(avst, liegnode, treedata);
+          end
+
         end;
-        treedata.FCaption    := Format('%.3d', [nnint]);
-        treedata.FColumn     := wiedervorl;
-        treedata.fspecial    := true;
-        treedata.fimagedok   := 0;
-        treedata.fnotizen    := notz;
-        treedata.fimagenotiz := 3;
-        treedata.fimagewied  := 2;
-        treedata.fimageerst  := 1;
-        treedata.fdateiname  := dat;
-        treedata.fid         := self.auftragsid;
-        treedata.fwiedervorl := wiedervorl;
-        if treedata.FColumn = '' then treedata.FColumn := pestr;
+        // neuer Nutzerknoten
+        treedata.fspecial              := true;
         nnnode                         := setnode(avst, aufnode, treedata);
         tmplg                          := lg;
         if auftrstr = '' then auftrstr := '__';
         tmpauftrstr                    := auftrstr;
         tmppestr                       := pestr;
+        tmpnnint                       := nnint;
         Next;
       end;
     end;
@@ -1550,7 +1553,7 @@ begin
     Node := avst.focusedNode;
     Data := avst.getnodedata(Node);
     formdb.update(inttostr(Data.fid), table, wiedervorlage, wieddate);
-    Data.FColumn := wieddate;
+    Data.fdatum := wieddate;
   end;
 end;
 
@@ -1611,24 +1614,24 @@ begin
   Notizen := Data.fnotizen;
   image   := Data.fimagenotiz;
   case Column of
-    1: begin // Notizen anzeigen als Symbol
-        if length(Notizen) = 0 then exit;
-        Rect := Sender.GetDisplayRect(Node, Column, true);
-        ImageList1.Draw(TargetCanvas, Left, CellRect.Top, Data.fimagenotiz);
-      end;
-    3: begin
-
-        Rect := Sender.GetDisplayRect(Node, Column, true);
-        ImageList1.Draw(TargetCanvas, Left, CellRect.Top, Data.fimagewied);
-      end;
-    4: begin
-
-        Rect := Sender.GetDisplayRect(Node, Column, true);
-        ImageList1.Draw(TargetCanvas, Left, CellRect.Top, Data.fimagedok);
-      end;
+    // 1: begin // Notizen anzeigen als Symbol
+    // if length(Notizen) = 0 then exit;
+    // Rect := Sender.GetDisplayRect(Node, Column, true);
+    // ImageList1.Draw(TargetCanvas, Left, CellRect.Top, Data.fimagenotiz);
+    // end;
     5: begin
+
         Rect := Sender.GetDisplayRect(Node, Column, true);
-        ImageList1.Draw(TargetCanvas, Left, CellRect.Top, Data.fimageerst);
+        ImageList1.Draw(TargetCanvas, Left, CellRect.Top, 2);
+      end;
+    6: begin
+
+        Rect := Sender.GetDisplayRect(Node, Column, true);
+        ImageList1.Draw(TargetCanvas, Left, CellRect.Top, 0);
+      end;
+    7: begin
+        Rect := Sender.GetDisplayRect(Node, Column, true);
+        ImageList1.Draw(TargetCanvas, Left, CellRect.Top, 1);
       end;
   end;
 end;
@@ -1663,7 +1666,7 @@ begin
         while not(ln = avst.RootNode) do begin
           ln     := ln.Parent;
           lndata := avst.getnodedata(ln);
-          try lg := lndata.FCaption;
+          try lg := lndata.fliegenschaft;
           except
           end;
         end;
@@ -1693,7 +1696,7 @@ begin
 
         end;
         paintallcontrols(peinzelauftr, aufcon.dunkelblaufm);
-        pneuerauftrag.Color := aufcon.hellerblaufm;
+        // pneuerauftrag.Color := aufcon.hellerblaufm;
       end;
   end;
 
@@ -1706,34 +1709,56 @@ var
   Data      : PTreedata;
   vt        : TVirtualStringTree;
   startttext: string;
+  nodelevel : Integer;
 begin
 
-  vt   := Sender as TVirtualStringTree;
-  Data := vt.getnodedata(Node);
+  vt        := Sender as TVirtualStringTree;
+  Data      := vt.getnodedata(Node);
+  nodelevel := vt.GetNodeLevel(Node);
   case Column of
     0: begin
-        if vt.GetNodeLevel(Node) = 0 then begin
-          CellText := 'Liegenschaft: ' + Data^.FCaption;
+        if nodelevel = 0 then begin
+          // CellText := 'Liegenschaft: ' + Data^.FCaption;
+          CellText := Data^.fliegenschaft;
           exit;
         end;
-        if Node.ChildCount > 0 then Begin
-          if vt = vstanf then startttext    := 'angefordert: ';
-          if vt = vstsearch then startttext := 'offen: ';
-          if vt = vst then startttext       := 'unbearbeitet: ';
+        // if Node.ChildCount > 0 then Begin
+        // if vt = vstanf then startttext    := 'angefordert: ';
+        // if vt = vstsearch then startttext := 'offen: ';
+        // if vt = vst then startttext       := 'unbearbeitet: ';
+        // End;
+        //
+        // CellText := startttext + Data^.fliegenschaft;
+        // exit;
+        // End;
+        // if Node.ChildCount = 0 then
+        // CellText := 'Nutzernummer: ' + Data^.fliegenschaft;
 
-          CellText := startttext + Data^.FCaption;
-          exit;
-        End;
-        if Node.ChildCount = 0 then
-            CellText := 'Nutzernummer: ' + Data^.FCaption;
-
-        // font.Style := font.Style + [fsStrikeOut];
+        // // font.Style := font.Style + [fsStrikeOut];
+        // end;
+        // 1: CellText := Data^.fauftrtyp;
+        // // 1: celltext := 'Montage';
+        // 2: CellText       := Data^.fdatum;
+        // 3, 4, 5: CellText := '               ';
+        // // 4: CellText := '  ' + Data^.fwiedervorl;
       end;
-    // 1: CellText       := Data^.fnotizen;
-    2: CellText       := Data^.FColumn;
-    3, 4, 5: CellText := '               ';
-    // 4: CellText := '  ' + Data^.fwiedervorl;
-  else;
+    1: begin
+        // if vt.GetNodeLevel(Node) = 0 then exit;
+        if nodelevel = 1 then begin
+          CellText := Data^.fauftrtyp;
+        end;
+      end;
+    2: begin
+        if nodelevel = 2 then begin
+          // if Node.ChildCount = 0 then begin
+          CellText := Data^.fnutzer;
+        end;
+      end;
+    3: begin
+        if nodelevel = 2 then CellText := Data^.fnotizen;
+      end;
+    4: if nodelevel = 2 then CellText := Data^.fdatum;
+
   end;
 end;
 
@@ -1758,11 +1783,11 @@ var
   Data: PTreedata;
 begin
   Data := vst.getnodedata(Node);
-  if AnsiStartsText('Auftr', Data.FCaption) then begin
+  if AnsiStartsText('Auftr', Data.fliegenschaft) then begin
     TargetCanvas.Brush.Color := clWebBeige;
     TargetCanvas.FillRect(CellRect);
   end;
-  if AnsiStartsText('Lieg', Data.FCaption) then begin
+  if AnsiStartsText('Lieg', Data.fliegenschaft) then begin
     TargetCanvas.Brush.Color := aufcon.hellorange;
     TargetCanvas.FillRect(CellRect);
   end;
@@ -1798,7 +1823,7 @@ begin
         while not(ln = avst.RootNode) do begin
           ln     := ln.Parent;
           lndata := avst.getnodedata(ln);
-          try lg := lndata.FCaption;
+          try lg := lndata.fliegenschaft;
           except
           end;
         end;
@@ -1856,7 +1881,7 @@ begin
         while not(ln = vst.RootNode) do begin
           ln     := ln.Parent;
           lndata := avst.getnodedata(ln);
-          try lg := lndata.FCaption;
+          try lg := lndata.fliegenschaft;
           except
           end;
         end;
@@ -1865,7 +1890,8 @@ begin
         formmemo.Memo1.Text      := Data.fnotizen;
         formmemo.Show;
       end;
-    2: // Wiedervorlage
+    2:
+      // Wiedervorlage
       formwieder.Show;
     4: // Wiedervorlage
       formwieder.Show;
@@ -1899,7 +1925,7 @@ var
 begin
   Data := vst.getnodedata(Node);
   if NOT assigned(Data) then exit;
-  Data.FCaption := '';
+  Data.fliegenschaft := '';
 end;
 
 procedure Tformmain.vstGetText(Sender: TBaseVirtualTree; Node: PVirtualNode;
@@ -1915,7 +1941,7 @@ begin
   case Column of
     0: begin
         if vt.GetNodeLevel(Node) = 0 then begin
-          CellText := 'Liegenschaft: ' + Data^.FCaption;
+          CellText := 'Liegenschaft: ' + Data^.fliegenschaft;
           exit;
         end;
         if Node.ChildCount > 0 then Begin
@@ -1923,16 +1949,16 @@ begin
           if vt = vstsearch then startttext := 'offen: ';
           if vt = vst then startttext       := 'unbearbeitet: ';
 
-          CellText := startttext + Data^.FCaption;
+          CellText := startttext + Data^.fliegenschaft;
           exit;
         End;
         if Node.ChildCount = 0 then
-            CellText := 'Nutzernummer: ' + Data^.FCaption;
+            CellText := 'Nutzernummer: ' + Data^.fliegenschaft;
 
         // font.Style := font.Style + [fsStrikeOut];
       end;
     // 1: CellText       := Data^.fnotizen;
-    2: CellText       := Data^.FColumn;
+    2: CellText       := Data^.fdatum;
     3, 4, 5: CellText := '               ';
     // 4: CellText := '  ' + Data^.fwiedervorl;
   else;
@@ -2010,7 +2036,7 @@ begin
         while not(ln = avst.RootNode) do begin
           ln     := ln.Parent;
           lndata := avst.getnodedata(ln);
-          try lg := lndata.FCaption;
+          try lg := lndata.fliegenschaft;
           except
           end;
         end;
@@ -2297,11 +2323,11 @@ var
 begin
   Result := '';
   Data   := avst.getnodedata(ANode);
-  while not(correctnn(Data.FCaption)) do begin
-    outputdebugstring(pchar(Data.FCaption));
+  while not(correctnn(Data.fliegenschaft)) do begin
+    outputdebugstring(pchar(Data.fliegenschaft));
     ANode  := ANode.Parent;
     Data   := vst.getnodedata(ANode);
-    Result := Data.FColumn;
+    Result := Data.fdatum;
   end;
 
 end;

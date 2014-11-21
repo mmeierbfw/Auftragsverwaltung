@@ -16,7 +16,8 @@ uses
   DelphiZXIngQRCode in 'C:\Komponenten\qr\Source\DelphiZXIngQRCode.pas',
   uframeauftragsverwaltung in 'uframeauftragsverwaltung.pas' {frameauftragsdaten: TFrame},
   uftpconnector in '..\neueftpverbindung\uftpconnector.pas' {formftp},
-  udbconnector in '..\dbconnector\udbconnector.pas' {formdb};
+  udbconnector in '..\dbconnector\udbconnector.pas' {formdb},
+  frame in '..\Dokumentenverwaltung Layouttesting\frame.pas' {frleft: TFrame};
 
 {$R *.res}
 
