@@ -181,6 +181,7 @@ type
     procedure zframeNxButton1Click(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure Panel1Click(Sender: TObject);
+    procedure VorschauAnzeigen(Sender: TObject);
 
   private
     lg           : string;
@@ -483,6 +484,7 @@ begin
     with leftexpandables do begin
       NxExpandPanel1.Expanded := False;
       NxExpandPanel4.Expanded := False;
+      NxExpandPanel2.Expanded := False;
     end;
   end;
   // zframe.NxHeaderPanel1.Expanded := false;
@@ -1606,6 +1608,16 @@ begin
   end;
 end;
 
+procedure Tformmain.VorschauAnzeigen(Sender: TObject);
+var
+  tmpdatei: string;
+begin
+  tmpdatei := createpdf(true);
+  // localfile := gettmpshowfile('Auftragsverwaltung', ExtractFileName(tmpdatei));
+  // CopyFile(pchar(tmpdatei), pchar(localfile), False);
+  ShellExecute(Application.Handle, 'open', pchar(tmpdatei), nil, nil, sw_normal)
+end;
+
 // ------------------------------------------------------
 procedure Tformmain.vstAfterCellPaint(Sender: TBaseVirtualTree;
   TargetCanvas: TCanvas; Node: PVirtualNode; Column: TColumnIndex;
@@ -2327,7 +2339,7 @@ begin
     // exit;
     // end;
 
-    tmpdatei := createpdf;
+    tmpdatei := createpdf(false);
 
     if (mrYes = MessageDlg('Auftrag drucken?', mtConfirmation, mbYesNo, 0)) then
     begin

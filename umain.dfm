@@ -825,6 +825,16 @@
           OnClick = panforderungenClick
         end
       end
+      inherited NxExpandPanel2: TNxExpandPanel
+        Width = 289
+        Font.Color = 10252872
+        ExplicitTop = 403
+        ExplicitWidth = 289
+        FullHeight = 245
+        inherited NxLinkLabel12: TNxLinkLabel
+          OnClick = VorschauAnzeigen
+        end
+      end
     end
     object peinzelauftr: TPanel
       Left = 64

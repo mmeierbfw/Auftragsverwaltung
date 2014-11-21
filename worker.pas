@@ -25,8 +25,9 @@ function correctnn(nn: string): boolean;
 function correcttyp(nn: string): boolean;
 function paintauftrag(values: TDictionary<string, string>): boolean;
 function createfilename(dict: TDictionary<string, string>): string;
+function createtmpfilename(dict: TDictionary<string, string>): string;
 function createhostfilename(dict: TDictionary<string, string>): string;
-function createpdf: string;
+function createpdf(vorschau: boolean): string;
 function getzeitraum(von, bis: string): string;
 // function getempfname(auftraggeber: string): string;
 function getempfstrasse(name: string): string;
@@ -68,7 +69,7 @@ begin
   if not(bis = '') then Result := bis;
 end;
 
-function createpdf: string;
+function createpdf(vorschau: boolean): string;
 var
   dict     : TDictionary<string, string>;
   tmpdatei : string;
@@ -108,9 +109,12 @@ begin
       except dict.Add(empfort, '');
       end;
       try dict.Add(empfansprech, empfdaten.Items['Ansprech']);
-      except dict.Add(empfansprech, zframe.cbmonteur.text);
+      except dict.Add(empfansprech, zframe.cbmonteur.Text);
       end;
-      tmpdatei := gettmpfile('Auftragsverwaltung', createfilename(dict));
+      if not vorschau then
+
+          tmpdatei  := gettmpfile('Auftragsverwaltung', createfilename(dict))
+      else tmpdatei := gettmpfile('Auftragsverwaltung', createfilename(dict));
       dict.Add('dateiname', tmpdatei);
 
       with liegenschaftsdaten do begin
@@ -146,6 +150,17 @@ begin
   end;
 end;
 
+// ----------------------------
+
+function createtmpfilename(dict: TDictionary<string, string>): string;
+var
+  filename: string;
+begin
+  filename := createfilename(dict);
+  Result   := IncludeTrailingPathDelimiter(ExtractFilePath(filename)) +
+    ExtractFileName(filename) + inttostr(random(20000)) +
+    ExtractFileExt(filename);
+end;
 // ##############################
 
 function createfilename(dict: TDictionary<string, string>): string;
