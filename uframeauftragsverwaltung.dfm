@@ -1,10 +1,11 @@
 ﻿object frameauftragsdaten: Tframeauftragsdaten
-  Left = 0
-  Top = 0
+  AlignWithMargins = True
+  Left = 3
+  Top = 3
   Width = 1002
-  Height = 761
+  Height = 0
   Align = alLeft
-  Color = 14933977
+  Color = clGray
   Font.Charset = DEFAULT_CHARSET
   Font.Color = 6908265
   Font.Height = -11
@@ -14,15 +15,15 @@
   ParentColor = False
   ParentFont = False
   TabOrder = 0
-  ExplicitHeight = 304
+  ExplicitLeft = 0
   object pager: TNxPageControl
     AlignWithMargins = True
     Left = 3
     Top = 3
     Width = 996
-    Height = 755
-    ActivePage = NxTabSheet3
-    ActivePageIndex = 2
+    Height = 0
+    ActivePage = NxTabSheet1
+    ActivePageIndex = 0
     Align = alClient
     Color = clWhite
     ParentColor = False
@@ -47,7 +48,7 @@
         Left = 0
         Top = 0
         Width = 996
-        Height = 734
+        Height = 4
         Align = alClient
         BevelOuter = bvNone
         Caption = 'FlowPanel1'
@@ -94,7 +95,7 @@
             Layout = tlCenter
           end
           object Label5: TLabel
-            Left = 373
+            Left = 553
             Top = 70
             Width = 58
             Height = 13
@@ -115,7 +116,7 @@
             ParentFont = False
           end
           object Label17: TLabel
-            Left = 344
+            Left = 524
             Top = 48
             Width = 87
             Height = 13
@@ -182,7 +183,7 @@
             TodayCaption = 'Today'
           end
           object cbauftragstyp: TfComboBox
-            Left = 446
+            Left = 626
             Top = 68
             Width = 146
             Height = 24
@@ -207,7 +208,7 @@
             ColorNotFocused = 6908265
           end
           object dpabrechnungsende: TNxDatePicker
-            Left = 446
+            Left = 626
             Top = 48
             Width = 146
             Height = 21
@@ -284,7 +285,7 @@
           object ename1: TfEdit
             Left = 144
             Top = 42
-            Width = 224
+            Width = 321
             Height = 23
             AutoSize = False
             BevelInner = bvLowered
@@ -306,7 +307,7 @@
           object estrasse: TfEdit
             Left = 144
             Top = 64
-            Width = 448
+            Width = 628
             Height = 23
             AutoSize = False
             BevelInner = bvLowered
@@ -328,7 +329,7 @@
           object eort: TfEdit
             Left = 184
             Top = 86
-            Width = 408
+            Width = 588
             Height = 23
             AutoSize = False
             BevelInner = bvLowered
@@ -371,9 +372,9 @@
             ColorNotFocused = 6908265
           end
           object ename2: TfEdit
-            Left = 367
+            Left = 464
             Top = 42
-            Width = 225
+            Width = 308
             Height = 23
             AutoSize = False
             BevelInner = bvLowered
@@ -481,9 +482,9 @@
             Caption = 'informiert'
           end
           object lmonteur: TLabel
-            Left = 536
+            Left = 768
             Top = 189
-            Width = 235
+            Width = 3
             Height = 13
             BiDiMode = bdRightToLeft
             ParentBiDiMode = False
@@ -844,7 +845,7 @@
         Left = 0
         Top = 0
         Width = 996
-        Height = 734
+        Height = 4
         Margins.Left = 5
         Margins.Top = 5
         Margins.Right = 5
@@ -966,7 +967,7 @@
         Left = 0
         Top = 0
         Width = 996
-        Height = 734
+        Height = 4
         Margins.Left = 5
         Margins.Top = 5
         Margins.Right = 5

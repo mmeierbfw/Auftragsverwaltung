@@ -1,10 +1,11 @@
 object frameliegenschaftsdaten: Tframeliegenschaftsdaten
-  Left = 0
-  Top = 0
-  Width = 1061
-  Height = 735
+  AlignWithMargins = True
+  Left = -3
+  Top = 3
+  Width = 407
+  Height = 0
   Align = alRight
-  Color = 14933977
+  Color = clWhite
   Font.Charset = DEFAULT_CHARSET
   Font.Color = 14933977
   Font.Height = -11
@@ -14,18 +15,19 @@ object frameliegenschaftsdaten: Tframeliegenschaftsdaten
   ParentColor = False
   ParentFont = False
   TabOrder = 0
-  ExplicitHeight = 304
+  ExplicitLeft = 0
   object pdatenrechts: TPanel
     AlignWithMargins = True
     Left = 3
     Top = 3
-    Width = 1055
-    Height = 729
+    Width = 401
+    Height = 0
     Align = alClient
     BevelOuter = bvNone
-    Color = 14933977
+    Color = clWhite
     ParentBackground = False
     TabOrder = 0
+    ExplicitWidth = 1055
     ExplicitHeight = 298
     object lliegenschaftsdaten: TLabel
       Left = 83
@@ -34,7 +36,7 @@ object frameliegenschaftsdaten: Tframeliegenschaftsdaten
       Height = 18
       Caption = 'Liegenschaftsdaten'
       Font.Charset = ANSI_CHARSET
-      Font.Color = 6908265
+      Font.Color = 10252872
       Font.Height = -15
       Font.Name = 'Verdana'
       Font.Style = [fsBold]
@@ -44,22 +46,27 @@ object frameliegenschaftsdaten: Tframeliegenschaftsdaten
       AlignWithMargins = True
       Left = 0
       Top = 69
-      Width = 1055
-      Height = 660
+      Width = 401
+      Height = 0
       Margins.Left = 0
       Margins.Top = 69
       Margins.Right = 0
       Margins.Bottom = 0
       Align = alClient
       BevelOuter = bvNone
-      Color = 14933977
+      Color = clWhite
+      Padding.Left = 2
+      Padding.Top = 2
+      Padding.Right = 2
+      Padding.Bottom = 2
       ParentBackground = False
       TabOrder = 0
       Visible = False
+      ExplicitWidth = 1055
       ExplicitHeight = 229
       DesignSize = (
-        1055
-        660)
+        401
+        0)
       object lstrasse: TLabel
         Left = 1
         Top = 6
@@ -127,10 +134,10 @@ object frameliegenschaftsdaten: Tframeliegenschaftsdaten
       end
       object vermerke: TMemo
         AlignWithMargins = True
-        Left = 0
-        Top = 120
-        Width = 1055
-        Height = 530
+        Left = 2
+        Top = 122
+        Width = 397
+        Height = 0
         Margins.Left = 0
         Margins.Top = 120
         Margins.Right = 0
@@ -139,7 +146,8 @@ object frameliegenschaftsdaten: Tframeliegenschaftsdaten
         Align = alClient
         BevelInner = bvNone
         BevelOuter = bvNone
-        BorderStyle = bsNone
+        CharCase = ecUpperCase
+        Color = clWhite
         Enabled = False
         Font.Charset = ANSI_CHARSET
         Font.Color = 6908265
@@ -151,12 +159,12 @@ object frameliegenschaftsdaten: Tframeliegenschaftsdaten
         ScrollBars = ssVertical
         TabOrder = 0
         WantReturns = False
-        ExplicitHeight = 99
+        ExplicitHeight = 95
       end
       object estrasse: TfEdit
         Left = 96
         Top = 6
-        Width = 959
+        Width = 301
         Height = 24
         Anchors = [akLeft, akTop, akRight]
         AutoSize = False
@@ -174,11 +182,12 @@ object frameliegenschaftsdaten: Tframeliegenschaftsdaten
         FontColorOnEnter = 36607
         ColorFocused = 6908265
         ColorNotFocused = 6908265
+        ExplicitWidth = 305
       end
       object eplz: TfEdit
         Left = 96
         Top = 29
-        Width = 804
+        Width = 146
         Height = 24
         Anchors = [akLeft, akTop, akRight]
         AutoSize = False
@@ -196,11 +205,12 @@ object frameliegenschaftsdaten: Tframeliegenschaftsdaten
         FontColorOnEnter = 36607
         ColorFocused = 6908265
         ColorNotFocused = 6908265
+        ExplicitWidth = 804
       end
       object eort: TfEdit
         Left = 154
         Top = 29
-        Width = 901
+        Width = 243
         Height = 24
         Anchors = [akLeft, akTop, akRight]
         AutoSize = False
@@ -218,11 +228,12 @@ object frameliegenschaftsdaten: Tframeliegenschaftsdaten
         FontColorOnEnter = 36607
         ColorFocused = 6908265
         ColorNotFocused = 6908265
+        ExplicitWidth = 901
       end
       object ename1: TfEdit
         Left = 96
         Top = 52
-        Width = 959
+        Width = 301
         Height = 24
         Anchors = [akLeft, akTop, akRight]
         AutoSize = False
@@ -240,11 +251,12 @@ object frameliegenschaftsdaten: Tframeliegenschaftsdaten
         FontColorOnEnter = 36607
         ColorFocused = 6908265
         ColorNotFocused = 6908265
+        ExplicitWidth = 959
       end
       object ename2: TfEdit
         Left = 96
         Top = 75
-        Width = 959
+        Width = 301
         Height = 24
         Anchors = [akLeft, akTop, akRight]
         AutoSize = False
@@ -262,6 +274,7 @@ object frameliegenschaftsdaten: Tframeliegenschaftsdaten
         FontColorOnEnter = 36607
         ColorFocused = 6908265
         ColorNotFocused = 6908265
+        ExplicitWidth = 959
       end
     end
   end

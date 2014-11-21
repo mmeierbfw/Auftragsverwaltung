@@ -12,6 +12,7 @@ type
     fdatum: string;        // Datum
     fauftrtyp: string;
     fnutzer: string;
+    fnutzername: string;
     fwiedervorl: string;
     fimagedok: integer;
     fimagewied: integer;

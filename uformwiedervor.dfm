@@ -1,9 +1,10 @@
 object formwieder: Tformwieder
   Left = 0
   Top = 0
-  Caption = 'formwieder'
-  ClientHeight = 411
-  ClientWidth = 408
+  BorderStyle = bsDialog
+  Caption = 'Wiedervorlage'
+  ClientHeight = 421
+  ClientWidth = 418
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,12 +19,13 @@ object formwieder: Tformwieder
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 408
+    Width = 418
     Height = 169
     Align = alTop
     Color = 14933977
     ParentBackground = False
     TabOrder = 0
+    ExplicitWidth = 408
     object Label1: TLabel
       AlignWithMargins = True
       Left = 13
@@ -79,13 +81,14 @@ object formwieder: Tformwieder
   object Panel2: TPanel
     Left = 0
     Top = 338
-    Width = 408
+    Width = 418
     Height = 248
     Align = alTop
     BevelOuter = bvNone
     Color = 14933977
     ParentBackground = False
     TabOrder = 1
+    ExplicitWidth = 408
     object NxButton1: TNxButton
       Left = 144
       Top = 16
@@ -106,12 +109,13 @@ object formwieder: Tformwieder
   object Panel3: TPanel
     Left = 0
     Top = 169
-    Width = 408
+    Width = 418
     Height = 169
     Align = alTop
     Color = 14933977
     ParentBackground = False
     TabOrder = 2
+    ExplicitWidth = 408
     object Label3: TLabel
       AlignWithMargins = True
       Left = 13

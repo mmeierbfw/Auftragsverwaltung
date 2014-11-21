@@ -698,8 +698,6 @@
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
-    ExplicitLeft = 6
-    ExplicitTop = 25
     inline Tframeshowauftr1: Tframeshowauftr
       Left = 0
       Top = 789
@@ -717,7 +715,7 @@
       ParentFont = False
       TabOrder = 0
       Visible = False
-      ExplicitTop = 748
+      ExplicitTop = 789
       ExplicitWidth = 295
       ExplicitHeight = 90
       inherited Panel1: TPanel
@@ -775,30 +773,40 @@
       Height = 783
       Align = alClient
       TabOrder = 1
-      ExplicitLeft = 6
+      ExplicitLeft = 3
       ExplicitTop = 3
       ExplicitWidth = 289
       ExplicitHeight = 783
       inherited NxExpandPanel1: TNxExpandPanel
         Width = 289
         Font.Color = 10252872
+        ExplicitWidth = 289
         FullHeight = 334
-        inherited NxExpandPanel2: TNxExpandPanel
+        inherited NxGroupHeader2: TNxGroupHeader
           Width = 289
-          FullHeight = 245
+        end
+        inherited Panel1: TPanel
+          Width = 289
+          ExplicitWidth = 289
+          inherited NxGroupHeader1: TNxGroupHeader
+            Width = 287
+          end
           inherited NxLinkLabel1: TNxLinkLabel
             OnClick = pneuerauftragDblClick
           end
-        end
-        inherited NxExpandPanel3: TNxExpandPanel
-          Width = 289
-          FullHeight = 245
         end
       end
       inherited NxExpandPanel4: TNxExpandPanel
         Width = 289
         Font.Color = 10252872
+        ExplicitWidth = 289
         FullHeight = 245
+        inherited NxLinkLabel6: TNxLinkLabel
+          OnClick = poffeneclick
+        end
+        inherited NxLinkLabel7: TNxLinkLabel
+          OnClick = puaClick
+        end
         inherited NxLinkLabel8: TNxLinkLabel
           OnClick = panforderungenClick
         end
@@ -865,20 +873,19 @@
       Top = 3
       Width = 1099
       Height = 873
-      ActivePage = sheetanforderungen
-      ActivePageIndex = 0
+      ActivePage = tabneuerauftrag
+      ActivePageIndex = 3
       Align = alClient
       Color = clWhite
       Font.Charset = ANSI_CHARSET
       Font.Color = 6908265
-      Font.Height = -11
+      Font.Height = -16
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentColor = False
       ParentFont = False
       TabOrder = 0
       BackgroundColor = 16711384
-      BackgroundKind = bkHorzGradient
       Indent = 0
       Margin = 0
       Options = [pgAlwaysShowTabsRect, pgScrollButtons, pgTabsPopup, pgTopBorder]
@@ -905,9 +912,9 @@
           TabOrder = 0
           object vstanf: TVirtualStringTree
             Left = 0
-            Top = 41
+            Top = 50
             Width = 1098
-            Height = 811
+            Height = 802
             Align = alClient
             Background.Data = {
               055449636F6E0000010004001010000001002000680400004600000018180000
@@ -1486,7 +1493,7 @@
             DragWidth = 500
             Font.Charset = ANSI_CHARSET
             Font.Color = 6908265
-            Font.Height = -16
+            Font.Height = -13
             Font.Name = 'Tahoma'
             Font.Style = []
             Header.AutoSizeIndex = 0
@@ -1518,6 +1525,8 @@
             OnHeaderClick = vstHeaderClick
             OnMouseDown = vstanfMouseDown
             ExplicitLeft = 2
+            ExplicitTop = 41
+            ExplicitHeight = 811
             Columns = <
               item
                 CaptionAlignment = taCenter
@@ -1531,38 +1540,39 @@
               end
               item
                 Position = 1
-                Width = 100
+                Width = 200
                 WideText = 'Auftragstyp'
               end
               item
                 Position = 2
+                Width = 250
                 WideText = 'Nutzer'
               end
               item
                 ImageIndex = 3
                 Position = 3
-                Width = 80
+                Width = 98
                 WideText = 'Notizen'
               end
               item
                 Color = clWhite
                 Options = [coAllowClick, coDraggable, coEnabled, coParentBidiMode, coResizable, coShowDropMark, coVisible, coAllowFocus]
                 Position = 4
-                Width = 120
+                Width = 110
                 WideText = 'Bearbeitungsdatum'
               end
               item
                 ImageIndex = 0
                 Options = [coAllowClick, coEnabled, coParentBidiMode, coParentColor, coResizable, coShowDropMark, coVisible, coAllowFocus]
                 Position = 5
-                Width = 150
+                Width = 110
                 WideText = 'zur Wiedervorlage'
               end
               item
                 ImageIndex = 0
                 Options = [coAllowClick, coEnabled, coParentBidiMode, coParentColor, coResizable, coShowDropMark, coVisible, coAllowFocus]
                 Position = 6
-                Width = 150
+                Width = 110
                 WideText = 'Dokument anzeigen'
               end
               item
@@ -1576,12 +1586,33 @@
             Left = 0
             Top = 0
             Width = 1098
-            Height = 41
+            Height = 50
             Align = alTop
+            Alignment = taLeftJustify
+            BevelOuter = bvNone
             Color = clWhite
+            Font.Charset = ANSI_CHARSET
+            Font.Color = 10252872
+            Font.Height = -16
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            Padding.Left = 10
             ParentBackground = False
+            ParentFont = False
             TabOrder = 1
-            Visible = False
+            object Label5: TLabel
+              Left = 18
+              Top = 16
+              Width = 164
+              Height = 19
+              Caption = 'Auftragsanforderungen'
+              Font.Charset = ANSI_CHARSET
+              Font.Color = 10252872
+              Font.Height = -16
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+            end
           end
         end
         object Panel15: TPanel
@@ -2751,9 +2782,9 @@
           TabOrder = 1
           object vst: TVirtualStringTree
             Left = 0
-            Top = 41
+            Top = 50
             Width = 1098
-            Height = 811
+            Height = 802
             Align = alClient
             Background.Data = {
               055449636F6E0000010004001010000001002000680400004600000018180000
@@ -3362,6 +3393,8 @@
             OnColumnClick = vstColumnClick
             OnGetText = vstGetText
             OnHeaderClick = vstHeaderClick
+            ExplicitTop = 41
+            ExplicitHeight = 811
             Columns = <
               item
                 CaptionAlignment = taCenter
@@ -3411,18 +3444,37 @@
             Left = 0
             Top = 0
             Width = 1098
-            Height = 41
+            Height = 50
             Align = alTop
             Color = clWhite
+            Font.Charset = ANSI_CHARSET
+            Font.Color = 6908265
+            Font.Height = -13
+            Font.Name = 'Tahoma'
+            Font.Style = []
             ParentBackground = False
+            ParentFont = False
             TabOrder = 1
             Visible = False
+            object Label4: TLabel
+              Left = 18
+              Top = 16
+              Width = 162
+              Height = 19
+              Caption = 'unbearbeitete Auftr'#228'ge'
+              Font.Charset = ANSI_CHARSET
+              Font.Color = 10252872
+              Font.Height = -16
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+            end
           end
         end
       end
       object tabneuerauftrag: TNxTabSheet
         Caption = 'Zwischenablesung'
-        Color = 14933977
+        Color = clWhite
         PageIndex = 3
         ParentColor = False
         ParentTabFont = False
@@ -3432,27 +3484,6 @@
         TabFont.Name = 'Verdana'
         TabFont.Style = []
         OnShow = showzwischenablesung
-        object Label1: TLabel
-          Left = 552
-          Top = 408
-          Width = 31
-          Height = 13
-          Caption = 'Label1'
-        end
-        object Label2: TLabel
-          Left = 560
-          Top = 416
-          Width = 31
-          Height = 13
-          Caption = 'Label2'
-        end
-        object Label3: TLabel
-          Left = 568
-          Top = 424
-          Width = 31
-          Height = 13
-          Caption = 'Label3'
-        end
         object rightpager: TNxPageControl
           Left = 782
           Top = 0
@@ -3461,12 +3492,18 @@
           ActivePage = tabliegenschaft
           ActivePageIndex = 0
           Align = alClient
+          Color = clWhite
+          ParentColor = False
           TabOrder = 0
+          BackgroundColor = clWhite
+          BackgroundKind = bkTransparent
           Margin = 0
           ShowTabs = False
           Spacing = 0
           TabHeight = 17
+          ExplicitLeft = 790
           object tabliegenschaft: TNxTabSheet
+            ActiveTabColor = clWhite
             Caption = 'NxTabSheet2'
             PageIndex = 0
             ParentTabFont = False
@@ -3477,12 +3514,13 @@
             TabFont.Style = []
             ExplicitHeight = 831
             inline liegenschaftsdaten: Tframeliegenschaftsdaten
-              Left = 0
-              Top = 0
-              Width = 317
-              Height = 852
+              AlignWithMargins = True
+              Left = 3
+              Top = 3
+              Width = 311
+              Height = 846
               Align = alClient
-              Color = 14933977
+              Color = clWhite
               Font.Charset = DEFAULT_CHARSET
               Font.Color = 14933977
               Font.Height = -11
@@ -3492,42 +3530,45 @@
               ParentColor = False
               ParentFont = False
               TabOrder = 0
-              ExplicitWidth = 317
-              ExplicitHeight = 852
+              ExplicitWidth = 311
+              ExplicitHeight = 846
               inherited pdatenrechts: TPanel
-                Width = 311
-                Height = 846
+                Width = 305
+                Height = 840
                 ExplicitWidth = 311
                 ExplicitHeight = 846
                 inherited pliedaten: TPanel
-                  Width = 311
-                  Height = 777
+                  Width = 305
+                  Height = 771
                   ExplicitWidth = 311
                   ExplicitHeight = 777
+                  DesignSize = (
+                    305
+                    771)
                   inherited vermerke: TMemo
-                    Width = 311
-                    Height = 647
-                    ExplicitWidth = 311
-                    ExplicitHeight = 647
+                    Width = 301
+                    Height = 637
+                    ExplicitWidth = 307
+                    ExplicitHeight = 643
                   end
                   inherited estrasse: TfEdit
-                    Width = 834
+                    Width = 824
                     ExplicitWidth = 834
                   end
                   inherited eplz: TfEdit
-                    Width = 679
+                    Width = 669
                     ExplicitWidth = 679
                   end
                   inherited eort: TfEdit
-                    Width = 776
+                    Width = 766
                     ExplicitWidth = 776
                   end
                   inherited ename1: TfEdit
-                    Width = 834
+                    Width = 824
                     ExplicitWidth = 834
                   end
                   inherited ename2: TfEdit
-                    Width = 834
+                    Width = 824
                     ExplicitWidth = 834
                   end
                 end
@@ -3541,7 +3582,7 @@
           Width = 782
           Height = 852
           Align = alLeft
-          Color = 14933977
+          Color = clWhite
           Font.Charset = DEFAULT_CHARSET
           Font.Color = 6908265
           Font.Height = -11
@@ -3556,12 +3597,9 @@
           inherited pager: TNxPageControl
             Width = 776
             Height = 846
-            ActivePage = zframe.NxTabSheet1
-            ActivePageIndex = 0
             ExplicitWidth = 776
             ExplicitHeight = 846
             inherited NxTabSheet1: TNxTabSheet
-              ExplicitTop = 21
               ExplicitWidth = 776
               ExplicitHeight = 825
               inherited FlowPanel1: TFlowPanel
@@ -3578,21 +3616,6 @@
                   inherited enutzernummer: TfEdit
                     OnExit = zframeenutzernummerExit
                   end
-                  inherited pausführung: TPanel
-                    Top = 38
-                    ExplicitTop = 38
-                  end
-                  inherited Button1: TButton
-                    Left = 650
-                    ExplicitLeft = 650
-                  end
-                end
-                inherited pnotizen: TPanel
-                  inherited NxButton4: TNxButton
-                    Left = 483
-                    OnClick = babschließen
-                    ExplicitLeft = 483
-                  end
                 end
               end
               inherited hptermin: TNxHeaderPanel
@@ -3600,7 +3623,6 @@
               end
             end
             inherited NxTabSheet2: TNxTabSheet
-              ExplicitTop = 21
               ExplicitWidth = 776
               ExplicitHeight = 825
               inherited perreichtdetails: TPanel
@@ -3611,7 +3633,6 @@
               end
             end
             inherited NxTabSheet3: TNxTabSheet
-              ExplicitTop = 21
               ExplicitWidth = 776
               ExplicitHeight = 825
               inherited ptermindetails: TNxPanel
@@ -3697,12 +3718,13 @@
         TabFont.Style = []
         ExplicitTop = 0
         inline Tframeliegenschaftsdaten1: Tframeliegenschaftsdaten
-          Left = 38
-          Top = 0
-          Width = 1061
-          Height = 852
+          AlignWithMargins = True
+          Left = 689
+          Top = 3
+          Width = 407
+          Height = 846
           Align = alRight
-          Color = 14933977
+          Color = clWhite
           Font.Charset = DEFAULT_CHARSET
           Font.Color = 14933977
           Font.Height = -11
@@ -3715,17 +3737,17 @@
           ExplicitLeft = 38
           ExplicitHeight = 852
           inherited pdatenrechts: TPanel
-            Height = 846
+            Height = 840
             ExplicitHeight = 846
             inherited pliedaten: TPanel
-              Height = 777
+              Height = 771
               ExplicitHeight = 777
               DesignSize = (
-                1055
-                777)
+                401
+                771)
               inherited vermerke: TMemo
-                Height = 647
-                ExplicitHeight = 647
+                Height = 637
+                ExplicitHeight = 643
               end
             end
           end
@@ -3748,7 +3770,7 @@
     Left = 72
     Top = 624
     Bitmap = {
-      494C0101040030003C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104003000400110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

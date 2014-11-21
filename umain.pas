@@ -90,14 +90,13 @@ type
     tabliegenschaft: TNxTabSheet;
     liegenschaftsdaten: Tframeliegenschaftsdaten;
     zframe: Tframeauftragsdaten;
-    Label1: TLabel;
-    Label2: TLabel;
-    Label3: TLabel;
     leftexpandables: Tfrleft;
     poa: TPanel;
     peinzelauftr: TPanel;
     pua: TPanel;
     pneuerauftrag: TPanel;
+    Label4: TLabel;
+    Label5: TLabel;
     // zframe: Tframeauftragsdaten;
     // procedure aufträgeAnzeigen(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -200,6 +199,7 @@ type
     FBackBitmap2 : TBitmap;
     avst         : TVirtualStringTree;
 
+    function getnutzernamen(liegenschaft, nutzernummer: string): TStringList;
     function startplink: boolean;
     procedure executeparameter;
     procedure setrightside(dict: TDictionary<string, string>);
@@ -479,8 +479,8 @@ begin
   if not assigned(leftexpandables) then leftexpandables := Tfrleft.Create(self);
   for i := 1 to 4 do begin
     with leftexpandables do begin
-      expp := (FindComponent('NxExpandPanel' + inttostr(i)) as TNxExpandPanel);
-      expp.Expanded := False;
+      NxExpandPanel1.Expanded := False;
+      NxExpandPanel4.Expanded := False;
     end;
   end;
   list := TStringList.Create;
@@ -566,6 +566,36 @@ begin
 end;
 
 // -------------------------------------------------
+function Tformmain.getnutzernamen(liegenschaft, nutzernummer: string)
+  : TStringList;
+var
+  list                        : TStringList;
+  table, database, wherestring: string;
+  dict                        : TDictionary<string, string>;
+begin
+  Result := TStringList.Create;
+  list   := TStringList.Create;
+
+  list.Add('WO5');
+  list.Add('WO6');
+  database := aufcon.kuarchiv + getkundennummer + '\' + liegenschaft + '\' +
+    liegenschaft + '.DB';
+  wherestring := ' WHERE WO1 = ' + nutzernummer + ' AND WO0=' + QuotedStr('W');
+  table       := 'WO_TYP';
+
+  if not assigned(formdb) then formdb := Tformdb.Create(nil);
+  dict := formdb.getfromhn(database, table, wherestring, list);
+
+  try
+    Result.Add(dict.Items['WO5']);
+    Result.Add(dict.Items['WO6']);
+  except
+    outputdebugstring('keine Namen');
+    Result.Add(''); // mindestens zwei nutzernamen...
+    Result.Add('');
+  end;
+end;
+
 function Tformmain.getnutzernummer(avst: TVirtualStringTree;
   ANode: PVirtualNode): string;
 var
@@ -824,11 +854,12 @@ var
 begin
   with aufcon do begin
     avst := vstsearch;
-    paintallcontrols(peinzelauftr, dunkelblaufm);
-    (Sender as TPanel).Color := hellerblaufm;
-    pager.ActivePage         := sheetoffene;
+    // paintallcontrols(peinzelauftr, dunkelblaufm);
+    // (Sender as TPanel).Color := hellerblaufm;
+    pager.ActivePage := sheetoffene;
     getoffeneaufträge(' ORDER BY liegenschaft asc');
     filloffene(formdb.queryaufträge, vstsearch);
+    // fillvst(formdb.queryaufträge, vstsearch,nil);
     psearchoff.enabled := False;
     pauftrerst.enabled := False;
   end;
@@ -838,9 +869,9 @@ end;
 procedure Tformmain.puaClick(Sender: TObject);
 begin
   with aufcon do begin
-    paintallcontrols(peinzelauftr, dunkelblaufm);
-    (Sender as TPanel).Color := hellerblaufm;
-    pager.ActivePage         := sheetunbearbeitet;
+    // paintallcontrols(peinzelauftr, dunkelblaufm);
+    // (Sender as TPanel).Color := hellerblaufm;
+    pager.ActivePage := sheetunbearbeitet;
 
     pauftrerst.enabled := true;
     psearchoff.enabled := true;
@@ -1297,7 +1328,7 @@ begin
       while not Eof do begin
         lg       := FieldByName(liegenschaft).AsString;
         pestr    := FieldByName(Posteingang).AsString;
-        nnint    := FieldByName(Nutzernummer).AsInteger;
+        nnint    := FieldByName(nutzernummer).AsInteger;
         auftrstr := FieldByName(auftragstyp).AsString;
         dat      := FieldByName(dateiname).AsString;
         notz     := FieldByName(Notizen).AsString;
@@ -1385,6 +1416,8 @@ var
   dat       : string;
   notz      : string;
   wiedervorl: string;
+  namen     : TStringList;
+  nname     : string;
 begin
   tmpnnint := -1;
   treedata.Clear;
@@ -1409,12 +1442,15 @@ begin
 
         lg              := FieldByName(liegenschaft).AsString;
         pestr           := FieldByName(Posteingang).AsString;
-        nnint           := FieldByName(Nutzernummer).AsInteger;
-        auftrstr        := FieldByName(auftragstyp).AsString;
+        nnint           := FieldByName(nutzernummer).AsInteger;
+        auftrstr        := Propercase(FieldByName(auftragstyp).AsString);
         dat             := FieldByName(dateiname).AsString;
         notz            := FieldByName(Notizen).AsString;
         self.auftragsid := FieldByName('id').AsInteger;
         wiedervorl      := FieldByName(wiedervorlage).AsString;
+        namen           := getnutzernamen(lg, inttostr(nnint));
+        nname           := namen[0];
+        if not(namen[1] = '') then nname := nname + ',' + namen[1];
 
         if auftrstr = '' then auftrstr := 'Montage';
 
@@ -1428,7 +1464,7 @@ begin
         treedata.fspecial      := False;
         treedata.fnotizen      := notz;
         treedata.fwiedervorl   := wiedervorl;
-        treedata.fnutzer       := Format('%.3d', [nnint]);;
+        treedata.fnutzer       := Format('%.3d', [nnint]) + ': ' + nname;
 
         // if (not(auftrstr = tmpauftrstr)) or not(tmplg = lg) then
         treedata.fauftrtyp  := auftrstr;
@@ -1443,6 +1479,12 @@ begin
           end
 
         end;
+        if (tmplg = lg) then
+          if (auftrstr <> tmpauftrstr) then begin
+            treedata.fauftrtyp := auftrstr;
+            aufnode            := setnode(avst, liegnode, treedata);
+          end;
+
         // neuer Nutzerknoten
         treedata.fspecial              := true;
         nnnode                         := setnode(avst, aufnode, treedata);
@@ -1658,7 +1700,7 @@ begin
   Data        := avst.getnodedata(Node);
 
   case col of
-    1: // Notizen
+    3: // Notizen
       begin
         Node := avst.focusedNode;
         Data := avst.getnodedata(Node);
@@ -1675,15 +1717,15 @@ begin
         formmemo.Memo1.Text      := Data.fnotizen;
         formmemo.Show;
       end;
-    2, 3:
+    4, 5:
       // Wiedervorlage
       formwieder.Show;
 
-    4: begin // Dokument öffnen
+    6: begin // Dokument öffnen
         opendocuments(Application.Handle, Data.fdateiname);
       end;
 
-    5: // Auftrag erstellen
+    7: // Auftrag erstellen
       begin
         if Sender = vstsearch then exit;
 
@@ -1781,14 +1823,21 @@ procedure Tformmain.vstBeforeCellPaint(Sender: TBaseVirtualTree;
   CellPaintMode: TVTCellPaintMode; CellRect: TRect; var ContentRect: TRect);
 var
   Data: PTreedata;
+  vst : TVirtualStringTree;
 begin
+  vst := Sender as TVirtualStringTree;
+  if vst.GetNodeLevel(Node) = 0 then begin
+    TargetCanvas.Brush.Color := aufcon.hellgrau;
+    TargetCanvas.FillRect(CellRect);
+  end;
+
   Data := vst.getnodedata(Node);
   if AnsiStartsText('Auftr', Data.fliegenschaft) then begin
     TargetCanvas.Brush.Color := clWebBeige;
     TargetCanvas.FillRect(CellRect);
   end;
   if AnsiStartsText('Lieg', Data.fliegenschaft) then begin
-    TargetCanvas.Brush.Color := aufcon.hellorange;
+    TargetCanvas.Brush.Color := aufcon.hellgrau;
     TargetCanvas.FillRect(CellRect);
   end;
 end;
@@ -2171,7 +2220,8 @@ var
   list                 : TStringList;
   database             : string;
   table                : string;
-  name1, name2         : string;
+  // name1, name2         : string;
+  namen: TStringList;
 begin
   if ((zframe.enutzernummer.Text) = '') or (zframe.enutzernummer.Text = '000')
   then exit;
@@ -2180,31 +2230,14 @@ begin
 
   try
     zframe.enutzernummerExit(Sender);
-    list := TStringList.Create;
-    list.Add('WO5');
-    list.Add('WO6');
-    database := aufcon.kuarchiv + getkundennummer + '\' +
-      zframe.eliegenschaft.Text + '\' + zframe.eliegenschaft.Text + '.DB';
-    wherestring := ' WHERE WO1 = ' + inttostr(strtoint((Sender as TfEdit).Text))
-      + ' AND WO0=' + QuotedStr('W');
-    table := 'WO_TYP';
+    list  := TStringList.Create;
+    namen := getnutzernamen(zframe.eliegenschaft.Text,
+      zframe.enutzernummer.Text);
 
-    if not assigned(formdb) then formdb := Tformdb.Create(nil);
-    dict := formdb.getfromhn(database, table, wherestring, list);
-
-    try
-      name1 := dict.Items['WO5'];
-      name2 := dict.Items['WO6'];
-    except
-      outputdebugstring('keine Namen');
-      name1 := '';
-      name2 := '';
-    end;
-
-    liegenschaftsdaten.ename1.Text := name1;
-    liegenschaftsdaten.ename2.Text := name2;
-    zframe.enutzername1.Text       := name1;
-    zframe.enutzername2.Text       := name2;
+    liegenschaftsdaten.ename1.Text := namen[0];
+    liegenschaftsdaten.ename2.Text := namen[1];
+    zframe.enutzername1.Text       := namen[0];
+    zframe.enutzername2.Text       := namen[1];
   except
     begin
       zframe.enutzername1.Clear;
@@ -2250,7 +2283,7 @@ begin
       helperdate := formatDateOhneTrenner(dpabrechnungsende.Text);
       dict.Add(abrechnungsende, helperdate);
       dict.Add(auftragstyp, cbauftragstyp.Items[cbauftragstyp.ItemIndex]);
-      dict.Add(Nutzernummer, enutzernummer.Text);
+      dict.Add(nutzernummer, enutzernummer.Text);
       // dict.Add(Nutzername, enutzername1.Text);
       // dict.Add(Nutzername, enutzername2);
       dict.Add(nutzeremail, eemail.Text);
