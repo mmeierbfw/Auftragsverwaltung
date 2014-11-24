@@ -710,6 +710,7 @@
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
+    ExplicitTop = 25
     inline Tframeshowauftr1: Tframeshowauftr
       Left = 0
       Top = 789
@@ -777,72 +778,13 @@
         end
       end
     end
-    inline leftexpandables: Tfrleft
-      AlignWithMargins = True
-      Left = 3
-      Top = 3
-      Width = 289
-      Height = 783
-      Align = alClient
-      TabOrder = 1
-      ExplicitLeft = 3
-      ExplicitTop = 3
-      ExplicitWidth = 289
-      ExplicitHeight = 783
-      inherited NxExpandPanel1: TNxExpandPanel
-        Width = 289
-        Font.Color = 10252872
-        ExplicitWidth = 289
-        FullHeight = 334
-        inherited NxGroupHeader2: TNxGroupHeader
-          Width = 289
-          ExplicitWidth = 289
-        end
-        inherited Panel1: TPanel
-          Width = 289
-          ExplicitWidth = 289
-          inherited NxGroupHeader1: TNxGroupHeader
-            Width = 287
-            ExplicitWidth = 287
-          end
-          inherited NxLinkLabel1: TNxLinkLabel
-            OnClick = pneuerauftragDblClick
-          end
-        end
-      end
-      inherited NxExpandPanel4: TNxExpandPanel
-        Width = 289
-        Font.Color = 10252872
-        ExplicitWidth = 289
-        FullHeight = 245
-        inherited NxLinkLabel6: TNxLinkLabel
-          OnClick = poffeneclick
-        end
-        inherited NxLinkLabel7: TNxLinkLabel
-          OnClick = puaClick
-        end
-        inherited NxLinkLabel8: TNxLinkLabel
-          OnClick = panforderungenClick
-        end
-      end
-      inherited NxExpandPanel2: TNxExpandPanel
-        Width = 289
-        Font.Color = 10252872
-        ExplicitTop = 403
-        ExplicitWidth = 289
-        FullHeight = 245
-        inherited NxLinkLabel12: TNxLinkLabel
-          OnClick = VorschauAnzeigen
-        end
-      end
-    end
     object peinzelauftr: TPanel
       Left = 64
       Top = 424
       Width = 185
       Height = 41
       Caption = 'poa'
-      TabOrder = 2
+      TabOrder = 1
       Visible = False
       object pua: TPanel
         Left = 8
@@ -869,6 +811,44 @@
           Caption = 'poa'
           TabOrder = 1
           Visible = False
+        end
+      end
+    end
+    inline leftexpandables: Tfrleft
+      Left = 16
+      Top = 16
+      Width = 251
+      Height = 635
+      TabOrder = 2
+      ExplicitLeft = 16
+      ExplicitTop = 16
+      inherited NxExpandPanel1: TNxExpandPanel
+        FullHeight = 334
+        inherited Panel1: TPanel
+          inherited NxLinkLabel1: TNxLinkLabel
+            OnClick = pneuerauftragDblClick
+          end
+        end
+      end
+      inherited NxExpandPanel4: TNxExpandPanel
+        FullHeight = 245
+        inherited NxLinkLabel6: TNxLinkLabel
+          OnClick = poffeneclick
+        end
+        inherited NxLinkLabel7: TNxLinkLabel
+          OnClick = puaClick
+        end
+        inherited NxLinkLabel8: TNxLinkLabel
+          OnClick = panforderungenClick
+        end
+        inherited NxLinkLabel9: TNxLinkLabel
+          OnClick = poffeneclick
+        end
+      end
+      inherited NxExpandPanel2: TNxExpandPanel
+        FullHeight = 245
+        inherited NxLinkLabel12: TNxLinkLabel
+          OnClick = VorschauAnzeigen
         end
       end
     end
@@ -2522,6 +2502,8 @@
             BevelOuter = bvNone
             BorderStyle = bsNone
             BottomSpace = 5
+            ButtonFillMode = fmWindowColor
+            ButtonStyle = bsTriangle
             CheckImageKind = ckCustom
             ClipboardFormats.Strings = (
               'Plain text'
@@ -2540,7 +2522,7 @@
             Colors.TreeLineColor = 14933977
             Colors.UnfocusedSelectionColor = 14933977
             Colors.UnfocusedSelectionBorderColor = 14933977
-            DefaultNodeHeight = 23
+            DefaultNodeHeight = 25
             DragHeight = 450
             DragWidth = 500
             Font.Charset = ANSI_CHARSET
@@ -2557,7 +2539,7 @@
             Header.Font.Name = 'Tahoma'
             Header.Font.Style = []
             Header.Height = 23
-            Header.Options = [hoColumnResize, hoDrag, hoShowSortGlyphs, hoVisible, hoHeaderClickAutoSort]
+            Header.Options = [hoAutoResize, hoColumnResize, hoDrag, hoShowHint, hoShowImages, hoShowSortGlyphs, hoVisible, hoHeaderClickAutoSort]
             Header.SortColumn = 0
             Header.Style = hsPlates
             Indent = 20
@@ -2567,49 +2549,64 @@
             TabOrder = 0
             TreeOptions.AnimationOptions = [toAnimatedToggle, toAdvancedAnimatedToggle]
             TreeOptions.AutoOptions = [toAutoSort]
-            TreeOptions.MiscOptions = [toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning, toEditOnClick]
-            TreeOptions.PaintOptions = [toShowButtons, toShowDropmark, toShowHorzGridLines, toShowRoot, toShowTreeLines, toThemeAware, toUseBlendedImages]
+            TreeOptions.PaintOptions = [toShowBackground, toShowButtons, toShowDropmark, toShowHorzGridLines, toShowRoot, toShowTreeLines, toThemeAware, toUseBlendedImages]
             TreeOptions.SelectionOptions = [toExtendedFocus, toFullRowSelect, toMultiSelect]
             OnAfterCellPaint = vstsearchAfterCellPaint
             OnBeforeCellPaint = vstBeforeCellPaint
             OnColumnClick = vstsearchColumnClick
             OnCompareNodes = vstCompareNodes
-            OnGetText = vstsearchGetText
+            OnGetText = vstanfGetText
             OnHeaderClick = vstHeaderClick
             Columns = <
               item
+                BiDiMode = bdLeftToRight
                 CaptionAlignment = taCenter
                 CheckType = ctNone
                 Color = clWhite
-                Options = [coAllowClick, coDraggable, coEnabled, coParentBidiMode, coResizable, coShowDropMark, coVisible, coAllowFocus, coUseCaptionAlignment]
+                Options = [coAllowClick, coDraggable, coEnabled, coResizable, coShowDropMark, coVisible, coFixed, coSmartResize, coAllowFocus, coUseCaptionAlignment]
                 Position = 0
                 Spacing = 5
-                Width = 250
-                WideText = 'offene Auftr'#228'ge'
+                Width = 120
+                WideText = 'Liegenschaft'
               end
               item
+                BiDiMode = bdLeftToRight
                 Color = clWhite
-                Options = [coAllowClick, coDraggable, coEnabled, coParentBidiMode, coResizable, coShowDropMark, coVisible, coAllowFocus]
+                Options = [coAllowClick, coDraggable, coEnabled, coResizable, coShowDropMark, coVisible, coFixed, coSmartResize, coAllowFocus, coUseCaptionAlignment]
                 Position = 1
                 Width = 250
+                WideText = 'Auftragstyp'
+              end
+              item
+                BiDiMode = bdLeftToRight
+                Color = clWhite
+                ImageIndex = 0
+                Options = [coAllowClick, coDraggable, coEnabled, coResizable, coShowDropMark, coVisible, coFixed, coSmartResize, coAllowFocus, coUseCaptionAlignment]
+                Position = 2
+                Width = 250
+                WideText = 'Nutzer'
+              end
+              item
+                BiDiMode = bdLeftToRight
+                Color = clWhite
+                Options = [coAllowClick, coDraggable, coEnabled, coResizable, coShowDropMark, coVisible, coFixed, coSmartResize, coAllowFocus, coUseCaptionAlignment]
+                Position = 3
+                Width = 250
+                WideText = 'Notizen'
+              end
+              item
+                BiDiMode = bdLeftToRight
+                Color = clWhite
+                Options = [coAllowClick, coDraggable, coEnabled, coResizable, coShowDropMark, coVisible, coFixed, coSmartResize, coAllowFocus, coUseCaptionAlignment]
+                Position = 4
                 WideText = 'Bearbeitungsdatum'
               end
               item
+                BiDiMode = bdLeftToRight
+                Color = clWhite
                 ImageIndex = 0
-                Options = [coAllowClick, coEnabled, coParentBidiMode, coParentColor, coResizable, coShowDropMark, coVisible, coAllowFocus]
-                Position = 2
-                Width = 250
-                WideText = 'zur Wiedervorlage'
-              end
-              item
-                Position = 3
-                Width = 250
-                WideText = 'Ausf'#252'hrungstermin'
-              end
-              item
-                ImageIndex = 0
-                Options = [coAllowClick, coEnabled, coParentBidiMode, coParentColor, coResizable, coShowDropMark, coVisible, coAllowFocus]
-                Position = 4
+                Options = [coAllowClick, coDraggable, coEnabled, coResizable, coShowDropMark, coVisible, coFixed, coSmartResize, coAllowFocus, coUseCaptionAlignment]
+                Position = 5
                 Width = 250
                 WideText = 'Dokument anzeigen'
               end>
@@ -2625,6 +2622,19 @@
             ParentBackground = False
             TabOrder = 1
             Visible = False
+            object Label1: TLabel
+              Left = 18
+              Top = 16
+              Width = 164
+              Height = 19
+              Caption = 'Auftragsanforderungen'
+              Font.Charset = ANSI_CHARSET
+              Font.Color = 10252872
+              Font.Height = -16
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+            end
           end
         end
       end
@@ -3423,37 +3433,41 @@
                 Position = 0
                 Spacing = 5
                 Width = 306
-                WideText = 'unbearbeitete Auftr'#228'ge'
+                WideText = 'Liegenschaft'
               end
               item
                 ImageIndex = 3
                 Position = 1
                 Width = 80
-                WideText = 'Notizen'
+                WideText = 'Auftragstyp'
               end
               item
                 Color = clWhite
                 Options = [coAllowClick, coDraggable, coEnabled, coParentBidiMode, coResizable, coShowDropMark, coVisible, coAllowFocus]
                 Position = 2
                 Width = 120
-                WideText = 'Bearbeitungsdatum'
+                WideText = 'Nutzer'
               end
               item
                 ImageIndex = 0
                 Options = [coAllowClick, coEnabled, coParentBidiMode, coParentColor, coResizable, coShowDropMark, coVisible, coAllowFocus]
                 Position = 3
                 Width = 150
-                WideText = 'zur Wiedervorlage'
+                WideText = 'Bearbeitungsdatum'
               end
               item
                 ImageIndex = 0
                 Options = [coAllowClick, coEnabled, coParentBidiMode, coParentColor, coResizable, coShowDropMark, coVisible, coAllowFocus]
                 Position = 4
                 Width = 150
-                WideText = 'Dokument anzeigen'
+                WideText = 'zur Wiedervorlage'
               end
               item
                 Position = 5
+                WideText = 'Dokument anzeigen'
+              end
+              item
+                Position = 6
                 Width = 100
                 WideText = 'Auftrag erstellen'
               end>
@@ -3783,7 +3797,23 @@
                 777)
               inherited vermerke: TMemo
                 Height = 653
+                ExplicitWidth = 373
                 ExplicitHeight = 653
+              end
+              inherited estrasse: TfEdit
+                ExplicitWidth = 277
+              end
+              inherited eplz: TfEdit
+                ExplicitWidth = 122
+              end
+              inherited eort: TfEdit
+                ExplicitWidth = 219
+              end
+              inherited ename1: TfEdit
+                ExplicitWidth = 277
+              end
+              inherited ename2: TfEdit
+                ExplicitWidth = 277
               end
             end
           end
@@ -3806,7 +3836,7 @@
     Left = 72
     Top = 624
     Bitmap = {
-      494C010104003000480110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101040030004C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

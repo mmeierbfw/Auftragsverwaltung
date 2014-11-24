@@ -90,7 +90,6 @@ type
     tabliegenschaft: TNxTabSheet;
     liegenschaftsdaten: Tframeliegenschaftsdaten;
     zframe: Tframeauftragsdaten;
-    leftexpandables: Tfrleft;
     poa: TPanel;
     peinzelauftr: TPanel;
     pua: TPanel;
@@ -99,6 +98,8 @@ type
     Label5: TLabel;
     Shape1: TShape;
     Shape2: TShape;
+    leftexpandables: Tfrleft;
+    Label1: TLabel;
     // zframe: Tframeauftragsdaten;
     // procedure aufträgeAnzeigen(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -581,15 +582,25 @@ begin
   Result := TStringList.Create;
   list   := TStringList.Create;
 
-  list.Add('WO5');
-  list.Add('WO6');
-  database := aufcon.kuarchiv + getkundennummer + '\' + liegenschaft + '\' +
-    liegenschaft + '.DB';
-  wherestring := ' WHERE WO1 = ' + nutzernummer + ' AND WO0=' + QuotedStr('W');
-  table       := 'WO_TYP';
+  try
+    list.Add('WO5');
+    list.Add('WO6');
+    database := aufcon.kuarchiv + getkundennummer + '\' + liegenschaft + '\' +
+      liegenschaft + '.DB';
+    wherestring := ' WHERE WO1 = ' + nutzernummer + ' AND WO0=' +
+      QuotedStr('W');
+    table := 'WO_TYP';
 
-  if not assigned(formdb) then formdb := Tformdb.Create(nil);
-  dict := formdb.getfromhn(database, table, wherestring, list);
+    if not assigned(formdb) then formdb := Tformdb.Create(nil);
+    dict := formdb.getfromhn(database, table, wherestring, list);
+  except
+    on e: Exception do begin
+      showmessage(e.Message);
+      Result.Add('');
+      Result.Add('');
+      exit;
+    end;
+  end;
 
   try
     Result.Add(dict.Items['WO5']);
@@ -858,13 +869,10 @@ var
   index: Integer;
 begin
   with aufcon do begin
-    avst := vstsearch;
-    // paintallcontrols(peinzelauftr, dunkelblaufm);
-    // (Sender as TPanel).Color := hellerblaufm;
+    avst             := vstsearch;
     pager.ActivePage := sheetoffene;
     getoffeneaufträge(' ORDER BY liegenschaft asc');
-    filloffene(formdb.queryaufträge, vstsearch);
-    // fillvst(formdb.queryaufträge, vstsearch,nil);
+    fillvst(formdb.queryaufträge, vstsearch, nil);
     psearchoff.enabled := False;
     pauftrerst.enabled := False;
   end;
@@ -1613,8 +1621,8 @@ var
   tmpdatei : string;
   localfile: string;
 begin
-  tmpdatei  := createpdf(true);
-//  localfile := gettmpshowfile('Auftragsverwaltung', ExtractFileName(tmpdatei));
+  tmpdatei := createpdf(true);
+  // localfile := gettmpshowfile('Auftragsverwaltung', ExtractFileName(tmpdatei));
   // CopyFile(pchar(tmpdatei), pchar(localfile), False);
   ShellExecute(Application.Handle, 'open', pchar(tmpdatei), nil, nil, sw_normal)
 end;
@@ -1780,39 +1788,18 @@ begin
   case Column of
     0: begin
         if nodelevel = 0 then begin
-          // CellText := 'Liegenschaft: ' + Data^.FCaption;
           CellText := Data^.fliegenschaft;
           exit;
         end;
-        // if Node.ChildCount > 0 then Begin
-        // if vt = vstanf then startttext    := 'angefordert: ';
-        // if vt = vstsearch then startttext := 'offen: ';
-        // if vt = vst then startttext       := 'unbearbeitet: ';
-        // End;
-        //
-        // CellText := startttext + Data^.fliegenschaft;
-        // exit;
-        // End;
-        // if Node.ChildCount = 0 then
-        // CellText := 'Nutzernummer: ' + Data^.fliegenschaft;
 
-        // // font.Style := font.Style + [fsStrikeOut];
-        // end;
-        // 1: CellText := Data^.fauftrtyp;
-        // // 1: celltext := 'Montage';
-        // 2: CellText       := Data^.fdatum;
-        // 3, 4, 5: CellText := '               ';
-        // // 4: CellText := '  ' + Data^.fwiedervorl;
       end;
     1: begin
-        // if vt.GetNodeLevel(Node) = 0 then exit;
         if nodelevel = 1 then begin
           CellText := Data^.fauftrtyp;
         end;
       end;
     2: begin
         if nodelevel = 2 then begin
-          // if Node.ChildCount = 0 then begin
           CellText := Data^.fnutzer;
         end;
       end;
@@ -1850,16 +1837,16 @@ begin
     TargetCanvas.Brush.Color := aufcon.hellgrau;
     TargetCanvas.FillRect(CellRect);
   end;
-
-  Data := vst.getnodedata(Node);
-  if AnsiStartsText('Auftr', Data.fliegenschaft) then begin
-    TargetCanvas.Brush.Color := clWebBeige;
-    TargetCanvas.FillRect(CellRect);
-  end;
-  if AnsiStartsText('Lieg', Data.fliegenschaft) then begin
-    TargetCanvas.Brush.Color := aufcon.hellgrau;
-    TargetCanvas.FillRect(CellRect);
-  end;
+  //
+  // Data := vst.getnodedata(Node);
+  // if AnsiStartsText('Auftr', Data.fliegenschaft) then begin
+  // TargetCanvas.Brush.Color := clWebBeige;
+  // TargetCanvas.FillRect(CellRect);
+  // end;
+  // if AnsiStartsText('Lieg', Data.fliegenschaft) then begin
+  // TargetCanvas.Brush.Color := aufcon.hellgrau;
+  // TargetCanvas.FillRect(CellRect);
+  // end;
 end;
 
 procedure Tformmain.vstColumnClick(Sender: TBaseVirtualTree;
@@ -2010,25 +1997,14 @@ begin
   case Column of
     0: begin
         if vt.GetNodeLevel(Node) = 0 then begin
-          CellText := 'Liegenschaft: ' + Data^.fliegenschaft;
+          CellText := Data^.fliegenschaft;
           exit;
         end;
-        if Node.ChildCount > 0 then Begin
-          if vt = vstanf then startttext    := 'angefordert: ';
-          if vt = vstsearch then startttext := 'offen: ';
-          if vt = vst then startttext       := 'unbearbeitet: ';
-
-          CellText := startttext + Data^.fliegenschaft;
-          exit;
-        End;
-        if Node.ChildCount = 0 then
-            CellText := 'Nutzernummer: ' + Data^.fliegenschaft;
-
-        // font.Style := font.Style + [fsStrikeOut];
       end;
-    // 1: CellText       := Data^.fnotizen;
-    2: CellText       := Data^.fdatum;
-    3, 4, 5: CellText := '               ';
+
+    1: if vt.GetNodeLevel(Node) = 1 then CellText := Data^.fauftrtyp;
+    2: if vt.GetNodeLevel(Node) = 2 then CellText := Data^.fnutzer;
+    3, 4, 5: CellText                             := '               ';
     // 4: CellText := '  ' + Data^.fwiedervorl;
   else;
   end;
@@ -2050,27 +2026,25 @@ procedure Tformmain.vstsearchAfterCellPaint(Sender: TBaseVirtualTree;
   CellRect: TRect);
 
 var
-  Rect : TRect;
-  Data : PTreedata;
-  count: Integer;
-  Left : Integer;
+  Rect  : TRect;
+  Data  : PTreedata;
+  count : Integer;
+  Left  : Integer;
+  header: string;
 begin
 
   Data := Sender.getnodedata(Node);
-  if not Data.fspecial then exit;
   Left := CellRect.Left;
-  // + trunc(CellRect.Width / 2) - 5;
-  case Column of
-    3: begin
 
-        Rect := Sender.GetDisplayRect(Node, Column, true);
-        ImageList1.Draw(TargetCanvas, Left, CellRect.Top, Data.fimagewied);
-      end;
-
-    4: begin
-        Rect := Sender.GetDisplayRect(Node, Column, true);
-        ImageList1.Draw(TargetCanvas, Left, CellRect.Top, Data.fimagedok);
-      end;
+  header := (Sender as TVirtualStringTree).header.Columns[Column].Text;
+  if AnsiStartsText('wiedervorlage', AnsiLowerCase(header)) then begin
+    Rect := Sender.GetDisplayRect(Node, Column, true);
+    ImageList1.Draw(TargetCanvas, Left, CellRect.Top, 2);
+    exit;
+  end;
+  if AnsiStartsText('dokument anzeigen', AnsiLowerCase(header)) then begin
+    Rect := Sender.GetDisplayRect(Node, Column, true);
+    ImageList1.Draw(TargetCanvas, Left, CellRect.Top, 0);
   end;
 end;
 
@@ -2089,55 +2063,40 @@ var
   lg    : string;
   notiz : String;
   avst  : TVirtualStringTree;
+  header: string;
 begin
   avst        := Sender as TVirtualStringTree;
   col         := avst.FocusedColumn;
   Node        := avst.focusedNode;
   focusedNode := Node;
   Data        := avst.getnodedata(Node);
+  header      := avst.header.Columns[Column].Text;
 
-  case col of
-    1: // Notizen
-      begin
-        Node := avst.focusedNode;
-        Data := avst.getnodedata(Node);
-        ln   := Node;
-        while not(ln = avst.RootNode) do begin
-          ln     := ln.Parent;
-          lndata := avst.getnodedata(ln);
-          try lg := lndata.fliegenschaft;
-          except
-          end;
-        end;
-        notiz                    := Data.fnotizen;
-        formmemo.pheader.Caption := Format(formmemo.pheader.Caption, [lg]);
-        formmemo.Memo1.Text      := Data.fnotizen;
-        formmemo.Show;
-      end;
+  if AnsiStartsText('notizen', AnsiLowerCase(header)) then begin
 
-    2, 3: // Wiedervorlage
-      formwieder.Show;
-    4: begin // Dokument öffnen
-        // if avst = vstsearch then formwieder.Show
-        // else
-        opendocuments(Application.Handle, Data.fdateiname);
+    Node := avst.focusedNode;
+    Data := avst.getnodedata(Node);
+    ln   := Node;
+    while not(ln = avst.RootNode) do begin
+      ln     := ln.Parent;
+      lndata := avst.getnodedata(ln);
+      try lg := lndata.fliegenschaft;
+      except
       end;
-    // 5: // Auftrag erstellen
-    // begin
-    // if Sender = vstsearch then begin
-    // opendocuments(Application.Handle, Data.fdateiname);
-    // exit;
-    // end;
-    //
-    // showdata(Sender as TVirtualStringTree);
-    // pager.ActivePage := tabneuerauftrag;
-    // try zframe.fauftragsnummer.SetFocus;
-    // except
-    //
-    // end;
-    // paintallcontrols(peinzelauftr, dunkelblaufm);
-    // pneuerauftrag.Color := hellerblaufm;
+    end;
+    notiz                    := Data.fnotizen;
+    formmemo.pheader.Caption := Format(formmemo.pheader.Caption, [lg]);
+    formmemo.Memo1.Text      := Data.fnotizen;
+    formmemo.Show;
   end;
+
+  if AnsiStartsText('wiedervorlage', AnsiLowerCase(header)) or
+    AnsiStartsText('bearbeitungs', AnsiLowerCase(header)) then begin
+    formwieder.Show;
+    exit;
+  end;
+  if AnsiStartsText('dokument', AnsiLowerCase(header)) then
+      opendocuments(Application.Handle, Data.fdateiname);
 end;
 
 procedure Tformmain.vstsearchGetText(Sender: TBaseVirtualTree;

@@ -104,8 +104,8 @@ type
     sammelordner   = 'Sammelordner';
     // abrechnungsende  = 'Abrechnungsende';
     auftragsid    = 'auftragsanforderungsid';
-    ableser       = 'Ablesedienst';
-    nutzeremail   = 'Email';
+    ableser       = 'Monteur';
+//    nutzeremail   = 'Email';
     default_value = '';
 
     { für Montage }
