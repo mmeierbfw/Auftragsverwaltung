@@ -26,6 +26,7 @@ function correcttyp(nn: string): boolean;
 function paintauftrag(values: TDictionary<string, string>): boolean;
 function createfilename(dict: TDictionary<string, string>): string;
 function createtmpfilename(dict: TDictionary<string, string>): string;
+function createfilenamewithoutending(dict: TDictionary<string, string>): string;
 function createhostfilename(dict: TDictionary<string, string>): string;
 function createpdf(vorschau: boolean): string;
 function getzeitraum(von, bis: string): string;
@@ -114,7 +115,8 @@ begin
       if not vorschau then
 
           tmpdatei  := gettmpfile('Auftragsverwaltung', createfilename(dict))
-      else tmpdatei := gettmpfile('Auftragsverwaltung', createfilename(dict));
+      else tmpdatei := gettmpfile('Auftragsverwaltung',
+          createtmpfilename(dict));
       dict.Add('dateiname', tmpdatei);
 
       with liegenschaftsdaten do begin
@@ -156,14 +158,17 @@ function createtmpfilename(dict: TDictionary<string, string>): string;
 var
   filename: string;
 begin
-  filename := createfilename(dict);
-  Result   := IncludeTrailingPathDelimiter(ExtractFilePath(filename)) +
-    ExtractFileName(filename) + inttostr(random(20000)) +
-    ExtractFileExt(filename);
+  Result := createfilenamewithoutending(dict) + inttostr(random(20000))
+    + '.pdf';
 end;
 // ##############################
 
 function createfilename(dict: TDictionary<string, string>): string;
+begin
+  Result := createfilenamewithoutending(dict) + '.pdf';
+end;
+
+function createfilenamewithoutending(dict: TDictionary<string, string>): string;
 var
   lg, nn, typ, jahr, idx: string;
   nowstring             : string;
@@ -183,7 +188,7 @@ begin
     datetimetostring(nowstring, 'yymddhhnnsszz', now);
     // nowstring := formatdateohnetrennertmj(nowstring);
 
-    Result := lg + '_' + nn + '_' + typ + '_' + jahr + '_' + nowstring + '.pdf';
+    Result := lg + '_' + nn + '_' + typ + '_' + jahr + '_' + nowstring;
   end;
 end;
 

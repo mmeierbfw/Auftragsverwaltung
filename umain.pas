@@ -1610,10 +1610,11 @@ end;
 
 procedure Tformmain.VorschauAnzeigen(Sender: TObject);
 var
-  tmpdatei: string;
+  tmpdatei : string;
+  localfile: string;
 begin
-  tmpdatei := createpdf(true);
-  // localfile := gettmpshowfile('Auftragsverwaltung', ExtractFileName(tmpdatei));
+  tmpdatei  := createpdf(true);
+//  localfile := gettmpshowfile('Auftragsverwaltung', ExtractFileName(tmpdatei));
   // CopyFile(pchar(tmpdatei), pchar(localfile), False);
   ShellExecute(Application.Handle, 'open', pchar(tmpdatei), nil, nil, sw_normal)
 end;
@@ -2339,7 +2340,7 @@ begin
     // exit;
     // end;
 
-    tmpdatei := createpdf(false);
+    tmpdatei := createpdf(False);
 
     if (mrYes = MessageDlg('Auftrag drucken?', mtConfirmation, mbYesNo, 0)) then
     begin
