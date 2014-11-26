@@ -97,9 +97,10 @@ begin
       dict.Add(ort, liegenschaftsdaten.eort.Text);
       dict.Add(emailadr, zframe.eemail.Text);
       dict.Add(Telefonnummer, zframe.etelefon.Text);
-      dict.Add(sachbearbeiter, getsb);
+//      dict.Add(sachbearbeiter, getsb);
       dict.Add(abrechnungsende, zframe.dpabrechnungsende.Text);
       dict.Add(empfname, zframe.cbmonteur.Text);
+      dict.Add(sachbearbeiter, formmain.getsb);
       try dict.Add(empfstrasse, empfdaten.Items['Strasse']);
       except dict.Add(empfstrasse, '');
       end;
@@ -123,7 +124,7 @@ begin
         Tframeshowauftr1.lcopen.Caption       := '';
         Tframeshowauftr1.lcunbe.Caption       := '';
         if not assigned(formpdf) then formpdf := Tformpdf.Create(nil);
-        Result                                := formpdf.createpdf(dict);
+        Result                                := formpdf.CreateEinzelauftrag(dict);
       end;
     end;
   end;
@@ -396,7 +397,7 @@ end;
 
 function paintauftrag(values: TDictionary<string, string>): boolean;
 begin
-  formpdf.createpdf(values);
+  formpdf.CreateEinzelauftrag(values);
 end;
 
 // ------------------------------------

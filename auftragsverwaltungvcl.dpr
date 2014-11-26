@@ -17,7 +17,8 @@ uses
   uframeauftragsverwaltung in 'uframeauftragsverwaltung.pas' {frameauftragsdaten: TFrame},
   uftpconnector in '..\neueftpverbindung\uftpconnector.pas' {formftp},
   udbconnector in '..\dbconnector\udbconnector.pas' {formdb},
-  frame in '..\Dokumentenverwaltung Layouttesting\frame.pas' {frleft: TFrame};
+  frame in '..\Dokumentenverwaltung Layouttesting\frame.pas' {frleft: TFrame},
+  uexpandframe in 'uexpandframe.pas' {Frame2: TFrame};
 
 {$R *.res}
 

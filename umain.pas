@@ -183,6 +183,7 @@ type
     procedure FormResize(Sender: TObject);
     procedure Panel1Click(Sender: TObject);
     procedure VorschauAnzeigen(Sender: TObject);
+    procedure zframeperreichtdetailsClick(Sender: TObject);
 
   private
     lg           : string;
@@ -2281,7 +2282,7 @@ begin
       outputdebugstring(pchar(cbmonteur.Text));
       dict.Add(monteur, cbmonteur.Text);
       dict.Add(erreicht, err);
-
+//      dict.Add(sachbearbeiter, sb);
       dict.Add(informiert, cberreichtdetail.Text);
       // dict.Add(uconstants.Notizen, Notizen.Text);
       if not(self.auftragsid > -1) then begin // da sein muss die aber schon
@@ -2318,6 +2319,11 @@ end;
 procedure Tformmain.zframePanel3Click(Sender: TObject);
 begin
   showmessage('Rechnunung und co');
+end;
+
+procedure Tformmain.zframeperreichtdetailsClick(Sender: TObject);
+begin
+
 end;
 
 // --------------------------------

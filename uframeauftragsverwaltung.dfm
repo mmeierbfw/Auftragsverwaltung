@@ -1,8 +1,8 @@
 ﻿object frameauftragsdaten: Tframeauftragsdaten
   Left = 0
   Top = 0
-  Width = 784
-  Height = 905
+  Width = 1070
+  Height = 809
   Align = alLeft
   Color = clGray
   Font.Charset = DEFAULT_CHARSET
@@ -18,14 +18,15 @@
   ParentColor = False
   ParentFont = False
   TabOrder = 0
+  ExplicitHeight = 304
   object pager: TNxPageControl
     AlignWithMargins = True
     Left = 4
     Top = 4
-    Width = 776
-    Height = 897
-    ActivePage = NxTabSheet1
-    ActivePageIndex = 0
+    Width = 1062
+    Height = 801
+    ActivePage = NxTabSheet2
+    ActivePageIndex = 1
     Align = alClient
     Color = clWhite
     ParentColor = False
@@ -35,10 +36,7 @@
     Options = [pgBoldActiveTab, pgCloseButton]
     Spacing = 0
     TabHeight = 17
-    ExplicitLeft = 3
-    ExplicitTop = 3
-    ExplicitWidth = 996
-    ExplicitHeight = 0
+    ExplicitHeight = 296
     object NxTabSheet1: TNxTabSheet
       Caption = 'NxTabSheet1'
       PageIndex = 0
@@ -48,20 +46,18 @@
       TabFont.Height = -11
       TabFont.Name = 'Tahoma'
       TabFont.Style = []
-      ExplicitWidth = 996
-      ExplicitHeight = 1
+      ExplicitHeight = 275
       object FlowPanel1: TFlowPanel
         Left = 0
         Top = 0
-        Width = 776
-        Height = 876
+        Width = 1062
+        Height = 780
         Align = alClient
         BevelOuter = bvNone
         Color = clWhite
         ParentBackground = False
         TabOrder = 0
-        ExplicitWidth = 996
-        ExplicitHeight = 1
+        ExplicitHeight = 275
         object pliegenschaft: TPanel
           Left = 0
           Top = 0
@@ -631,9 +627,9 @@
             ParentFont = False
           end
           object lmonteur: TLabel
-            Left = 609
+            Left = 760
             Top = 155
-            Width = 154
+            Width = 3
             Height = 13
             BiDiMode = bdRightToLeft
             ParentBiDiMode = False
@@ -707,8 +703,6 @@
               Font.Name = 'Tahoma'
               Font.Style = [fsBold]
               ParentFont = False
-              ExplicitLeft = 40
-              ExplicitTop = -6
               ExplicitWidth = 31
             end
             object Lmy: TLabel
@@ -725,8 +719,6 @@
               Font.Name = 'Tahoma'
               Font.Style = []
               ParentFont = False
-              ExplicitLeft = 8
-              ExplicitTop = 58
               ExplicitWidth = 88
             end
             object lvon: TLabel
@@ -746,9 +738,7 @@
               Font.Style = []
               ParentFont = False
               Layout = tlCenter
-              ExplicitLeft = 3
-              ExplicitTop = 116
-              ExplicitWidth = 117
+              ExplicitWidth = 42
             end
             object pdivisor: TPanel
               AlignWithMargins = True
@@ -759,9 +749,6 @@
               Margins.Top = 5
               Align = alTop
               TabOrder = 0
-              ExplicitLeft = 3
-              ExplicitTop = 88
-              ExplicitWidth = 121
             end
           end
           object edate: TfEdit
@@ -989,13 +976,13 @@
       TabFont.Height = -11
       TabFont.Name = 'Tahoma'
       TabFont.Style = []
-      ExplicitWidth = 996
-      ExplicitHeight = 1
+      ExplicitTop = 0
+      ExplicitHeight = 894
       object perreichtdetails: TPanel
         Left = 0
         Top = 0
-        Width = 776
-        Height = 876
+        Width = 1062
+        Height = 780
         Margins.Left = 5
         Margins.Top = 5
         Margins.Right = 5
@@ -1004,8 +991,7 @@
         Color = clWhite
         ParentBackground = False
         TabOrder = 0
-        ExplicitWidth = 996
-        ExplicitHeight = 1
+        ExplicitHeight = 275
         object NxButton5: TNxButton
           Left = 589
           Top = 9
@@ -1022,6 +1008,59 @@
           TabOrder = 1
           OnClick = NxButton3Click
         end
+        object Panel3: TPanel
+          Left = 0
+          Top = 38
+          Width = 1062
+          Height = 742
+          Align = alBottom
+          BorderStyle = bsSingle
+          TabOrder = 2
+          inline TFrame21: TFrame2
+            Left = 1
+            Top = 1
+            Width = 1056
+            Height = 612
+            Align = alTop
+            TabOrder = 0
+            ExplicitLeft = 1
+            ExplicitTop = 1
+            inherited NxExpandPanel1: TNxExpandPanel
+              Width = 1050
+              Height = 189
+              ExplicitWidth = 1050
+              ExplicitHeight = 189
+              FullHeight = 0
+              inherited CheckListBox2: TCheckListBox
+                Top = 106
+                Width = 1050
+                Height = 83
+                OnExit = TFrame21CheckListBox2Exit
+                ExplicitTop = 106
+                ExplicitWidth = 1050
+                ExplicitHeight = 83
+              end
+            end
+            inherited NxExpandPanel2: TNxExpandPanel
+              Top = 198
+              Width = 1050
+              ExplicitTop = 198
+              FullHeight = 0
+              inherited CheckListBox4: TCheckListBox
+                Width = 1050
+              end
+            end
+            inherited NxExpandPanel3: TNxExpandPanel
+              Top = 292
+              Width = 1050
+              ExplicitTop = 292
+              FullHeight = 0
+              inherited CheckListBox3: TCheckListBox
+                Width = 1050
+              end
+            end
+          end
+        end
       end
     end
     object NxTabSheet3: TNxTabSheet
@@ -1035,13 +1074,12 @@
       TabFont.Style = []
       OnHide = NxTabSheet3Hide
       OnShow = NxTabSheet3Show
-      ExplicitWidth = 996
-      ExplicitHeight = 1
+      ExplicitHeight = 275
       object ptermindetails: TNxPanel
         Left = 0
         Top = 0
-        Width = 776
-        Height = 876
+        Width = 1062
+        Height = 780
         Margins.Left = 5
         Margins.Top = 5
         Margins.Right = 5
@@ -1056,8 +1094,7 @@
         FullRepaint = True
         ParentColor = False
         TabOrder = 0
-        ExplicitWidth = 996
-        ExplicitHeight = 1
+        ExplicitHeight = 275
         object Label23: TLabel
           Left = 272
           Top = 22

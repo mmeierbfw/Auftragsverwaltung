@@ -710,7 +710,6 @@
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
-    ExplicitTop = 25
     inline Tframeshowauftr1: Tframeshowauftr
       Left = 0
       Top = 789
@@ -846,6 +845,7 @@
         end
       end
       inherited NxExpandPanel2: TNxExpandPanel
+        ExplicitTop = 403
         FullHeight = 245
         inherited NxLinkLabel12: TNxLinkLabel
           OnClick = VorschauAnzeigen
@@ -3624,12 +3624,9 @@
           inherited pager: TNxPageControl
             Width = 774
             Height = 844
-            ExplicitLeft = 4
-            ExplicitTop = 4
             ExplicitWidth = 774
             ExplicitHeight = 844
             inherited NxTabSheet1: TNxTabSheet
-              ExplicitTop = 21
               ExplicitWidth = 774
               ExplicitHeight = 823
               inherited FlowPanel1: TFlowPanel
@@ -3647,24 +3644,6 @@
                     OnExit = zframeenutzernummerExit
                   end
                 end
-                inherited ptermin: TPanel
-                  inherited pausführung: TPanel
-                    inherited ldayOM: TLabel
-                      Width = 119
-                    end
-                    inherited Lmy: TLabel
-                      Width = 119
-                    end
-                    inherited lvon: TLabel
-                      Width = 113
-                    end
-                    inherited pdivisor: TPanel
-                      ExplicitLeft = 7
-                      ExplicitTop = 92
-                      ExplicitWidth = 113
-                    end
-                  end
-                end
                 inherited pnotizen: TPanel
                   inherited NxButton4: TNxButton
                     OnClick = babschließen
@@ -3673,17 +3652,45 @@
               end
             end
             inherited NxTabSheet2: TNxTabSheet
-              ExplicitWidth = 776
               ExplicitHeight = 276
               inherited perreichtdetails: TPanel
                 Width = 774
                 Height = 823
+                OnClick = zframeperreichtdetailsClick
                 ExplicitWidth = 774
                 ExplicitHeight = 823
+                inherited Panel3: TPanel
+                  Top = 81
+                  Width = 774
+                  inherited TFrame21: TFrame2
+                    Width = 768
+                    inherited NxExpandPanel1: TNxExpandPanel
+                      Width = 762
+                      FullHeight = 0
+                      inherited CheckListBox2: TCheckListBox
+                        Width = 762
+                        AllowGrayed = False
+                      end
+                    end
+                    inherited NxExpandPanel2: TNxExpandPanel
+                      Width = 762
+                      FullHeight = 0
+                      inherited CheckListBox4: TCheckListBox
+                        Width = 762
+                      end
+                    end
+                    inherited NxExpandPanel3: TNxExpandPanel
+                      Width = 762
+                      FullHeight = 0
+                      inherited CheckListBox3: TCheckListBox
+                        Width = 762
+                      end
+                    end
+                  end
+                end
               end
             end
             inherited NxTabSheet3: TNxTabSheet
-              ExplicitTop = 21
               ExplicitWidth = 774
               ExplicitHeight = 823
               inherited ptermindetails: TNxPanel
@@ -3836,7 +3843,7 @@
     Left = 72
     Top = 624
     Bitmap = {
-      494C0101040030004C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104003000540110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

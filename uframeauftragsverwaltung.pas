@@ -9,7 +9,7 @@ uses
   Vcl.Mask, umaskedit, System.Generics.collections, uutils, strutils,
   NxPageControl, NxControls6, NxEdit6, Vcl.ComCtrls, NxScrollControl, NxToolBox,
   NxLinkMenu, Vcl.Imaging.pngimage, NxCustomGridControl, NxCustomGrid, NxDBGrid,
-  NxColumns, NxDBColumns, uconstants;
+  NxColumns, NxDBColumns, uconstants, uexpandframe, Vcl.CheckLst;
 
 type
   Tframeauftragsdaten = class(TFrame)
@@ -104,6 +104,8 @@ type
     NxButton3: TNxButton;
     NxButton5: TNxButton;
     NxButton6: TNxButton;
+    Panel3: TPanel;
+    TFrame21: TFrame2;
     function calcleftchars: integer;
 
     procedure checkinput(var Key: Word);
@@ -140,6 +142,8 @@ type
     procedure NxTabSheet3Hide(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure click(Sender: TObject);
+    procedure TFrame21LinkLabel1Click(Sender: TObject);
+    procedure TFrame21CheckListBox2Exit(Sender: TObject);
   private
     writtenchars: integer;
     // function getmonth(monthasstring: string): string;
@@ -697,6 +701,18 @@ begin
   except
     ;
   end;
+
+end;
+
+procedure Tframeauftragsdaten.TFrame21CheckListBox2Exit(Sender: TObject);
+begin
+  TFrame21.CheckListBox2Exit(Sender);
+
+end;
+
+procedure Tframeauftragsdaten.TFrame21LinkLabel1Click(Sender: TObject);
+begin
+  TFrame21.LinkLabel1Click(Sender);
 
 end;
 
