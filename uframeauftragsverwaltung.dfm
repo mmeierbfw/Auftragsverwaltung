@@ -2,7 +2,7 @@
   Left = 0
   Top = 0
   Width = 1070
-  Height = 809
+  Height = 751
   Align = alLeft
   Color = clGray
   Font.Charset = DEFAULT_CHARSET
@@ -24,7 +24,7 @@
     Left = 4
     Top = 4
     Width = 1062
-    Height = 801
+    Height = 743
     ActivePage = NxTabSheet2
     ActivePageIndex = 1
     Align = alClient
@@ -51,7 +51,7 @@
         Left = 0
         Top = 0
         Width = 1062
-        Height = 780
+        Height = 722
         Align = alClient
         BevelOuter = bvNone
         Color = clWhite
@@ -976,13 +976,12 @@
       TabFont.Height = -11
       TabFont.Name = 'Tahoma'
       TabFont.Style = []
-      ExplicitTop = 0
-      ExplicitHeight = 894
+      ExplicitHeight = 275
       object perreichtdetails: TPanel
         Left = 0
         Top = 0
         Width = 1062
-        Height = 780
+        Height = 722
         Margins.Left = 5
         Margins.Top = 5
         Margins.Right = 5
@@ -1010,54 +1009,43 @@
         end
         object Panel3: TPanel
           Left = 0
-          Top = 38
+          Top = -20
           Width = 1062
           Height = 742
           Align = alBottom
           BorderStyle = bsSingle
           TabOrder = 2
+          ExplicitTop = -467
           inline TFrame21: TFrame2
             Left = 1
             Top = 1
             Width = 1056
-            Height = 612
+            Height = 440
             Align = alTop
             TabOrder = 0
             ExplicitLeft = 1
             ExplicitTop = 1
+            ExplicitWidth = 1056
             inherited NxExpandPanel1: TNxExpandPanel
               Width = 1050
               Height = 189
               ExplicitWidth = 1050
               ExplicitHeight = 189
               FullHeight = 0
-              inherited CheckListBox2: TCheckListBox
-                Top = 106
-                Width = 1050
-                Height = 83
-                OnExit = TFrame21CheckListBox2Exit
-                ExplicitTop = 106
-                ExplicitWidth = 1050
-                ExplicitHeight = 83
-              end
             end
             inherited NxExpandPanel2: TNxExpandPanel
               Top = 198
               Width = 1050
               ExplicitTop = 198
+              ExplicitWidth = 1050
               FullHeight = 0
-              inherited CheckListBox4: TCheckListBox
-                Width = 1050
-              end
             end
             inherited NxExpandPanel3: TNxExpandPanel
-              Top = 292
+              Top = 318
               Width = 1050
               ExplicitTop = 292
+              ExplicitWidth = 1050
               FullHeight = 0
-              inherited CheckListBox3: TCheckListBox
-                Width = 1050
-              end
             end
           end
         end
@@ -1079,7 +1067,7 @@
         Left = 0
         Top = 0
         Width = 1062
-        Height = 780
+        Height = 722
         Margins.Left = 5
         Margins.Top = 5
         Margins.Right = 5

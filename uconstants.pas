@@ -11,30 +11,30 @@ type
     inidatei     = 'auftraege.ini';
     programmname = 'auftragsverwaltung';
 
-//    table_aufträge          = 'aufträge';
-//    table_auftrag_neu       = 'test.auftraege';
-//    table_anforderungen_neu = 'test.anforderungen';
-//    table_dok               = 'test.dokument';
-//    table_montagen          = 'montagen';
-//    table_reklamation       = 'reklamation';
-//    table_anf               = 'auftragsanforderung';
-//    table_unbearbeitet      = 'unbearbeitete';
-//    table_vert_neu          = 'test.vertrag';
-//
-//    table_zwi_neu   = 'test.zwischenablesung';
-//    table_mon_neu   = 'test.montage';
-//    table_rekl_neu  = 'test.reklamation';
-//    table_en_neu    = 'test.energieausweis';
-//    table_kos_neu   = 'test.kostenermittlung';
-//    table_nut_neu   = 'test.nutzerliste';
-//    table_sonst_neu = 'test.sonstiges';
-//    table_ang_neu   = 'test.angebotsanfrage';
-//    table_auf_neu   = 'test.auftragsanforderung';
+    // table_aufträge          = 'aufträge';
+    // table_auftrag_neu       = 'test.auftraege';
+    // table_anforderungen_neu = 'test.anforderungen';
+    // table_dok               = 'test.dokument';
+    // table_montagen          = 'montagen';
+    // table_reklamation       = 'reklamation';
+    // table_anf               = 'auftragsanforderung';
+    // table_unbearbeitet      = 'unbearbeitete';
+    // table_vert_neu          = 'test.vertrag';
+    //
+    // table_zwi_neu   = 'test.zwischenablesung';
+    // table_mon_neu   = 'test.montage';
+    // table_rekl_neu  = 'test.reklamation';
+    // table_en_neu    = 'test.energieausweis';
+    // table_kos_neu   = 'test.kostenermittlung';
+    // table_nut_neu   = 'test.nutzerliste';
+    // table_sonst_neu = 'test.sonstiges';
+    // table_ang_neu   = 'test.angebotsanfrage';
+    // table_auf_neu   = 'test.auftragsanforderung';
 
-    database        = 'scandokumente';
-    insertBegin     = '%s %s (';
-    insertMiddle    = ') VALUES(';
-    insertEnd       = ');';
+    database     = 'scandokumente';
+    insertBegin  = '%s %s (';
+    insertMiddle = ') VALUES(';
+    insertEnd    = ');';
 
     { Farben }
     // $00696969
@@ -89,24 +89,17 @@ type
     Ablesedatum    = 'ablesedatum';
     // Nutzernummer     = 'nutzernummer';
     // Nutzername       = 'Nutzername';
-    Nutzername1 = 'nutzername1';
-    nutzername2 = 'nutzername2';
-    erledigt    = 'erledigt';
-    // Notizen          = 'Notizen';
-    // Auftragsnummer   = 'Auftragsnummer';
-    Monteur    = 'monteur';
-    erreicht   = 'erreicht';
-    informiert = 'informiert';
-    // Dateiname        = 'dateiname';
+    Nutzername1    = 'nutzername1';
+    nutzername2    = 'nutzername2';
+    erledigt       = 'erledigt';
+    Monteur        = 'monteur';
     id             = 'Dokumentid';
     sachbearbeiter = 'sachbearbeiter';
     datumgepr      = 'datumgeprueft';
     sammelordner   = 'Sammelordner';
-    // abrechnungsende  = 'Abrechnungsende';
-    auftragsid    = 'auftragsanforderungsid';
-    ableser       = 'Monteur';
-//    nutzeremail   = 'Email';
-    default_value = '';
+    auftragsid     = 'auftragsanforderungsid';
+    ableser        = 'Monteur';
+    default_value  = '';
 
     { für Montage }
     Gueltigkeitsdatum = 'Gueltigkeitsdatum';
@@ -147,6 +140,15 @@ type
 
     // Variable für count(*) Aufrufe
     cntVar = 'cnt';
+
+    // aus Bernds Programm geklaut
+    fakturierung: array [0 .. 4] of string = ('ist kostenpflichtig',
+      'ohne Berechnung', 'Gutschrift erstellen', 'Rg / Gutschr. erstellt',
+      'bezahlt');
+    bezahlung: array [0 .. 4] of string = ('voll vergüten', 'nicht vergüten',
+      'teilweise vergüten', 'Rechnung erhalten', 'bezahlt');
+    regress: array [0 .. 2] of string = ('Verursacher ist regresspflichtig',
+      'Rechnung gestellt', 'bezahlt');
   end;
 
 implementation

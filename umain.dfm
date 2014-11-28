@@ -841,7 +841,7 @@
           OnClick = panforderungenClick
         end
         inherited NxLinkLabel9: TNxLinkLabel
-          OnClick = poffeneclick
+          OnClick = PabgeschlosseneClick
         end
       end
       inherited NxExpandPanel2: TNxExpandPanel
@@ -877,8 +877,8 @@
       Top = 3
       Width = 1171
       Height = 873
-      ActivePage = tabneuerauftrag
-      ActivePageIndex = 3
+      ActivePage = sheetoffene
+      ActivePageIndex = 1
       Align = alClient
       Color = clWhite
       Font.Charset = ANSI_CHARSET
@@ -3627,6 +3627,7 @@
             ExplicitWidth = 774
             ExplicitHeight = 844
             inherited NxTabSheet1: TNxTabSheet
+              ExplicitTop = 21
               ExplicitWidth = 774
               ExplicitHeight = 823
               inherited FlowPanel1: TFlowPanel
@@ -3644,6 +3645,19 @@
                     OnExit = zframeenutzernummerExit
                   end
                 end
+                inherited ptermin: TPanel
+                  inherited pausführung: TPanel
+                    inherited ldayOM: TLabel
+                      Width = 119
+                    end
+                    inherited Lmy: TLabel
+                      Width = 119
+                    end
+                    inherited lvon: TLabel
+                      Width = 113
+                    end
+                  end
+                end
                 inherited pnotizen: TPanel
                   inherited NxButton4: TNxButton
                     OnClick = babschließen
@@ -3659,38 +3673,47 @@
                 OnClick = zframeperreichtdetailsClick
                 ExplicitWidth = 774
                 ExplicitHeight = 823
+                inherited NxButton5: TNxButton
+                  OnClick = rechnungsdetailsÜbernehmen
+                end
                 inherited Panel3: TPanel
                   Top = 81
                   Width = 774
+                  ExplicitTop = 81
+                  ExplicitWidth = 774
                   inherited TFrame21: TFrame2
                     Width = 768
+                    ExplicitWidth = 768
                     inherited NxExpandPanel1: TNxExpandPanel
                       Width = 762
+                      ExplicitWidth = 762
                       FullHeight = 0
-                      inherited CheckListBox2: TCheckListBox
-                        Width = 762
-                        AllowGrayed = False
+                      inherited gutschriftErstellen: TNxCheckBox
+                        TabOrder = 2
+                      end
+                      inherited gutschriftErstellt: TNxCheckBox
+                        TabOrder = 3
+                      end
+                      inherited ohneBerechnung: TNxCheckBox
+                        TabOrder = 1
                       end
                     end
                     inherited NxExpandPanel2: TNxExpandPanel
                       Width = 762
+                      ExplicitWidth = 762
                       FullHeight = 0
-                      inherited CheckListBox4: TCheckListBox
-                        Width = 762
-                      end
                     end
                     inherited NxExpandPanel3: TNxExpandPanel
                       Width = 762
+                      ExplicitWidth = 762
                       FullHeight = 0
-                      inherited CheckListBox3: TCheckListBox
-                        Width = 762
-                      end
                     end
                   end
                 end
               end
             end
             inherited NxTabSheet3: TNxTabSheet
+              ExplicitTop = 21
               ExplicitWidth = 774
               ExplicitHeight = 823
               inherited ptermindetails: TNxPanel
@@ -3843,7 +3866,7 @@
     Left = 72
     Top = 624
     Bitmap = {
-      494C010104003000540110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101040030005C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

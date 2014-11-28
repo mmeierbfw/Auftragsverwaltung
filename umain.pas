@@ -14,7 +14,7 @@ uses
   utreedata, vstbutton, strutils, uformwiedervor, uauftragsinfo,
   ZAbstractRODataset, ZAbstractDataset, ZDataset, updfmain,
   OverbyteIcsWndControl, OverbyteIcsFtpCli, NPipe_Client, fNPipeClient, NxEdit,
-  uframeauftragsverwaltung, frame;
+  uframeauftragsverwaltung, frame, uutilsglobal, Vcl.CheckLst;
 
 type
   Tformmain = class(TForm)
@@ -184,25 +184,40 @@ type
     procedure Panel1Click(Sender: TObject);
     procedure VorschauAnzeigen(Sender: TObject);
     procedure zframeperreichtdetailsClick(Sender: TObject);
+    procedure TFrame21CheckListBox2Exit(Sender: TObject);
+    procedure rechnungsdetailsÜbernehmen(Sender: TObject);
+    procedure PabgeschlosseneClick(Sender: TObject);
 
   private
-    lg           : string;
-    procplink    : Integer;
-    tmplist      : TStringList;
-    kn           : string;
-    ableserlist  : TStringList;
-    nn           : string;
-    sb           : string;
-    scanvz       : string;
-    Ascending    : boolean;
-    querydone    : boolean;
-    auftragsid   : Integer;
-    dateinamen   : TStringList;
-    FLeftPos     : Integer;
-    FHeaderBitmap: TBitmap;
-    FBackBitmap1 : TBitmap;
-    FBackBitmap2 : TBitmap;
-    avst         : TVirtualStringTree;
+    lg                     : string;
+    procplink              : Integer;
+    tmplist                : TStringList;
+    kn                     : string;
+    ableserlist            : TStringList;
+    nn                     : string;
+    sb                     : string;
+    scanvz                 : string;
+    Ascending              : boolean;
+    querydone              : boolean;
+    auftragsid             : Integer;
+    dateinamen             : TStringList;
+    FLeftPos               : Integer;
+    FHeaderBitmap          : TBitmap;
+    FBackBitmap1           : TBitmap;
+    FBackBitmap2           : TBitmap;
+    avst                   : TVirtualStringTree;
+    FfakOhneBerechnung     : boolean;
+    FfakGutschriftErstellen: boolean;
+    FfakGutschriftErstellt : boolean;
+    FfakBezahlt            : boolean;
+    Fregresspflichtig      : boolean;
+    FregRechnungGestellt   : boolean;
+    FregBezahlt            : boolean;
+    FbezAufVollvergüten    : boolean;
+    FbezAufNichtvergüten   : boolean;
+    FbezAufTeilvergüten    : boolean;
+    FbezAufRechnungerhalten: boolean;
+    FbezAUfbezahlt         : boolean;
 
     function getnutzernamen(liegenschaft, nutzernummer: string): TStringList;
     function startplink: boolean;
@@ -219,8 +234,8 @@ type
     // procedure setauftraggeber(dict: TDictionary<string, string>);
     { Private-Deklarationen }
     procedure getoffeneaufträge(query: string);
+    procedure getgeschlosseneAufraege(query: string);
     procedure getunbearbeitet(wherestring: string);
-
     procedure getanforderung(query: string);
     procedure getaf(query: TZQuery; table, wherestring: string);
     procedure fillvst(query: TZQuery; avst: TVirtualStringTree; pan: TPanel);
@@ -236,6 +251,10 @@ type
     procedure hideauftrag(ANode: PVirtualNode);
     procedure resetpage;
     function getausführungsdatum: string;
+    function getfakkostenpflichtig: boolean;
+    procedure setfakkostenpflichtig(const Value: boolean);
+    function GetfakOhneBerechnung: boolean;
+    procedure SetfakOhneBerechnung(const Value: boolean);
   public
     aufcon: tauftragskonstanten;
     function setcursor(cr: Integer): boolean;
@@ -246,6 +265,34 @@ type
     procedure updatewiedervorlage(wieddate: string);
     procedure setbegr(begr: string);
     function getsb: string;
+
+  published
+    // property fakKostenpflichtig: boolean read getfakkostenpflichtig write setfakkostenpflichtig;
+    property fakKostenpflichtig: boolean read getfakkostenpflichtig
+      write setfakkostenpflichtig;
+    // property fakOhneBerechnung: boolean read GetfakOhneBerechnung write SetfakOhneBerechnung;
+    property fakOhneBerechnung: boolean read FfakOhneBerechnung
+      write FfakOhneBerechnung;
+    property fakGutschriftErstellen: boolean read FfakGutschriftErstellen
+      write FfakGutschriftErstellen;
+    property fakGutschriftErstellt: boolean read FfakGutschriftErstellt
+      write FfakGutschriftErstellt;
+    property fakBezahlt      : boolean read FfakBezahlt write FfakBezahlt;
+    property regresspflichtig: boolean read Fregresspflichtig
+      write Fregresspflichtig;
+    property regRechnungGestellt: boolean read FregRechnungGestellt
+      write FregRechnungGestellt;
+    property regBezahlt        : boolean read FregBezahlt write FregBezahlt;
+    property bezAufVollvergüten: boolean read FbezAufVollvergüten
+      write FbezAufVollvergüten;
+    property bezAufNichtvergüten: boolean read FbezAufNichtvergüten
+      write FbezAufNichtvergüten;
+    property bezAufTeilvergüten: boolean read FbezAufTeilvergüten
+      write FbezAufTeilvergüten;
+    property bezAufRechnungerhalten: boolean read FbezAufRechnungerhalten
+      write FbezAufRechnungerhalten;
+    property bezAUfbezahlt: boolean read FbezAUfbezahlt write FbezAUfbezahlt;
+
   end;
 
 var
@@ -258,6 +305,24 @@ implementation
 
 uses umemo, uftpconnector, udbconnector;
 // ----------------------------------------------------------------------------------------------------------------------
+
+procedure Tformmain.PabgeschlosseneClick(Sender: TObject);
+
+var
+  index: Integer;
+begin
+  with aufcon do begin
+    avst             := vstsearch;
+    pager.ActivePage := sheetoffene;
+    vstsearch.Clear;
+    getoffeneaufträge
+      ('WHERE auftrag_abgeschlossen = 1  ORDER BY liegenschaft asc');
+    fillvst(formdb.queryaufträge, vstsearch, nil);
+    psearchoff.enabled := False;
+    pauftrerst.enabled := False;
+  end;
+
+end;
 
 procedure Tformmain.PaintSelection(Bitmap: TBitmap);
 
@@ -551,6 +616,14 @@ begin
   end;
 end;
 
+procedure Tformmain.getgeschlosseneAufraege(query: string);
+begin
+  with aufcon do begin
+    // getaf(formdb.queryaufträge, table_aufträge, query);
+    getaf(formdb.queryaufträge, view_auftraege, query);
+  end;
+end;
+
 function Tformmain.getkundennummer: string;
 begin
   Result := kn;
@@ -596,7 +669,7 @@ begin
     dict := formdb.getfromhn(database, table, wherestring, list);
   except
     on e: Exception do begin
-      showmessage(e.Message);
+//      showmessage(e.Message);
       Result.Add('');
       Result.Add('');
       exit;
@@ -1048,6 +1121,16 @@ begin
   Result := true;
 end;
 
+procedure Tformmain.setfakkostenpflichtig(const Value: boolean);
+begin
+
+end;
+
+procedure Tformmain.SetfakOhneBerechnung(const Value: boolean);
+begin
+
+end;
+
 // #########################################
 procedure Tformmain.setleftside(dict: TDictionary<string, string>);
 var
@@ -1466,8 +1549,12 @@ begin
         notz            := FieldByName(Notizen).AsString;
         self.auftragsid := FieldByName('id').AsInteger;
         wiedervorl      := FieldByName(wiedervorlage).AsString;
-        namen           := getnutzernamen(lg, inttostr(nnint));
-        nname           := namen[0];
+        try namen       := getnutzernamen(lg, inttostr(nnint));
+        except namen    := TStringList.Create;
+          namen.Add('');
+          namen.Add('');
+        end;
+        nname                            := namen[0];
         if not(namen[1] = '') then nname := nname + ',' + namen[1];
 
         if auftrstr = '' then auftrstr := 'Montage';
@@ -2239,6 +2326,26 @@ begin
 
 end;
 
+procedure Tformmain.rechnungsdetailsÜbernehmen(Sender: TObject);
+begin
+  zframe.click(Sender);
+  with zframe.TFrame21 do begin
+
+    setfakkostenpflichtig(istkostenpflichtig.checked);
+    SetfakOhneBerechnung(ohneBerechnung.checked);
+    FfakGutschriftErstellen := gutschriftErstellen.checked;
+    FfakGutschriftErstellt  := gutschriftErstellt.checked;
+    FfakBezahlt             := bezahlt.checked;
+    Fregresspflichtig       := regresspflichtig.checked;
+    FregRechnungGestellt    := rechnungGestellt.checked;
+    FregBezahlt             := regressBezahlt.checked;
+    FbezAufVollvergüten     := vollVergüten.checked;
+    FbezAufNichtvergüten    := nichtVergüten.checked;
+    FbezAufTeilvergüten     := teilweiseVergüten.checked;
+    FbezAufRechnungerhalten := rechnungErhalten.checked;
+  end;
+end;
+
 procedure Tformmain.babschließen(Sender: TObject);
 var
   dict        : TDictionary<string, string>;
@@ -2251,7 +2358,7 @@ var
 begin
   with aufcon do begin
     with zframe do begin
-      if cberreicht.Checked then err := '1'
+      if cberreicht.checked then err := '1'
       else err                       := '0';
 
       dict := TDictionary<string, string>.Create;
@@ -2264,8 +2371,6 @@ begin
       dict.Add(abrechnungsende, helperdate);
       dict.Add(auftragstyp, cbauftragstyp.Items[cbauftragstyp.ItemIndex]);
       dict.Add(nutzernummer, enutzernummer.Text);
-      // dict.Add(Nutzername, enutzername1.Text);
-      // dict.Add(Nutzername, enutzername2);
       dict.Add(nutzeremail, eemail.Text);
       dict.Add(Auftragsnummer, fauftragsnummer.Text);
       dict.Add(Telefonnummer, etelefon.Text);
@@ -2282,10 +2387,28 @@ begin
       outputdebugstring(pchar(cbmonteur.Text));
       dict.Add(monteur, cbmonteur.Text);
       dict.Add(erreicht, err);
-//      dict.Add(sachbearbeiter, sb);
       dict.Add(informiert, cberreichtdetail.Text);
-      // dict.Add(uconstants.Notizen, Notizen.Text);
-      if not(self.auftragsid > -1) then begin // da sein muss die aber schon
+      dict.Add(kostenpflichtig, inttostr(BoolAsTinyint(getfakkostenpflichtig)));
+
+      dict.Add(ohne_berechnung, inttostr(BoolAsTinyint(fakOhneBerechnung)));
+      dict.Add(gutschrift_erstellen,
+        inttostr(BoolAsTinyint(fakGutschriftErstellen)));
+      dict.Add(rggutschr_erstellt,
+        inttostr(BoolAsTinyint(fakGutschriftErstellt)));
+      dict.Add(fak_bezahlt, inttostr(BoolAsTinyint(fakBezahlt)));
+      dict.Add(verursacher_regresspflichtg,
+        inttostr(BoolAsTinyint(Fregresspflichtig)));
+      dict.Add(rechng_gestellt, inttostr(BoolAsTinyint(FregRechnungGestellt)));
+      dict.Add(regress_bezahlt, inttostr(BoolAsTinyint(FregBezahlt)));
+      dict.Add(voll_vergüten, inttostr(BoolAsTinyint(FbezAufVollvergüten)));
+      dict.Add(teil_vergüten, inttostr(BoolAsTinyint(FbezAufTeilvergüten)));
+      dict.Add(nicht_vergüten, inttostr(BoolAsTinyint(FbezAufNichtvergüten)));
+      dict.Add(rechng_erhalten,
+        inttostr(BoolAsTinyint(bezAufRechnungerhalten)));
+      dict.Add(bezauftragnehmer_bezahlt,
+        inttostr(BoolAsTinyint(bezAUfbezahlt)));
+      if not(self.auftragsid > -1) then begin
+        // da sein muss die aber schon
         if not formdb.update(inttostr(self.auftragsid), table_auf,
           'anforderungAbgeschlossen', '1') then
             showmessage('unbearbeiteter Auftrag lässt sich nicht updaten');
@@ -2295,13 +2418,7 @@ begin
       showmessage('Auftrag kann nicht in die Datenbank eingetragen werden');
       exit;
     end;
-    // if not formdb.insertquery(table_aufträge, dict) then begin
-    // showmessage('bullshit');
-    // exit;
-    // end;
-
     tmpdatei := createpdf(False);
-
     if (mrYes = MessageDlg('Auftrag drucken?', mtConfirmation, mbYesNo, 0)) then
     begin
       localfile := gettmpshowfile('Auftragsverwaltung',
@@ -2349,6 +2466,17 @@ begin
   end;
 
 end;
+
+function Tformmain.getfakkostenpflichtig: boolean;
+begin
+
+end;
+
+function Tformmain.GetfakOhneBerechnung: boolean;
+begin
+
+end;
+
 // ------------------------------------
 
 function Tformmain.startplink: boolean;
@@ -2388,6 +2516,20 @@ begin
   else fillvst(formdb.queryanforderungen, vst, pua);
   pager.ActivePage  := sheetunbearbeitet;
   vstsearch.Visible := False;
+end;
+
+procedure Tformmain.TFrame21CheckListBox2Exit(Sender: TObject);
+var
+  selected: array of Integer;
+  checkbox: tchecklistbox;
+  item    : string;
+begin
+  checkbox := Sender as tchecklistbox;
+  zframe.TFrame21CheckListBox2Exit(Sender);
+  for item in checkbox.Items do begin
+
+  end;
+
 end;
 
 procedure Tformmain.Tframeshowauftr1NxButton1Click(Sender: TObject);
