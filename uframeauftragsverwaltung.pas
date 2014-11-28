@@ -78,9 +78,6 @@ type
     Label22: TLabel;
     showmonteurcal: TButton;
     cbableserdetail: TfComboBox;
-    Label1: TLabel;
-    mitHA: TCheckBox;
-    externGeplant: TCheckBox;
     Panel1: TPanel;
     Label8: TLabel;
     Label9: TLabel;
@@ -108,9 +105,7 @@ type
     pbuttons: TPanel;
     NxButton7: TNxButton;
     NxButton8: TNxButton;
-    Button1: TButton;
     framerechng: TFrame2;
-    TFrame31: TFrame3;
     prechnungsdetails: TPanel;
     Label19: TLabel;
     Panel2: TPanel;
@@ -130,6 +125,8 @@ type
     ohneBerechnung: TNxCheckBox;
     istKostenpflichtig: TNxCheckBox;
     gutschriftErstellt: TNxCheckBox;
+    cbkeineterminauswahl: TCheckBox;
+    pgrund: TRadioGroup;
     function calcleftchars: integer;
 
     procedure checkinput(var Key: Word);
@@ -174,6 +171,7 @@ type
     procedure framedetNxFlipPanel1Exit(Sender: TObject);
     procedure NxFlipPanel1Enter(Sender: TObject);
     procedure NxFlipPanel1Exit(Sender: TObject);
+    procedure cbkeineterminauswahlClick(Sender: TObject);
   private
     writtenchars: integer;
     // function getmonth(monthasstring: string): string;
@@ -230,16 +228,16 @@ procedure Tframeauftragsdaten.mitHAClick(Sender: TObject);
 var
   enable: Boolean;
 begin
-  enable := not(externGeplant.Checked or mitHA.Checked);
-  pausführung.hide;
-  evon.Enabled  := enable;
-  ebis.Enabled  := enable;
-  edate.Enabled := enable;
-  if Sender = externGeplant then begin
-    mitHA.Checked := false;
-  end else begin
-    externGeplant.Checked := false;
-  end;
+//  enable := not(externGeplant.Checked or mitHA.Checked);
+//  pausführung.hide;
+//  evon.Enabled  := enable;
+//  ebis.Enabled  := enable;
+//  edate.Enabled := enable;
+//  if Sender = externGeplant then begin
+//    mitHA.Checked := false;
+//  end else begin
+//    externGeplant.Checked := false;
+//  end;
 
   // evon.font.color := clyellow;
   // if enable then begin
@@ -266,6 +264,20 @@ end;
 procedure Tframeauftragsdaten.cbableserChange(Sender: TObject);
 begin
   // hpmonteurtermine.Expanded := true;
+end;
+
+procedure Tframeauftragsdaten.cbkeineterminauswahlClick(Sender: TObject);
+var
+  Checked: Boolean;
+begin
+  Checked             := (Sender as TCheckBox).Checked;
+  pausführung.Visible := not Checked;
+  pgrund.Visible      := Checked;
+  if Checked then begin
+    edate.Clear;
+    evon.Clear;
+    ebis.Clear;
+  end;
 end;
 
 procedure Tframeauftragsdaten.createmonthdic;
@@ -373,7 +385,7 @@ end;
 
 procedure Tframeauftragsdaten.framedetNxFlipPanel1Exit(Sender: TObject);
 begin
-//  framedet.NxFlipPanel3Exit(Sender);
+  // framedet.NxFlipPanel3Exit(Sender);
   showmessage('exot');
 end;
 
@@ -395,17 +407,17 @@ begin
   // end;
   // Result := inttostr(y) + '.' + Format('%.2d', [m]) + '.' +
   // Format('%0.2d', [d]);
-  if not(externGeplant.Checked or mitHA.Checked) then Result := edate.Text;
-  if externGeplant.Checked then Result := 'extern geplant';
-  if mitHA.Checked then Result := 'mit Hauptablesung';
+  Result := edate.Text;
+//  if externGeplant.Checked then Result := 'extern geplant';
+//  if mitHA.Checked then Result := 'mit Hauptablesung';
 
 end;
 
 function Tframeauftragsdaten.getende: string;
 begin
-  if not(externGeplant.Checked or mitHA.Checked) then Result := ebis.Text;
-  if externGeplant.Checked then Result := 'extern geplant';
-  if mitHA.Checked then Result := 'mit Hauptablesung';
+ Result := ebis.Text;
+// _ if externGeplant.Checked then Result := 'extern geplant';
+//  if mitHA.Checked then Result := 'mit Hauptablesung';
 
 end;
 
@@ -440,9 +452,9 @@ end;
 
 function Tframeauftragsdaten.getstart: string;
 begin
-  if not(externGeplant.Checked or mitHA.Checked) then Result := evon.Text;
-  if externGeplant.Checked then Result := 'extern geplant';
-  if mitHA.Checked then Result := 'mit Hauptablesung';
+ Result := evon.Text;
+//  if externGeplant.Checked then Result := 'extern geplant';
+//  if mitHA.Checked then Result := 'mit Hauptablesung';
 
 end;
 
@@ -461,8 +473,8 @@ begin
   Key := VK_RETURN;
   checkinput(Key);
   NxFlipPanel1.Expanded := true;
-//  CheckBox1.SetFocus;
-//  framedet.NxFlipPanel1.Expanded := true;
+  // CheckBox1.SetFocus;
+  // framedet.NxFlipPanel1.Expanded := true;
 end;
 
 // #######################################
@@ -522,27 +534,27 @@ var
   date            : tdate;
   jahr, monat, tag: Word;
 begin
-  if mitHA.Checked then begin
-    ldayOM.Caption := '';
-
-    Lmy.Caption      := '';
-    lvon.Caption     := 'mit Hauptablesung';
-    lvon.Alignment   := TAlignment.taRightJustify;
-    lvon.Left        := 0;
-    pager.ActivePage := NxTabSheet1;
-    pdivisor.Visible := false;
-    exit;
-  end;
-  if externGeplant.Checked then begin
-    ldayOM.Caption   := '';
-    Lmy.Caption      := '';
-    lvon.Caption     := 'extern geplant';
-    lvon.Alignment   := TAlignment.taRightJustify;
-    pdivisor.Visible := false;
-    lvon.Left        := 0;
-    pager.ActivePage := NxTabSheet1;
-    exit;
-  end;
+//  if mitHA.Checked then begin
+  // ldayOM.Caption := '';
+  //
+  // Lmy.Caption      := '';
+  // lvon.Caption     := 'mit Hauptablesung';
+  // lvon.Alignment   := TAlignment.taRightJustify;
+  // lvon.Left        := 0;
+  // pager.ActivePage := NxTabSheet1;
+  // pdivisor.Visible := false;
+  // exit;
+  // end;
+  // if externGeplant.Checked then begin
+  // ldayOM.Caption   := '';
+  // Lmy.Caption      := '';
+  // lvon.Caption     := 'extern geplant';
+  // lvon.Alignment   := TAlignment.taRightJustify;
+  // pdivisor.Visible := false;
+  // lvon.Left        := 0;
+  // pager.ActivePage := NxTabSheet1;
+  // exit;
+  // end;
   lmonteur.Caption := cbmonteur.Text;
   createmonthdic;
   // date := nxdate.SelectedDate;
@@ -635,7 +647,7 @@ procedure Tframeauftragsdaten.NxFlipPanel1Enter(Sender: TObject);
 var
   sen: TNxFlipPanel;
 begin
-//  showmessage('enter');
+  // showmessage('enter');
   sen          := Sender as TNxFlipPanel;
   sen.Expanded := true;
 end;
@@ -645,7 +657,7 @@ procedure Tframeauftragsdaten.NxFlipPanel1Exit(Sender: TObject);
 var
   sen: TNxFlipPanel;
 begin
-//showmessage('exit');
+  // showmessage('exit');
   sen          := Sender as TNxFlipPanel;
   sen.Expanded := false;
 end;

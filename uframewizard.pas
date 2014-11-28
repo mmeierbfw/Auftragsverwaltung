@@ -139,7 +139,7 @@ var
   datestring: string;
 begin
   datestring := DateToStr(NxMonthCalendar1.SelectedDate);
-  datestring := formatedatefrom4jto2j(datestring);
+  datestring := formatdatefrom4jto2j(datestring);
   tfmaskedit2.Text := datestring;
 end;
 

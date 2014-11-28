@@ -125,6 +125,10 @@
         TabFont.Name = 'Tahoma'
         TabFont.Style = []
         OnShow = tauftragsauswahlShow
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 600
+        ExplicitHeight = 286
         object Label2: TLabel
           AlignWithMargins = True
           Left = 3
@@ -190,15 +194,11 @@
         TabFont.Name = 'Tahoma'
         TabFont.Style = []
         OnShow = tliegenschaftShow
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 600
-        ExplicitHeight = 286
         object Label3: TLabel
           AlignWithMargins = True
           Left = 3
           Top = 3
-          Width = 592
+          Width = 105
           Height = 23
           Align = alTop
           Alignment = taCenter
@@ -210,7 +210,6 @@
           Font.Style = []
           ParentFont = False
           Transparent = True
-          ExplicitWidth = 105
         end
         object feliegenschaft: TfEdit
           Left = 268
@@ -259,15 +258,11 @@
         TabFont.Name = 'Tahoma'
         TabFont.Style = []
         OnShow = teigentümerShow
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 600
-        ExplicitHeight = 286
         object Label4: TLabel
           AlignWithMargins = True
           Left = 3
           Top = 3
-          Width = 592
+          Width = 97
           Height = 23
           Align = alTop
           Alignment = taCenter
@@ -279,7 +274,6 @@
           Font.Style = []
           ParentFont = False
           Transparent = True
-          ExplicitWidth = 97
         end
         object Label9: TLabel
           Left = 32
@@ -452,15 +446,11 @@
         TabFont.Name = 'Tahoma'
         TabFont.Style = []
         OnShow = tnutzerShow
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 600
-        ExplicitHeight = 286
         object Label5: TLabel
           AlignWithMargins = True
           Left = 3
           Top = 3
-          Width = 592
+          Width = 103
           Height = 23
           Align = alTop
           Alignment = taCenter
@@ -472,7 +462,6 @@
           Font.Style = []
           ParentFont = False
           Transparent = True
-          ExplicitWidth = 103
         end
         object Label6: TLabel
           Left = 32
@@ -669,6 +658,10 @@
         TabFont.Name = 'Tahoma'
         TabFont.Style = []
         OnShow = tausführungShow
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 600
+        ExplicitHeight = 286
         object Label13: TLabel
           AlignWithMargins = True
           Left = 3

@@ -824,6 +824,11 @@
       ExplicitTop = 16
       inherited NxExpandPanel1: TNxExpandPanel
         FullHeight = 334
+        inherited NxLinkLabel4: TNxLinkLabel
+          Width = 166
+          Caption = 'aus offenen Auftr'#228'gen generieren'
+          ExplicitWidth = 166
+        end
         inherited Panel1: TPanel
           inherited NxLinkLabel1: TNxLinkLabel
             OnClick = pneuerauftragDblClick
@@ -843,6 +848,7 @@
         end
       end
       inherited NxExpandPanel2: TNxExpandPanel
+        ExplicitTop = 353
         FullHeight = 245
         inherited NxLinkLabel12: TNxLinkLabel
           OnClick = VorschauAnzeigen
@@ -874,8 +880,8 @@
       Top = 3
       Width = 1171
       Height = 903
-      ActivePage = sheetoffene
-      ActivePageIndex = 1
+      ActivePage = sheetanforderungen
+      ActivePageIndex = 0
       Align = alClient
       Color = clWhite
       Font.Charset = ANSI_CHARSET
@@ -886,7 +892,7 @@
       ParentColor = False
       ParentFont = False
       TabOrder = 0
-      BackgroundColor = 16711384
+      BackgroundColor = clActiveCaption
       Indent = 0
       Margin = 0
       Options = [pgAlwaysShowTabsRect, pgScrollButtons, pgTabsPopup, pgTopBorder]
@@ -2563,7 +2569,7 @@
                 Options = [coAllowClick, coDraggable, coEnabled, coResizable, coShowDropMark, coVisible, coFixed, coSmartResize, coAllowFocus, coUseCaptionAlignment]
                 Position = 0
                 Spacing = 5
-                Width = 70
+                Width = 20
                 WideText = 'Liegenschaft'
               end
               item
@@ -2571,7 +2577,7 @@
                 Color = clWhite
                 Options = [coAllowClick, coDraggable, coEnabled, coResizable, coShowDropMark, coVisible, coFixed, coSmartResize, coAllowFocus, coUseCaptionAlignment]
                 Position = 1
-                Width = 250
+                Width = 200
                 WideText = 'Auftragstyp'
               end
               item
@@ -2580,7 +2586,7 @@
                 ImageIndex = 0
                 Options = [coAllowClick, coDraggable, coEnabled, coResizable, coShowDropMark, coVisible, coFixed, coSmartResize, coAllowFocus, coUseCaptionAlignment]
                 Position = 2
-                Width = 250
+                Width = 200
                 WideText = 'Nutzer'
               end
               item
@@ -2596,6 +2602,7 @@
                 Color = clWhite
                 Options = [coAllowClick, coDraggable, coEnabled, coResizable, coShowDropMark, coVisible, coFixed, coSmartResize, coAllowFocus, coUseCaptionAlignment]
                 Position = 4
+                Width = 200
                 WideText = 'Bearbeitungsdatum'
               end
               item
@@ -2604,11 +2611,12 @@
                 ImageIndex = 0
                 Options = [coAllowClick, coDraggable, coEnabled, coResizable, coShowDropMark, coVisible, coFixed, coSmartResize, coAllowFocus, coUseCaptionAlignment]
                 Position = 5
-                Width = 250
+                Width = 150
                 WideText = 'Dokument anzeigen'
               end
               item
                 Position = 6
+                Width = 150
                 WideText = 'Detailansicht'
               end>
             WideDefaultText = ''
@@ -2626,9 +2634,9 @@
             object Label1: TLabel
               Left = 18
               Top = 16
-              Width = 164
+              Width = 110
               Height = 19
-              Caption = 'Auftragsanforderungen'
+              Caption = 'offene Auftr'#228'ge'
               Font.Charset = ANSI_CHARSET
               Font.Color = 10252872
               Font.Height = -16
@@ -3433,7 +3441,7 @@
                 Options = [coAllowClick, coDraggable, coEnabled, coParentBidiMode, coResizable, coShowDropMark, coVisible, coAllowFocus, coUseCaptionAlignment]
                 Position = 0
                 Spacing = 5
-                Width = 306
+                Width = 150
                 WideText = 'Liegenschaft'
               end
               item
@@ -3465,6 +3473,7 @@
               end
               item
                 Position = 5
+                Width = 150
                 WideText = 'Dokument anzeigen'
               end
               item
@@ -3639,11 +3648,12 @@
                 inherited pliegenschaft: TPanel
                   inherited eliegenschaft: TfEdit
                     OnExit = zframeeliegenschaftExit
+                    OnKeyDown = zframeeliegenschaftKeyDown
                   end
-                end
-                inherited perreichbarkeit: TPanel
-                  inherited enutzernummer: TfEdit
-                    OnExit = zframeenutzernummerExit
+                  inherited cbauftragstyp: TfComboBox
+                    Top = 91
+                    OnChange = zframecbauftragstypChange
+                    ExplicitTop = 91
                   end
                 end
                 inherited ptermin: TPanel
@@ -3660,6 +3670,9 @@
                   end
                 end
                 inherited pnotizen: TPanel
+                  inherited notizen: TfMemo
+                    Font.Style = []
+                  end
                   inherited NxButton4: TNxButton
                     OnClick = babschließen
                   end
@@ -3670,31 +3683,6 @@
                       OnEnter = zframeNxFlipPanel1Enter
                       OnExit = nxpanel1exit
                       FullHeight = 0
-                      inherited bezahlt: TNxCheckBox
-                        ExplicitLeft = 0
-                        ExplicitTop = 99
-                        ExplicitWidth = 640
-                      end
-                      inherited gutschriftErstellen: TNxCheckBox
-                        ExplicitLeft = 0
-                        ExplicitTop = 23
-                        ExplicitWidth = 640
-                      end
-                      inherited ohneBerechnung: TNxCheckBox
-                        ExplicitLeft = 0
-                        ExplicitTop = 42
-                        ExplicitWidth = 640
-                      end
-                      inherited istKostenpflichtig: TNxCheckBox
-                        ExplicitLeft = 0
-                        ExplicitTop = 61
-                        ExplicitWidth = 640
-                      end
-                      inherited gutschriftErstellt: TNxCheckBox
-                        ExplicitLeft = 0
-                        ExplicitTop = 80
-                        ExplicitWidth = 640
-                      end
                     end
                     inherited NxFlipPanel2: TNxFlipPanel
                       OnEnter = zframeNxFlipPanel1Enter
@@ -3704,7 +3692,6 @@
                     inherited NxFlipPanel3: TNxFlipPanel
                       OnEnter = zframeNxFlipPanel1Enter
                       OnExit = nxflippanel3exit
-                      ExplicitTop = 277
                       FullHeight = 0
                     end
                   end
@@ -3783,20 +3770,6 @@
                 Height = 853
                 ExplicitWidth = 774
                 ExplicitHeight = 853
-                inherited TFrame31: TFrame3
-                  inherited NxHeaderPanel3: TNxHeaderPanel
-                    FullWidth = 632
-                  end
-                  inherited NxHeaderPanel2: TNxHeaderPanel
-                    FullWidth = 632
-                  end
-                  inherited NxHeaderPanel1: TNxHeaderPanel
-                    FullWidth = 632
-                  end
-                  inherited NxHeaderPanel4: TNxHeaderPanel
-                    FullWidth = 632
-                  end
-                end
               end
             end
           end
@@ -3942,7 +3915,7 @@
     Left = 96
     Top = 552
     Bitmap = {
-      494C010105003000800110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010105003000880110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       000000000000000000000000000000000000FFFFFF01FFFFFF01FFFFFF01FFFF
       FF01F4F4F4117E7E7EBF505050FF505050FF9393939FFFFFFF01BEBEBE5FB1B1

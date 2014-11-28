@@ -2,7 +2,7 @@
   Left = 0
   Top = 0
   Width = 1070
-  Height = 938
+  Height = 957
   Align = alLeft
   Color = clGray
   Font.Charset = DEFAULT_CHARSET
@@ -24,7 +24,7 @@
     Left = 4
     Top = 4
     Width = 1062
-    Height = 930
+    Height = 949
     ActivePage = NxTabSheet1
     ActivePageIndex = 0
     Align = alClient
@@ -51,7 +51,7 @@
         Left = 0
         Top = 0
         Width = 1062
-        Height = 909
+        Height = 928
         Align = alClient
         BevelOuter = bvNone
         Color = clWhite
@@ -662,22 +662,9 @@
             Height = 13
             Caption = 'Ableser'
           end
-          object Label1: TLabel
-            Left = 367
-            Top = 65
-            Width = 155
-            Height = 19
-            Caption = 'keine Terminauswahl '
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = 6908265
-            Font.Height = -16
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-          end
           object pausführung: TPanel
             Left = 641
-            Top = 16
+            Top = 32
             Width = 127
             Height = 132
             BevelEdges = []
@@ -850,24 +837,35 @@
             TabOrder = 5
             OnClick = showmonteurcalClick
           end
-          object mitHA: TCheckBox
-            Left = 367
-            Top = 110
-            Width = 161
+          object cbkeineterminauswahl: TCheckBox
+            Left = 393
+            Top = 92
+            Width = 204
             Height = 17
-            Caption = 'mit der Hauptablesung'
+            Caption = 'keine Terminauswahl'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6908265
+            Font.Height = -16
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
             TabOrder = 6
-            OnClick = mitHAClick
-            OnMouseDown = mitHAMouseDown
+            OnClick = cbkeineterminauswahlClick
           end
-          object externGeplant: TCheckBox
-            Left = 367
-            Top = 133
-            Width = 161
-            Height = 17
-            Caption = 'extern geplant'
+          object pgrund: TRadioGroup
+            Left = 604
+            Top = 58
+            Width = 163
+            Height = 90
+            Color = clWhite
+            Items.Strings = (
+              'extern geplant'
+              'mit Hauptablesung'
+              'Sammelauftrag erzeugen')
+            ParentBackground = False
+            ParentColor = False
             TabOrder = 7
-            OnClick = mitHAClick
+            Visible = False
           end
         end
         object pnotizen: TPanel
@@ -993,7 +991,6 @@
             ParentBackground = False
             TabOrder = 0
             TabStop = True
-            ExplicitHeight = 238
             object NxFlipPanel1: TNxFlipPanel
               Left = 1
               Top = 1
@@ -1056,9 +1053,6 @@
                 ShowHint = True
                 Caption = 'bezahlt'
                 Options = [coExpandActiveRect]
-                ExplicitLeft = 16
-                ExplicitTop = 22
-                ExplicitWidth = 58
               end
               object gutschriftErstellen: TNxCheckBox
                 Left = 0
@@ -1070,9 +1064,6 @@
                 TabOrder = 1
                 Text = 'NxCheckBox1'
                 Caption = 'Gutschrift erstellen'
-                ExplicitLeft = 24
-                ExplicitTop = 22
-                ExplicitWidth = 114
               end
               object ohneBerechnung: TNxCheckBox
                 Left = 0
@@ -1084,9 +1075,6 @@
                 TabOrder = 2
                 Text = 'NxCheckBox1'
                 Caption = 'ohne Berechnung'
-                ExplicitLeft = 48
-                ExplicitTop = 22
-                ExplicitWidth = 107
               end
               object istKostenpflichtig: TNxCheckBox
                 Left = 0
@@ -1100,9 +1088,6 @@
                 ShowHint = True
                 Caption = 'ist kostenpflichtig'
                 Options = [coExpandActiveRect]
-                ExplicitLeft = 40
-                ExplicitTop = 22
-                ExplicitWidth = 106
               end
               object gutschriftErstellt: TNxCheckBox
                 Left = 0
@@ -1114,9 +1099,6 @@
                 TabOrder = 4
                 Text = 'NxCheckBox1'
                 Caption = 'Rg / Gutschrift erstellt'
-                ExplicitLeft = 32
-                ExplicitTop = 22
-                ExplicitWidth = 129
               end
             end
             object NxFlipPanel2: TNxFlipPanel
@@ -1179,9 +1161,6 @@
                 TabOrder = 0
                 Text = 'NxCheckBox1'
                 Caption = 'voll verg'#252'ten'
-                ExplicitLeft = 16
-                ExplicitTop = 34
-                ExplicitWidth = 86
               end
               object nichtVergüten: TNxCheckBox
                 Left = 0
@@ -1193,9 +1172,6 @@
                 TabOrder = 2
                 Text = 'NxCheckBox1'
                 Caption = 'nicht verg'#252'ten'
-                ExplicitLeft = 16
-                ExplicitTop = 69
-                ExplicitWidth = 93
               end
               object teilweiseVergüten: TNxCheckBox
                 Left = 0
@@ -1207,9 +1183,6 @@
                 TabOrder = 1
                 Text = 'NxCheckBox1'
                 Caption = 'teilweise verg'#252'ten'
-                ExplicitLeft = 16
-                ExplicitTop = 52
-                ExplicitWidth = 111
               end
               object rechnungErhalten: TNxCheckBox
                 Left = 0
@@ -1221,9 +1194,6 @@
                 TabOrder = 3
                 Text = 'NxCheckBox1'
                 Caption = 'Rechnung erhalten'
-                ExplicitLeft = 16
-                ExplicitTop = 86
-                ExplicitWidth = 114
               end
               object auftragnehmerBezahlt: TNxCheckBox
                 Left = 0
@@ -1235,9 +1205,6 @@
                 TabOrder = 4
                 Text = 'NxCheckBox1'
                 Caption = 'bezahlt'
-                ExplicitLeft = 16
-                ExplicitTop = 104
-                ExplicitWidth = 58
               end
             end
             object NxFlipPanel3: TNxFlipPanel
@@ -1289,7 +1256,6 @@
               TabStop = True
               OnEnter = NxFlipPanel1Enter
               OnExit = NxFlipPanel1Exit
-              ExplicitTop = 239
               FullHeight = 0
               object regresspflichtig: TNxCheckBox
                 Left = 0
@@ -1301,9 +1267,6 @@
                 TabOrder = 0
                 Text = 'NxCheckBox1'
                 Caption = 'Verursacher ist regresspflichtig'
-                ExplicitLeft = 16
-                ExplicitTop = 28
-                ExplicitWidth = 171
               end
               object rechnungGestellt: TNxCheckBox
                 Left = 0
@@ -1315,9 +1278,6 @@
                 TabOrder = 1
                 Text = 'NxCheckBox1'
                 Caption = 'Rechnung gestellt'
-                ExplicitLeft = 16
-                ExplicitTop = 46
-                ExplicitWidth = 109
               end
               object regressBezahlt: TNxCheckBox
                 Left = 0
@@ -1329,9 +1289,6 @@
                 TabOrder = 2
                 Text = 'NxCheckBox1'
                 Caption = 'bezahlt'
-                ExplicitLeft = 16
-                ExplicitTop = 64
-                ExplicitWidth = 58
               end
             end
           end
@@ -1390,12 +1347,12 @@
       TabFont.Name = 'Tahoma'
       TabFont.Style = []
       ExplicitTop = 0
-      ExplicitHeight = 929
+      ExplicitHeight = 699
       object perreichtdetails: TPanel
         Left = 0
         Top = 0
         Width = 1062
-        Height = 909
+        Height = 928
         Margins.Left = 5
         Margins.Top = 5
         Margins.Right = 5
@@ -1423,7 +1380,7 @@
         end
         object Panel3: TPanel
           Left = 0
-          Top = 167
+          Top = 186
           Width = 1062
           Height = 742
           Align = alBottom
@@ -1507,7 +1464,7 @@
         Left = 0
         Top = 0
         Width = 1062
-        Height = 909
+        Height = 928
         Margins.Left = 5
         Margins.Top = 5
         Margins.Right = 5
@@ -1765,43 +1722,6 @@
           Caption = 'verwerfen'
           TabOrder = 6
           OnClick = NxButton3Click
-        end
-        object Button1: TButton
-          Left = 496
-          Top = 480
-          Width = 75
-          Height = 25
-          Caption = 'Button1'
-          TabOrder = 7
-        end
-        inline TFrame31: TFrame3
-          Left = 8
-          Top = 8
-          Width = 632
-          Height = 207
-          TabOrder = 8
-          ExplicitLeft = 8
-          ExplicitTop = 8
-          inherited NxHeaderPanel3: TNxHeaderPanel
-            OnCollapse = nil
-            OnExpand = nil
-            FullWidth = 632
-          end
-          inherited NxHeaderPanel2: TNxHeaderPanel
-            OnCollapse = nil
-            OnExpand = nil
-            FullWidth = 632
-          end
-          inherited NxHeaderPanel1: TNxHeaderPanel
-            OnCollapse = nil
-            OnExpand = nil
-            FullWidth = 632
-          end
-          inherited NxHeaderPanel4: TNxHeaderPanel
-            OnCollapse = nil
-            OnExpand = nil
-            FullWidth = 632
-          end
         end
       end
     end

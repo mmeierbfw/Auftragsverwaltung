@@ -191,6 +191,9 @@ type
     procedure nxpanel1exit(Sender: TObject);
     procedure nxpanel2exit(Sender: TObject);
     procedure nxflippanel3exit(Sender: TObject);
+    procedure zframeeliegenschaftKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure zframecbauftragstypChange(Sender: TObject);
 
   private
     lg                     : string;
@@ -223,6 +226,7 @@ type
     FbezAufRechnungerhalten: boolean;
     FbezAUfbezahlt         : boolean;
 
+    function fehlerausschließen: boolean;
     procedure setcollapsedcaption(labelstr: string; flippan: Tnxflippanel);
     function getnutzernamen(liegenschaft, nutzernummer: string): TStringList;
     function startplink: boolean;
@@ -547,7 +551,7 @@ var
   list                  : TStringList;
   ds                    : TDataSet;
   mydate                : TDatetime;
-  mymonth, myday, myyear: word;
+  mymonth, myday, myyear: Word;
   i                     : Integer;
   expp                  : TNxExpandPanel;
 begin
@@ -587,7 +591,7 @@ begin
   Tframeshowauftr1.NxButton1.enabled := False;
   Tframeshowauftr1.NxButton2.enabled := False;
 
-  zframe.dperstellungsdatum.Text := formatedatefrom4jto2j(DateToStr(now));
+  zframe.dperstellungsdatum.Text := formatdatefrom4jto2j(DateToStr(now));
   DecodeDate(now, myyear, mymonth, myday);
   zframe.ldayOM.Caption := Format('%.2d ', [myday]);
   zframe.Lmy.Caption := zframe.getmonthstring(mymonth) + ' ' + inttostr(myyear);
@@ -601,6 +605,7 @@ begin
       (FindComponent('nxflippanel' + (inttostr(i))) as Tnxflippanel)
         .Expanded := False;
   end;
+  zframe.edate.Text := formatdatefrom4jto2j(DateToStr(now));
 end;
 
 procedure Tformmain.getaf(query: TZQuery; table, wherestring: string);
@@ -644,16 +649,21 @@ end;
 function Tformmain.getliegenschaft(avst: TVirtualStringTree;
   ANode: PVirtualNode): string;
 var
-  Data: PTreedata;
+  Data    : PTreedata;
+  rootnode: PVirtualNode;
+  rootdata: PTreedata;
 begin
   Result := '';
   Data   := avst.getnodedata(ANode);
-  while not(correctlg(Data.fliegenschaft)) do begin
-    outputdebugstring(pchar(Data.fliegenschaft));
-    ANode  := ANode.Parent;
-    Data   := vst.getnodedata(ANode);
-    Result := Data.fliegenschaft;
-  end;
+  // while not(correctlg(Data.fliegenschaft)) do begin
+  // outputdebugstring(pchar(Data.fliegenschaft));
+  // ANode  := ANode.Parent;
+  // Data   := vst.getnodedata(ANode);
+  // Result := Data.fliegenschaft;
+  // end;
+  rootnode := avst.GetFirst(true);
+  rootdata := avst.getnodedata(rootnode);
+//  showmessage(rootdata.fliegenschaft);
 
 end;
 
@@ -755,7 +765,7 @@ var
   Date  : PTreedata;
 begin
   Parent := ANode.Parent;
-  while not(Parent = vst.RootNode) do begin
+  while not(Parent = vst.rootnode) do begin
     ANode := Parent;
     vst.DeleteNode(ANode);
     if Parent.ChildCount = 0 then Parent := Parent.Parent;
@@ -765,15 +775,15 @@ end;
 procedure Tformmain.hideWiedervorlagen(Sender: TObject);
 var
   Data                       : PTreedata;
-  RootNode, child, grandchild: PVirtualNode;
+  rootnode, child, grandchild: PVirtualNode;
   diff                       : real;
   wiedate                    : TDatetime;
 
 begin
   vst.BeginUpdate;
-  RootNode := vst.GetFirst;
-  while assigned(RootNode) do begin
-    child := vst.GetFirstChild(RootNode);
+  rootnode := vst.GetFirst;
+  while assigned(rootnode) do begin
+    child := vst.GetFirstChild(rootnode);
     while assigned(child) do begin
       grandchild := vst.GetFirstChild(child);
       while assigned(grandchild) do begin
@@ -788,7 +798,7 @@ begin
       end;
       child := child.NextSibling;
     end;
-    RootNode := RootNode.NextSibling;
+    rootnode := rootnode.NextSibling;
   end;
   vst.EndUpdate;
 end; { TODO :
@@ -1419,6 +1429,30 @@ begin
 end;
 
 // ------------------------------------------------------
+function Tformmain.fehlerausschließen: boolean;
+begin
+  Result := true;
+  if (zframe.eliegenschaft.Text = '') then begin
+    Result := False;
+    zframe.eliegenschaft.SetFocus;
+    zframe.eliegenschaft.Color := clred;
+    showmessage('keine Liegenschaftsnummer angegeben!');
+  end;
+  if not(zframe.cbauftragstyp.ItemIndex >= 0) then begin
+    Result := False;
+    zframe.cbauftragstyp.SetFocus;
+    zframe.cbauftragstyp.Color := clred;
+    showmessage('Kein Auftragstyp ausgewählt');
+  end;
+  if 'DIESE LIEGENSCHAFT EXISTIERT NICHT' = liegenschaftsdaten.vermerke.Text
+  then begin
+    Result := False;
+    zframe.eliegenschaft.SetFocus;
+    zframe.eliegenschaft.Color := clred;
+    showmessage('Aufträge nur mit existierenden Liegenschaften erzeugen');
+  end;
+end;
+
 procedure Tformmain.filloffene(query: TZQuery; avst: TVirtualStringTree);
 var
   reklattrs                                   : TStringList;
@@ -1460,17 +1494,15 @@ begin
     avst.BeginUpdate;
     with formdb.queryaufträge do begin
       while not Eof do begin
-        lg       := FieldByName(liegenschaft).AsString;
-        pestr    := FieldByName(Posteingang).AsString;
-        nnint    := FieldByName(nutzernummer).AsInteger;
-        auftrstr := FieldByName(auftragstyp).AsString;
-        dat      := FieldByName(dateiname).AsString;
-        notz     := FieldByName(Notizen).AsString;
-        // self.auftragsid := FieldByName('Id').AsInteger;
+        lg              := FieldByName(liegenschaft).AsString;
+        pestr           := FieldByName(Posteingang).AsString;
+        nnint           := FieldByName(nutzernummer).AsInteger;
+        auftrstr        := FieldByName(auftragstyp).AsString;
+        dat             := FieldByName(dateiname).AsString;
+        notz            := FieldByName(Notizen).AsString;
         wiedervorl      := FieldByName(wiedervorlage).AsString;
         ausführungsterm := FieldByName('ausführungstermin').AsString;
         if lg <> tmplg then begin
-          // neuer Lieg.Knoten, wenn noch nicht vorhanden
           treedata.fliegenschaft := lg;
           treedata.fdatum        := '';
           treedata.fimagedok     := -1;
@@ -1531,7 +1563,7 @@ var
   row, rowcount: Integer;
   i, j         : Integer;
   // CustomerDataObject: TCustomerNode;
-  RootNode, liegnode, penode, nnnode, aufnode, dateinode: PVirtualNode;
+  rootnode, liegnode, penode, nnnode, aufnode, dateinode: PVirtualNode;
   liegcount                                             : Integer;
   dict: TDictionary<string, string>;
   tmplg, lg  : string;
@@ -1610,7 +1642,7 @@ begin
         treedata.fdateiname := dat;
         if not(tmplg = lg) then begin
           // neuer Lieg.Knoten, wenn noch nicht vorhanden
-          liegnode := setnode(avst, RootNode, treedata);
+          liegnode := setnode(avst, rootnode, treedata);
           if (auftrstr <> tmpauftrstr) or (tmplg <> lg) then begin
             // kein neuer Knoten und auftrag ungleich => neuer AUftragsknoten
             treedata.fauftrtyp := auftrstr;
@@ -1855,7 +1887,7 @@ begin
         Node := avst.focusedNode;
         Data := avst.getnodedata(Node);
         ln   := Node;
-        while not(ln = avst.RootNode) do begin
+        while not(ln = avst.rootnode) do begin
           ln     := ln.Parent;
           lndata := avst.getnodedata(ln);
           try lg := lndata.fliegenschaft;
@@ -1998,7 +2030,7 @@ begin
         Node := avst.focusedNode;
         Data := avst.getnodedata(Node);
         ln   := Node;
-        while not(ln = avst.RootNode) do begin
+        while not(ln = avst.rootnode) do begin
           ln     := ln.Parent;
           lndata := avst.getnodedata(ln);
           try lg := lndata.fliegenschaft;
@@ -2056,7 +2088,7 @@ begin
         Node := avst.focusedNode;
         Data := avst.getnodedata(Node);
         ln   := Node;
-        while not(ln = vst.RootNode) do begin
+        while not(ln = vst.rootnode) do begin
           ln     := ln.Parent;
           lndata := avst.getnodedata(ln);
           try lg := lndata.fliegenschaft;
@@ -2207,7 +2239,7 @@ begin
     Node := avst.focusedNode;
     Data := avst.getnodedata(Node);
     ln   := Node;
-    while not(ln = avst.RootNode) do begin
+    while not(ln = avst.rootnode) do begin
       ln     := ln.Parent;
       lndata := avst.getnodedata(ln);
       try lg := lndata.fliegenschaft;
@@ -2298,6 +2330,12 @@ begin
 
 end;
 
+procedure Tformmain.zframecbauftragstypChange(Sender: TObject);
+begin
+  if (Sender as Tfcombobox).Color = clred then
+    (Sender as Tfcombobox).Color := clWhite;
+end;
+
 procedure Tformmain.zframeeliegenschaftExit(Sender: TObject);
 var
   dict: TDictionary<string, string>;
@@ -2323,6 +2361,13 @@ begin
   //
   // zframe.enutzernummer.Clear;
   // zframeenutzernummerExit(zframe.enutzernummer);
+end;
+
+procedure Tformmain.zframeeliegenschaftKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Sender as TfEdit).Color = clred then
+    (Sender as TfEdit).Color := clWhite;
 end;
 
 procedure Tformmain.zframeenutzernummerExit(Sender: TObject);
@@ -2426,6 +2471,7 @@ var
   err         : string;
 begin
   rechnungsdetailsÜbernehmen(nil);
+  if not fehlerausschließen then exit;
   with aufcon do begin
     with zframe do begin
       if cberreicht.checked then err := '1'
@@ -2449,9 +2495,20 @@ begin
       dict.Add(sachbearbeiter, sb);
       dict.Add(Kundennummer, copy(eliegenschaft.Text, 1, 2));
       dict.Add(aufcon.auftragsid, inttostr(self.auftragsid));
-      dict.Add(ausführungsdatum, formatDateOhneTrenner(ausf));
-      dict.Add(ausführungsstart, evon.Text);
-      dict.Add(ausführungsende, ebis.Text);
+      if not cbkeineterminauswahl.checked then begin
+
+        dict.Add(ausführungsdatum, formatDateOhneTrenner(ausf));
+        dict.Add(ausführungsstart, evon.Text);
+        dict.Add(ausführungsende, ebis.Text);
+      end else begin
+        dict.Add('extern_geplant',
+          inttostr(BoolAsTinyint(pgrund.ItemIndex = 0)));
+        dict.Add('mit_hauptablesung',
+          inttostr(BoolAsTinyint(pgrund.ItemIndex = 1)));
+        dict.Add('sammelauftrag_vorbereiten',
+          inttostr(BoolAsTinyint(pgrund.ItemIndex = 2)));
+      end;
+
       hostfilename := 'scdb/' + createhostfilename(dict);
       dict.Add(dateiname, hostfilename);
       outputdebugstring(pchar(cbmonteur.Text));
