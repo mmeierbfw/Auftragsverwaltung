@@ -2,7 +2,7 @@
   Left = 0
   Top = 0
   Width = 1070
-  Height = 751
+  Height = 938
   Align = alLeft
   Color = clGray
   Font.Charset = DEFAULT_CHARSET
@@ -24,9 +24,9 @@
     Left = 4
     Top = 4
     Width = 1062
-    Height = 743
-    ActivePage = NxTabSheet2
-    ActivePageIndex = 1
+    Height = 930
+    ActivePage = NxTabSheet1
+    ActivePageIndex = 0
     Align = alClient
     Color = clWhite
     ParentColor = False
@@ -51,7 +51,7 @@
         Left = 0
         Top = 0
         Width = 1062
-        Height = 722
+        Height = 909
         Align = alClient
         BevelOuter = bvNone
         Color = clWhite
@@ -62,7 +62,7 @@
           Left = 0
           Top = 0
           Width = 784
-          Height = 162
+          Height = 153
           Margins.Left = 1
           Margins.Top = 1
           Margins.Right = 1
@@ -395,9 +395,9 @@
         end
         object perreichbarkeit: TPanel
           Left = 0
-          Top = 162
+          Top = 153
           Width = 781
-          Height = 167
+          Height = 159
           Margins.Left = 1
           Margins.Top = 0
           Margins.Right = 1
@@ -607,12 +607,12 @@
         end
         object ptermin: TPanel
           Left = 0
-          Top = 329
+          Top = 312
           Width = 889
-          Height = 208
+          Height = 163
           Align = alTop
           BevelOuter = bvNone
-          TabOrder = 3
+          TabOrder = 2
           object lausfürhung: TLabel
             Left = 32
             Top = 16
@@ -677,7 +677,7 @@
           end
           object pausführung: TPanel
             Left = 641
-            Top = 57
+            Top = 16
             Width = 127
             Height = 132
             BevelEdges = []
@@ -872,9 +872,9 @@
         end
         object pnotizen: TPanel
           Left = 0
-          Top = 537
+          Top = 475
           Width = 784
-          Height = 352
+          Height = 136
           Margins.Left = 1
           Margins.Top = 0
           Margins.Right = 1
@@ -883,10 +883,10 @@
           BevelOuter = bvNone
           Color = clWhite
           ParentBackground = False
-          TabOrder = 2
+          TabOrder = 3
           object lcharleft: TLabel
-            Left = 641
-            Top = 207
+            Left = 650
+            Top = 119
             Width = 122
             Height = 13
             Caption = 'noch 612 Zeichen m'#246'glich'
@@ -909,7 +909,7 @@
             Left = 144
             Top = 16
             Width = 624
-            Height = 185
+            Height = 97
             BevelInner = bvLowered
             BevelKind = bkTile
             Color = clWhite
@@ -955,14 +955,427 @@
             ParentFont = False
             TabOrder = 2
           end
-          object Button1: TButton
-            Left = 484
-            Top = 230
-            Width = 280
-            Height = 25
+        end
+        object prechnungsdetails: TPanel
+          Left = 0
+          Top = 611
+          Width = 784
+          Height = 174
+          Margins.Left = 1
+          Margins.Top = 0
+          Margins.Right = 1
+          Margins.Bottom = 1
+          Align = alTop
+          BevelOuter = bvNone
+          Color = clWhite
+          ParentBackground = False
+          TabOrder = 4
+          object Label19: TLabel
+            Left = 32
+            Top = 16
+            Width = 114
+            Height = 16
             Caption = 'Rechnungsdetails'
-            TabOrder = 3
-            OnClick = Button1Click
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 6908265
+            Font.Height = -13
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object Panel2: TPanel
+            Left = 142
+            Top = 0
+            Width = 642
+            Height = 174
+            Align = alRight
+            Color = clWhite
+            ParentBackground = False
+            TabOrder = 0
+            TabStop = True
+            ExplicitHeight = 238
+            object NxFlipPanel1: TNxFlipPanel
+              Left = 1
+              Top = 1
+              Width = 640
+              Height = 129
+              Align = alTop
+              AutoCollapse = True
+              BackgroundColor = clWhite
+              BackgroundStyle = bsTransparent
+              Caption = 'Fakturierung Auftrag'
+              CaptionCollapsed = 'Fakturierung Auftrag'
+              CollapseGlyph.Data = {
+                7A010000424D7A01000000000000360000002800000009000000090000000100
+                2000000000004401000000000000000000000000000000000000604830406048
+                30FF604830FF604830FF604830FF604830FF604830FF604830FF60483040C0A8
+                90FFFFF0E0FFE0D0C0FFE0C8B0FFE0C0B0FFD0B8A0FFD0B8A0FFD0B8A0FF6048
+                30FFC0A890FFFFF8F0FFFFF0E0FFF0E0E0FFF0D8D0FFF0D8C0FFF0D0C0FFD0B8
+                A0FF604830FFC0A890FFFFF8FFFFFFF8F0FFFFF0E0FFF0E0E0FFF0D8D0FFF0D0
+                C0FFD0B8A0FF604830FFC0A8A0FFFFFFFFFF604830FF604830FF604830FF6048
+                30FF604830FFE0C0B0FF604830FFC0A8A0FFFFFFFFFFFFFFFFFFFFF8FFFFFFF0
+                F0FFFFF0E0FFF0E8E0FFE0C0B0FF604830FFC0B0A0FFFFFFFFFFFFFFFFFFFFFF
+                FFFFFFF8FFFFFFF0F0FFFFF0E0FFE0D0C0FF604830FFC0B0A0FFFFFFFFFFFFFF
+                FFFFFFFFFFFFFFFFFFFFFFF8FFFFFFF0F0FFF0F0E0FF604830FFC0B0A040C0B0
+                A0FFC0B0A0FFC0A8A0FFC0A8A0FFC0A8A0FFC0A890FFC0A090FF60483040}
+              ColorScheme = csSilver
+              ExpandGlyph.Data = {
+                7A010000424D7A01000000000000360000002800000009000000090000000100
+                2000000000004401000000000000000000000000000000000000604830406048
+                30FF604830FF604830FF604830FF604830FF604830FF604830FF60483040C0A8
+                90FFFFF0E0FFE0D0C0FFE0C8B0FFE0C0B0FFD0B8A0FFD0B8A0FFD0B8A0FF6048
+                30FFC0A890FFFFF8F0FFFFF0E0FFF0E0E0FF604830FFF0D8C0FFF0D0C0FFD0B8
+                A0FF604830FFC0A890FFFFF8FFFFFFF8F0FFFFF0E0FF604830FFF0D8D0FFF0D0
+                C0FFD0B8A0FF604830FFC0A8A0FFFFFFFFFF604830FF604830FF604830FF6048
+                30FF604830FFE0C0B0FF604830FFC0A8A0FFFFFFFFFFFFFFFFFFFFF8FFFF6048
+                30FFFFF0E0FFF0E8E0FFE0C0B0FF604830FFC0B0A0FFFFFFFFFFFFFFFFFFFFFF
+                FFFF604830FFFFF0F0FFFFF0E0FFE0D0C0FF604830FFC0B0A0FFFFFFFFFFFFFF
+                FFFFFFFFFFFFFFFFFFFFFFF8FFFFFFF0F0FFF0F0E0FF604830FFC0B0A040C0B0
+                A0FFC0B0A0FFC0A8A0FFC0A8A0FFC0A8A0FFC0A890FFC0A090FF60483040}
+              HeaderColor = clGreen
+              HeaderFont.Charset = DEFAULT_CHARSET
+              HeaderFont.Color = 6908265
+              HeaderFont.Height = -11
+              HeaderFont.Name = 'Tahoma'
+              HeaderFont.Style = []
+              HeaderHeight = 23
+              HeaderStyle = hsAuto
+              TabStop = True
+              OnEnter = NxFlipPanel1Enter
+              OnExit = NxFlipPanel1Exit
+              FullHeight = 0
+              object bezahlt: TNxCheckBox
+                Left = 0
+                Top = 99
+                Width = 640
+                Height = 19
+                Align = alTop
+                AutoSize = True
+                TabOrder = 0
+                Text = 'NxCheckBox1'
+                ShowHint = True
+                Caption = 'bezahlt'
+                Options = [coExpandActiveRect]
+                ExplicitLeft = 16
+                ExplicitTop = 22
+                ExplicitWidth = 58
+              end
+              object gutschriftErstellen: TNxCheckBox
+                Left = 0
+                Top = 23
+                Width = 640
+                Height = 19
+                Align = alTop
+                AutoSize = True
+                TabOrder = 1
+                Text = 'NxCheckBox1'
+                Caption = 'Gutschrift erstellen'
+                ExplicitLeft = 24
+                ExplicitTop = 22
+                ExplicitWidth = 114
+              end
+              object ohneBerechnung: TNxCheckBox
+                Left = 0
+                Top = 42
+                Width = 640
+                Height = 19
+                Align = alTop
+                AutoSize = True
+                TabOrder = 2
+                Text = 'NxCheckBox1'
+                Caption = 'ohne Berechnung'
+                ExplicitLeft = 48
+                ExplicitTop = 22
+                ExplicitWidth = 107
+              end
+              object istKostenpflichtig: TNxCheckBox
+                Left = 0
+                Top = 61
+                Width = 640
+                Height = 19
+                Align = alTop
+                AutoSize = True
+                TabOrder = 3
+                Text = 'istKostenpflichtig'
+                ShowHint = True
+                Caption = 'ist kostenpflichtig'
+                Options = [coExpandActiveRect]
+                ExplicitLeft = 40
+                ExplicitTop = 22
+                ExplicitWidth = 106
+              end
+              object gutschriftErstellt: TNxCheckBox
+                Left = 0
+                Top = 80
+                Width = 640
+                Height = 19
+                Align = alTop
+                AutoSize = True
+                TabOrder = 4
+                Text = 'NxCheckBox1'
+                Caption = 'Rg / Gutschrift erstellt'
+                ExplicitLeft = 32
+                ExplicitTop = 22
+                ExplicitWidth = 129
+              end
+            end
+            object NxFlipPanel2: TNxFlipPanel
+              Left = 1
+              Top = 130
+              Width = 640
+              Height = 147
+              Align = alTop
+              BackgroundColor = clWhite
+              BackgroundStyle = bsTransparent
+              Caption = 'Bezahlung Auftragnehmer'
+              CaptionCollapsed = 'Bezahlung Auftragnehmer'
+              CollapseGlyph.Data = {
+                7A010000424D7A01000000000000360000002800000009000000090000000100
+                2000000000004401000000000000000000000000000000000000604830406048
+                30FF604830FF604830FF604830FF604830FF604830FF604830FF60483040C0A8
+                90FFFFF0E0FFE0D0C0FFE0C8B0FFE0C0B0FFD0B8A0FFD0B8A0FFD0B8A0FF6048
+                30FFC0A890FFFFF8F0FFFFF0E0FFF0E0E0FFF0D8D0FFF0D8C0FFF0D0C0FFD0B8
+                A0FF604830FFC0A890FFFFF8FFFFFFF8F0FFFFF0E0FFF0E0E0FFF0D8D0FFF0D0
+                C0FFD0B8A0FF604830FFC0A8A0FFFFFFFFFF604830FF604830FF604830FF6048
+                30FF604830FFE0C0B0FF604830FFC0A8A0FFFFFFFFFFFFFFFFFFFFF8FFFFFFF0
+                F0FFFFF0E0FFF0E8E0FFE0C0B0FF604830FFC0B0A0FFFFFFFFFFFFFFFFFFFFFF
+                FFFFFFF8FFFFFFF0F0FFFFF0E0FFE0D0C0FF604830FFC0B0A0FFFFFFFFFFFFFF
+                FFFFFFFFFFFFFFFFFFFFFFF8FFFFFFF0F0FFF0F0E0FF604830FFC0B0A040C0B0
+                A0FFC0B0A0FFC0A8A0FFC0A8A0FFC0A8A0FFC0A890FFC0A090FF60483040}
+              ColorScheme = csSilver
+              ExpandGlyph.Data = {
+                7A010000424D7A01000000000000360000002800000009000000090000000100
+                2000000000004401000000000000000000000000000000000000604830406048
+                30FF604830FF604830FF604830FF604830FF604830FF604830FF60483040C0A8
+                90FFFFF0E0FFE0D0C0FFE0C8B0FFE0C0B0FFD0B8A0FFD0B8A0FFD0B8A0FF6048
+                30FFC0A890FFFFF8F0FFFFF0E0FFF0E0E0FF604830FFF0D8C0FFF0D0C0FFD0B8
+                A0FF604830FFC0A890FFFFF8FFFFFFF8F0FFFFF0E0FF604830FFF0D8D0FFF0D0
+                C0FFD0B8A0FF604830FFC0A8A0FFFFFFFFFF604830FF604830FF604830FF6048
+                30FF604830FFE0C0B0FF604830FFC0A8A0FFFFFFFFFFFFFFFFFFFFF8FFFF6048
+                30FFFFF0E0FFF0E8E0FFE0C0B0FF604830FFC0B0A0FFFFFFFFFFFFFFFFFFFFFF
+                FFFF604830FFFFF0F0FFFFF0E0FFE0D0C0FF604830FFC0B0A0FFFFFFFFFFFFFF
+                FFFFFFFFFFFFFFFFFFFFFFF8FFFFFFF0F0FFF0F0E0FF604830FFC0B0A040C0B0
+                A0FFC0B0A0FFC0A8A0FFC0A8A0FFC0A8A0FFC0A890FFC0A090FF60483040}
+              HeaderColor = clGreen
+              HeaderFont.Charset = DEFAULT_CHARSET
+              HeaderFont.Color = clWindowText
+              HeaderFont.Height = -11
+              HeaderFont.Name = 'Tahoma'
+              HeaderFont.Style = []
+              HeaderHeight = 23
+              HeaderStyle = hsWindowsLive
+              ParentHeaderFont = False
+              TabStop = True
+              OnEnter = NxFlipPanel1Enter
+              OnExit = NxFlipPanel1Exit
+              FullHeight = 0
+              object vollVergüten: TNxCheckBox
+                Left = 0
+                Top = 42
+                Width = 640
+                Height = 19
+                Align = alTop
+                AutoSize = True
+                TabOrder = 0
+                Text = 'NxCheckBox1'
+                Caption = 'voll verg'#252'ten'
+                ExplicitLeft = 16
+                ExplicitTop = 34
+                ExplicitWidth = 86
+              end
+              object nichtVergüten: TNxCheckBox
+                Left = 0
+                Top = 61
+                Width = 640
+                Height = 19
+                Align = alTop
+                AutoSize = True
+                TabOrder = 2
+                Text = 'NxCheckBox1'
+                Caption = 'nicht verg'#252'ten'
+                ExplicitLeft = 16
+                ExplicitTop = 69
+                ExplicitWidth = 93
+              end
+              object teilweiseVergüten: TNxCheckBox
+                Left = 0
+                Top = 80
+                Width = 640
+                Height = 19
+                Align = alTop
+                AutoSize = True
+                TabOrder = 1
+                Text = 'NxCheckBox1'
+                Caption = 'teilweise verg'#252'ten'
+                ExplicitLeft = 16
+                ExplicitTop = 52
+                ExplicitWidth = 111
+              end
+              object rechnungErhalten: TNxCheckBox
+                Left = 0
+                Top = 99
+                Width = 640
+                Height = 19
+                Align = alTop
+                AutoSize = True
+                TabOrder = 3
+                Text = 'NxCheckBox1'
+                Caption = 'Rechnung erhalten'
+                ExplicitLeft = 16
+                ExplicitTop = 86
+                ExplicitWidth = 114
+              end
+              object auftragnehmerBezahlt: TNxCheckBox
+                Left = 0
+                Top = 23
+                Width = 640
+                Height = 19
+                Align = alTop
+                AutoSize = True
+                TabOrder = 4
+                Text = 'NxCheckBox1'
+                Caption = 'bezahlt'
+                ExplicitLeft = 16
+                ExplicitTop = 104
+                ExplicitWidth = 58
+              end
+            end
+            object NxFlipPanel3: TNxFlipPanel
+              Left = 1
+              Top = 277
+              Width = 640
+              Height = 109
+              Align = alTop
+              BackgroundColor = clWhite
+              BackgroundStyle = bsTransparent
+              Caption = 'Regress'
+              CaptionCollapsed = 'Regress'
+              CollapseGlyph.Data = {
+                7A010000424D7A01000000000000360000002800000009000000090000000100
+                2000000000004401000000000000000000000000000000000000604830406048
+                30FF604830FF604830FF604830FF604830FF604830FF604830FF60483040C0A8
+                90FFFFF0E0FFE0D0C0FFE0C8B0FFE0C0B0FFD0B8A0FFD0B8A0FFD0B8A0FF6048
+                30FFC0A890FFFFF8F0FFFFF0E0FFF0E0E0FFF0D8D0FFF0D8C0FFF0D0C0FFD0B8
+                A0FF604830FFC0A890FFFFF8FFFFFFF8F0FFFFF0E0FFF0E0E0FFF0D8D0FFF0D0
+                C0FFD0B8A0FF604830FFC0A8A0FFFFFFFFFF604830FF604830FF604830FF6048
+                30FF604830FFE0C0B0FF604830FFC0A8A0FFFFFFFFFFFFFFFFFFFFF8FFFFFFF0
+                F0FFFFF0E0FFF0E8E0FFE0C0B0FF604830FFC0B0A0FFFFFFFFFFFFFFFFFFFFFF
+                FFFFFFF8FFFFFFF0F0FFFFF0E0FFE0D0C0FF604830FFC0B0A0FFFFFFFFFFFFFF
+                FFFFFFFFFFFFFFFFFFFFFFF8FFFFFFF0F0FFF0F0E0FF604830FFC0B0A040C0B0
+                A0FFC0B0A0FFC0A8A0FFC0A8A0FFC0A8A0FFC0A890FFC0A090FF60483040}
+              ColorScheme = csSilver
+              ExpandGlyph.Data = {
+                7A010000424D7A01000000000000360000002800000009000000090000000100
+                2000000000004401000000000000000000000000000000000000604830406048
+                30FF604830FF604830FF604830FF604830FF604830FF604830FF60483040C0A8
+                90FFFFF0E0FFE0D0C0FFE0C8B0FFE0C0B0FFD0B8A0FFD0B8A0FFD0B8A0FF6048
+                30FFC0A890FFFFF8F0FFFFF0E0FFF0E0E0FF604830FFF0D8C0FFF0D0C0FFD0B8
+                A0FF604830FFC0A890FFFFF8FFFFFFF8F0FFFFF0E0FF604830FFF0D8D0FFF0D0
+                C0FFD0B8A0FF604830FFC0A8A0FFFFFFFFFF604830FF604830FF604830FF6048
+                30FF604830FFE0C0B0FF604830FFC0A8A0FFFFFFFFFFFFFFFFFFFFF8FFFF6048
+                30FFFFF0E0FFF0E8E0FFE0C0B0FF604830FFC0B0A0FFFFFFFFFFFFFFFFFFFFFF
+                FFFF604830FFFFF0F0FFFFF0E0FFE0D0C0FF604830FFC0B0A0FFFFFFFFFFFFFF
+                FFFFFFFFFFFFFFFFFFFFFFF8FFFFFFF0F0FFF0F0E0FF604830FFC0B0A040C0B0
+                A0FFC0B0A0FFC0A8A0FFC0A8A0FFC0A8A0FFC0A890FFC0A090FF60483040}
+              HeaderColor = clGreen
+              HeaderFont.Charset = DEFAULT_CHARSET
+              HeaderFont.Color = clWindowText
+              HeaderFont.Height = -11
+              HeaderFont.Name = 'Tahoma'
+              HeaderFont.Style = []
+              HeaderHeight = 23
+              HeaderStyle = hsWindowsLive
+              ParentHeaderFont = False
+              TabStop = True
+              OnEnter = NxFlipPanel1Enter
+              OnExit = NxFlipPanel1Exit
+              ExplicitTop = 239
+              FullHeight = 0
+              object regresspflichtig: TNxCheckBox
+                Left = 0
+                Top = 42
+                Width = 640
+                Height = 19
+                Align = alTop
+                AutoSize = True
+                TabOrder = 0
+                Text = 'NxCheckBox1'
+                Caption = 'Verursacher ist regresspflichtig'
+                ExplicitLeft = 16
+                ExplicitTop = 28
+                ExplicitWidth = 171
+              end
+              object rechnungGestellt: TNxCheckBox
+                Left = 0
+                Top = 23
+                Width = 640
+                Height = 19
+                Align = alTop
+                AutoSize = True
+                TabOrder = 1
+                Text = 'NxCheckBox1'
+                Caption = 'Rechnung gestellt'
+                ExplicitLeft = 16
+                ExplicitTop = 46
+                ExplicitWidth = 109
+              end
+              object regressBezahlt: TNxCheckBox
+                Left = 0
+                Top = 61
+                Width = 640
+                Height = 19
+                Align = alTop
+                AutoSize = True
+                TabOrder = 2
+                Text = 'NxCheckBox1'
+                Caption = 'bezahlt'
+                ExplicitLeft = 16
+                ExplicitTop = 64
+                ExplicitWidth = 58
+              end
+            end
+          end
+        end
+        object pbuttons: TPanel
+          Left = 0
+          Top = 785
+          Width = 784
+          Height = 136
+          Margins.Left = 1
+          Margins.Top = 0
+          Margins.Right = 1
+          Margins.Bottom = 1
+          Align = alTop
+          BevelOuter = bvNone
+          Color = clWhite
+          ParentBackground = False
+          TabOrder = 5
+          object NxButton7: TNxButton
+            Left = 627
+            Top = 4
+            Width = 137
+            Caption = 'Werte zur'#252'cksetzen'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 0
+            OnClick = NxButton1Click
+          end
+          object NxButton8: TNxButton
+            Left = 484
+            Top = 4
+            Width = 137
+            Caption = 'abschlie'#223'en'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 1
           end
         end
       end
@@ -976,12 +1389,13 @@
       TabFont.Height = -11
       TabFont.Name = 'Tahoma'
       TabFont.Style = []
-      ExplicitHeight = 275
+      ExplicitTop = 0
+      ExplicitHeight = 929
       object perreichtdetails: TPanel
         Left = 0
         Top = 0
         Width = 1062
-        Height = 722
+        Height = 909
         Margins.Left = 5
         Margins.Top = 5
         Margins.Right = 5
@@ -1009,7 +1423,7 @@
         end
         object Panel3: TPanel
           Left = 0
-          Top = -20
+          Top = 167
           Width = 1062
           Height = 742
           Align = alBottom
@@ -1020,34 +1434,60 @@
             Left = 1
             Top = 1
             Width = 1056
-            Height = 440
+            Height = 587
             Align = alTop
+            Color = clWhite
+            ParentBackground = False
+            ParentColor = False
             TabOrder = 0
             ExplicitLeft = 1
             ExplicitTop = 1
             ExplicitWidth = 1056
             inherited NxExpandPanel1: TNxExpandPanel
               Width = 1050
-              Height = 189
+              Height = 154
               ExplicitWidth = 1050
-              ExplicitHeight = 189
+              ExplicitHeight = 154
               FullHeight = 0
             end
             inherited NxExpandPanel2: TNxExpandPanel
-              Top = 198
               Width = 1050
-              ExplicitTop = 198
               ExplicitWidth = 1050
               FullHeight = 0
             end
             inherited NxExpandPanel3: TNxExpandPanel
-              Top = 318
               Width = 1050
-              ExplicitTop = 292
               ExplicitWidth = 1050
               FullHeight = 0
             end
           end
+        end
+      end
+      inline framerechng: TFrame2
+        Left = 66
+        Top = 0
+        Width = 996
+        Height = 587
+        Color = clWhite
+        ParentBackground = False
+        ParentColor = False
+        TabOrder = 1
+        ExplicitLeft = 66
+        ExplicitWidth = 996
+        inherited NxExpandPanel1: TNxExpandPanel
+          Width = 990
+          ExplicitWidth = 990
+          FullHeight = 0
+        end
+        inherited NxExpandPanel2: TNxExpandPanel
+          Width = 990
+          ExplicitWidth = 990
+          FullHeight = 0
+        end
+        inherited NxExpandPanel3: TNxExpandPanel
+          Width = 990
+          ExplicitWidth = 990
+          FullHeight = 0
         end
       end
     end
@@ -1067,7 +1507,7 @@
         Left = 0
         Top = 0
         Width = 1062
-        Height = 722
+        Height = 909
         Margins.Left = 5
         Margins.Top = 5
         Margins.Right = 5
@@ -1096,13 +1536,6 @@
           Width = 21
           Height = 13
           Caption = 'von '
-        end
-        object Label25: TLabel
-          Left = 293
-          Top = 45
-          Width = 13
-          Height = 13
-          Caption = 'bis'
         end
         object gridableser: TNextDBGrid
           Left = 23
@@ -1332,6 +1765,43 @@
           Caption = 'verwerfen'
           TabOrder = 6
           OnClick = NxButton3Click
+        end
+        object Button1: TButton
+          Left = 496
+          Top = 480
+          Width = 75
+          Height = 25
+          Caption = 'Button1'
+          TabOrder = 7
+        end
+        inline TFrame31: TFrame3
+          Left = 8
+          Top = 8
+          Width = 632
+          Height = 207
+          TabOrder = 8
+          ExplicitLeft = 8
+          ExplicitTop = 8
+          inherited NxHeaderPanel3: TNxHeaderPanel
+            OnCollapse = nil
+            OnExpand = nil
+            FullWidth = 632
+          end
+          inherited NxHeaderPanel2: TNxHeaderPanel
+            OnCollapse = nil
+            OnExpand = nil
+            FullWidth = 632
+          end
+          inherited NxHeaderPanel1: TNxHeaderPanel
+            OnCollapse = nil
+            OnExpand = nil
+            FullWidth = 632
+          end
+          inherited NxHeaderPanel4: TNxHeaderPanel
+            OnCollapse = nil
+            OnExpand = nil
+            FullWidth = 632
+          end
         end
       end
     end

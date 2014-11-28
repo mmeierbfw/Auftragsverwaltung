@@ -18,7 +18,9 @@ uses
   uftpconnector in '..\neueftpverbindung\uftpconnector.pas' {formftp},
   udbconnector in '..\dbconnector\udbconnector.pas' {formdb},
   frame in '..\Dokumentenverwaltung Layouttesting\frame.pas' {frleft: TFrame},
-  uexpandframe in 'uexpandframe.pas' {Frame2: TFrame};
+  uexpandframe in 'uexpandframe.pas' {Frame2: TFrame},
+  uframerechnung in 'uframerechnung.pas' {framerechnungsdetails: TFrame},
+  uframeheaderpanel in 'uframeheaderpanel.pas' {Frame3: TFrame};
 
 {$R *.res}
 

@@ -187,6 +187,10 @@ type
     procedure TFrame21CheckListBox2Exit(Sender: TObject);
     procedure rechnungsdetails‹bernehmen(Sender: TObject);
     procedure PabgeschlosseneClick(Sender: TObject);
+    procedure zframeNxFlipPanel1Enter(Sender: TObject);
+    procedure nxpanel1exit(Sender: TObject);
+    procedure nxpanel2exit(Sender: TObject);
+    procedure nxflippanel3exit(Sender: TObject);
 
   private
     lg                     : string;
@@ -219,6 +223,7 @@ type
     FbezAufRechnungerhalten: boolean;
     FbezAUfbezahlt         : boolean;
 
+    procedure setcollapsedcaption(labelstr: string; flippan: Tnxflippanel);
     function getnutzernamen(liegenschaft, nutzernummer: string): TStringList;
     function startplink: boolean;
     procedure executeparameter;
@@ -586,9 +591,16 @@ begin
   DecodeDate(now, myyear, mymonth, myday);
   zframe.ldayOM.Caption := Format('%.2d ', [myday]);
   zframe.Lmy.Caption := zframe.getmonthstring(mymonth) + ' ' + inttostr(myyear);
-  // zframe.hptermin.Expanded := False;
-  // zframe.nxdate.Date       := now;
-
+  /// /  zframe.framerechnung.NxExpandPanel1.Expanded := false;
+  // zframe.framerechng.NxExpandPanel1.Expanded := false;
+  // zframe.framerechng.NxExpandPanel2.Expanded := false;
+  // zframe.framerechng.NxExpandPanel3.Expanded := false;
+  // zframe.framerechnung.NxHeaderPanel1.Expanded := false;
+  with zframe do begin
+    for i := 1 to 3 do
+      (FindComponent('nxflippanel' + (inttostr(i))) as Tnxflippanel)
+        .Expanded := False;
+  end;
 end;
 
 procedure Tformmain.getaf(query: TZQuery; table, wherestring: string);
@@ -669,7 +681,7 @@ begin
     dict := formdb.getfromhn(database, table, wherestring, list);
   except
     on e: Exception do begin
-//      showmessage(e.Message);
+      // showmessage(e.Message);
       Result.Add('');
       Result.Add('');
       exit;
@@ -681,7 +693,8 @@ begin
     Result.Add(dict.Items['WO6']);
   except
     outputdebugstring('keine Namen');
-    Result.Add(''); // mindestens zwei nutzernamen...
+    Result.Add('');
+    // mindestens zwei nutzernamen...
     Result.Add('');
   end;
 end;
@@ -1100,6 +1113,26 @@ begin
 end;
 
 // #########################################
+procedure Tformmain.setcollapsedcaption(labelstr: string;
+  flippan: Tnxflippanel);
+var
+  str  : string;
+  count: Integer;
+  child: TNxCheckBox;
+  i    : Integer;
+begin
+  str := labelstr + ': ';
+
+  count                       := flippan.ControlCount;
+  for i                       := 0 to count - 1 do begin
+    child                     := flippan.Controls[i] as TNxCheckBox;
+    if child.checked then str := str + child.Caption + ' ';
+
+  end;
+  flippan.CaptionCollapsed := str;
+
+end;
+
 procedure Tformmain.setcombobox(cb: Tfcombobox);
 const
   database = 'verwaltung.ableser';
@@ -1550,7 +1583,8 @@ begin
         self.auftragsid := FieldByName('id').AsInteger;
         wiedervorl      := FieldByName(wiedervorlage).AsString;
         try namen       := getnutzernamen(lg, inttostr(nnint));
-        except namen    := TStringList.Create;
+        except
+          namen := TStringList.Create;
           namen.Add('');
           namen.Add('');
         end;
@@ -2119,10 +2153,12 @@ var
   count : Integer;
   Left  : Integer;
   header: string;
+  vst   : TVirtualStringTree;
 begin
 
   Data := Sender.getnodedata(Node);
   Left := CellRect.Left;
+  vst  := Sender as TVirtualStringTree;
 
   header := (Sender as TVirtualStringTree).header.Columns[Column].Text;
   if AnsiStartsText('wiedervorlage', AnsiLowerCase(header)) then begin
@@ -2130,7 +2166,13 @@ begin
     ImageList1.Draw(TargetCanvas, Left, CellRect.Top, 2);
     exit;
   end;
-  if AnsiStartsText('dokument anzeigen', AnsiLowerCase(header)) then begin
+  if AnsiStartsText('dokument anzeigen', AnsiLowerCase(header)) and
+    (vst.GetNodeLevel(Node) = 2) then begin
+    Rect := Sender.GetDisplayRect(Node, Column, true);
+    ImageList1.Draw(TargetCanvas, Left, CellRect.Top, 1);
+  end;
+  if AnsiStartsText('detail', AnsiLowerCase(header)) and
+    (vst.GetNodeLevel(Node) = 2) then begin
     Rect := Sender.GetDisplayRect(Node, Column, true);
     ImageList1.Draw(TargetCanvas, Left, CellRect.Top, 0);
   end;
@@ -2185,6 +2227,8 @@ begin
   end;
   if AnsiStartsText('dokument', AnsiLowerCase(header)) then
       opendocuments(Application.Handle, Data.fdateiname);
+  if AnsiStartsText('detail', AnsiLowerCase(header)) then
+      showmessage('Detailansicht folgt');
 end;
 
 procedure Tformmain.vstsearchGetText(Sender: TBaseVirtualTree;
@@ -2326,12 +2370,37 @@ begin
 
 end;
 
+procedure Tformmain.zframeNxFlipPanel1Enter(Sender: TObject);
+begin
+  zframe.NxFlipPanel1Enter(Sender);
+
+end;
+
+procedure Tformmain.nxflippanel3exit(Sender: TObject);
+begin
+  setcollapsedcaption(aufcon.regress_label, zframe.NxFlipPanel3);
+  zframe.NxFlipPanel1Exit(Sender);
+end;
+
+procedure Tformmain.nxpanel1exit(Sender: TObject);
+begin
+  setcollapsedcaption(aufcon.fak_auf_label, zframe.nxflippanel1);
+
+  zframe.NxFlipPanel1Exit(Sender);
+
+end;
+
+procedure Tformmain.nxpanel2exit(Sender: TObject);
+begin
+  setcollapsedcaption(aufcon.bez_auftragnehmer_label, zframe.NxFlipPanel2);
+  zframe.NxFlipPanel1Exit(Sender);
+end;
+
 procedure Tformmain.rechnungsdetails‹bernehmen(Sender: TObject);
 begin
-  zframe.click(Sender);
-  with zframe.TFrame21 do begin
+  with zframe do begin
 
-    setfakkostenpflichtig(istkostenpflichtig.checked);
+    setfakkostenpflichtig(istKostenpflichtig.checked);
     SetfakOhneBerechnung(ohneBerechnung.checked);
     FfakGutschriftErstellen := gutschriftErstellen.checked;
     FfakGutschriftErstellt  := gutschriftErstellt.checked;
@@ -2356,6 +2425,7 @@ var
   localfile   : string;
   err         : string;
 begin
+  rechnungsdetails‹bernehmen(nil);
   with aufcon do begin
     with zframe do begin
       if cberreicht.checked then err := '1'

@@ -9,7 +9,8 @@ uses
   Vcl.Mask, umaskedit, System.Generics.collections, uutils, strutils,
   NxPageControl, NxControls6, NxEdit6, Vcl.ComCtrls, NxScrollControl, NxToolBox,
   NxLinkMenu, Vcl.Imaging.pngimage, NxCustomGridControl, NxCustomGrid, NxDBGrid,
-  NxColumns, NxDBColumns, uconstants, uexpandframe, Vcl.CheckLst;
+  NxColumns, NxDBColumns, uconstants, uexpandframe, Vcl.CheckLst,
+  utestexpandframe, uframerechnung, uframeheaderpanel;
 
 type
   Tframeauftragsdaten = class(TFrame)
@@ -93,11 +94,9 @@ type
     dperstellungsdatum: TNxDatePicker;
     Label2: TLabel;
     ename2: TfEdit;
-    Button1: TButton;
     Label23: TLabel;
     edatemonteur: TfEdit;
     Label24: TLabel;
-    Label25: TLabel;
     evonmonteur: TfEdit;
     ebismonteur: TfEdit;
     NxButton2: TNxButton;
@@ -106,6 +105,31 @@ type
     NxButton6: TNxButton;
     Panel3: TPanel;
     TFrame21: TFrame2;
+    pbuttons: TPanel;
+    NxButton7: TNxButton;
+    NxButton8: TNxButton;
+    Button1: TButton;
+    framerechng: TFrame2;
+    TFrame31: TFrame3;
+    prechnungsdetails: TPanel;
+    Label19: TLabel;
+    Panel2: TPanel;
+    NxFlipPanel1: TNxFlipPanel;
+    NxFlipPanel2: TNxFlipPanel;
+    vollVergüten: TNxCheckBox;
+    nichtVergüten: TNxCheckBox;
+    teilweiseVergüten: TNxCheckBox;
+    rechnungErhalten: TNxCheckBox;
+    auftragnehmerBezahlt: TNxCheckBox;
+    NxFlipPanel3: TNxFlipPanel;
+    regresspflichtig: TNxCheckBox;
+    rechnungGestellt: TNxCheckBox;
+    regressBezahlt: TNxCheckBox;
+    bezahlt: TNxCheckBox;
+    gutschriftErstellen: TNxCheckBox;
+    ohneBerechnung: TNxCheckBox;
+    istKostenpflichtig: TNxCheckBox;
+    gutschriftErstellt: TNxCheckBox;
     function calcleftchars: integer;
 
     procedure checkinput(var Key: Word);
@@ -144,6 +168,12 @@ type
     procedure click(Sender: TObject);
     procedure TFrame21LinkLabel1Click(Sender: TObject);
     procedure TFrame21CheckListBox2Exit(Sender: TObject);
+    procedure NxHeaderPanel1Expand(Sender: TObject; var Accept: Boolean);
+    procedure NxHeaderPanel1Collapse(Sender: TObject; var Accept: Boolean);
+    procedure Frame31NxHeaderPanel1Expand(Sender: TObject; var Accept: Boolean);
+    procedure framedetNxFlipPanel1Exit(Sender: TObject);
+    procedure NxFlipPanel1Enter(Sender: TObject);
+    procedure NxFlipPanel1Exit(Sender: TObject);
   private
     writtenchars: integer;
     // function getmonth(monthasstring: string): string;
@@ -335,6 +365,18 @@ begin
   else lvon.Caption                              := evon.Text + ' - ' + time;
 end;
 
+procedure Tframeauftragsdaten.Frame31NxHeaderPanel1Expand(Sender: TObject;
+  var Accept: Boolean);
+begin
+  // Frame31.NxHeaderPanel1Expand(Sender, Accept);
+end;
+
+procedure Tframeauftragsdaten.framedetNxFlipPanel1Exit(Sender: TObject);
+begin
+//  framedet.NxFlipPanel3Exit(Sender);
+  showmessage('exot');
+end;
+
 function Tframeauftragsdaten.getausführungstermin: string;
 var
   d, m, Y: integer;
@@ -418,6 +460,9 @@ var
 begin
   Key := VK_RETURN;
   checkinput(Key);
+  NxFlipPanel1.Expanded := true;
+//  CheckBox1.SetFocus;
+//  framedet.NxFlipPanel1.Expanded := true;
 end;
 
 // #######################################
@@ -502,7 +547,7 @@ begin
   createmonthdic;
   // date := nxdate.SelectedDate;
   DecodeDate(date, jahr, monat, tag);
-  pdivisor.Visible := True;
+  pdivisor.Visible := true;
   Lmy.Caption      := getmonthstring(monat) + ' ' + inttostr(jahr);
   ldayOM.Caption   := inttostr(tag);
   if ('' = evon.Text) then begin
@@ -530,7 +575,7 @@ begin
   end;
   evon.Text        := evonmonteur.Text;
   ebis.Text        := ebismonteur.Text;
-  edate.text            := edatemonteur.Text;
+  edate.Text       := edatemonteur.Text;
   pager.ActivePage := NxTabSheet1;
 end;
 
@@ -583,6 +628,40 @@ procedure Tframeauftragsdaten.hpterminExpand(Sender: TObject;
   var Accept: Boolean);
 begin
   (Sender as TNxHeaderPanel).Align := TAlign.alClient;
+end;
+
+procedure Tframeauftragsdaten.NxFlipPanel1Enter(Sender: TObject);
+
+var
+  sen: TNxFlipPanel;
+begin
+//  showmessage('enter');
+  sen          := Sender as TNxFlipPanel;
+  sen.Expanded := true;
+end;
+
+procedure Tframeauftragsdaten.NxFlipPanel1Exit(Sender: TObject);
+
+var
+  sen: TNxFlipPanel;
+begin
+//showmessage('exit');
+  sen          := Sender as TNxFlipPanel;
+  sen.Expanded := false;
+end;
+
+procedure Tframeauftragsdaten.NxHeaderPanel1Collapse(Sender: TObject;
+  var Accept: Boolean);
+begin
+  // (Sender as TNxHeaderPanel).Align  := TAlign.alTop;
+  (Sender as TNxHeaderPanel).Height := 25;
+end;
+
+procedure Tframeauftragsdaten.NxHeaderPanel1Expand(Sender: TObject;
+  var Accept: Boolean);
+begin
+  // (Sender as TNxHeaderPanel).Align := TAlign.alClient;
+  (Sender as TNxHeaderPanel).Height := 250;
 end;
 
 procedure Tframeauftragsdaten.NxMonthCalendar2Change(Sender: TObject);
@@ -659,7 +738,7 @@ var
   date            : string;
   valid           : Boolean;
 begin
-  valid := True;
+  valid := true;
   Mask  := Sender as TMaskEdit;
   date  := Mask.Text;
   if AnsiStartsText('  ', date) or AnsiStartsText('__', date) then exit;

@@ -11,6 +11,10 @@ type
     inidatei     = 'auftraege.ini';
     programmname = 'auftragsverwaltung';
 
+    fak_auf_label = 'Fakturierung Auftrag';
+    bez_auftragnehmer_label = 'Bezahlung Auftragnehmer';
+    regress_label = 'Regress';
+
     // table_aufträge          = 'aufträge';
     // table_auftrag_neu       = 'test.auftraege';
     // table_anforderungen_neu = 'test.anforderungen';
